@@ -30,5 +30,19 @@ def index():
     return render_template("PaintForm.html")
 
 
+
+
+@app.route('/export-excel', methods=['POST'])
+def export_excel():
+    data = request.get_json()
+    form_data = data.get('formData', {})
+
+    return generate_excel(form_data)
+
+   
+
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
