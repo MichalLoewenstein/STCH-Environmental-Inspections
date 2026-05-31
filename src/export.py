@@ -1,15 +1,14 @@
+# excel_export.py
 
-def export_excel():
-    data = request.get_json()
-    form_data = data.get('formData', {})
+import pandas as pd
+import io
+from flask import send_file
 
-    # ✅ Convert form into a table (1 row example)
+def generate_excel(form_data):
     df = pd.DataFrame([form_data])
 
-    # ✅ Create Excel in memory
     output = io.BytesIO()
     df.to_excel(output, index=False)
-
     output.seek(0)
 
     return send_file(
