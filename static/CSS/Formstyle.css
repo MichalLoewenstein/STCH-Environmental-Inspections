@@ -21,7 +21,7 @@ form {
 
 
 button {
-    width: 100%;
+    width: 30vh;
     padding: 12px;
     background: #5a6cff;
     color: white;
@@ -29,6 +29,9 @@ button {
     border-radius: 8px;
     margin-top: 20px;
     cursor: pointer;
+    font-size: 20px;
+    display: block; 
+    margin: 15px auto;  
 }
 
 .input-group {
