@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>Basic Paint Form</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/Formstyle.css') }}">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 
 <body>
@@ -68,29 +69,51 @@
         <input type="text" id="total_time" name="total_time" readonly placeholder=" ">
         <label>Total Time (hours)</label>
     </div>
-    <div class="row-group">
-    
-        <select name="material" required>
+    <div id="materials-container">
+    <div class="row-group material-row">
+
+        <!-- ✅ + BUTTON ON THE LEFT -->
+        <div class="add-btn">
+            <button type="button" onclick="addMaterial()">+</button>
+        </div>
+
+        <!-- ✅ Material -->
+         <div class="field">
+            <label>Material</label>
+        <select name="material[]" required>
             <option value="" disabled selected>Select material</option>
             <option value="Dispersant A">Dispersant A</option>
             <option value="Dispersant B">Dispersant B</option>
         </select>
-        <label>Material</label>
-    
+        
+        </div>
 
-    
-        <input type="number" name="quantity" required placeholder=" ">
-        <label>Quantity</label>
-    
+        <!-- ✅ Quantity -->
+        <div class="field">
+             <label>Quantity</label>
+        <input type="number" name="quantity[]" required placeholder=" ">
+       
+        </div>
 
-    
-        <select name="measure" required>
+        <!-- ✅ Unit -->
+        <div class="field">
+              <label>Unit</label>
+        <select name="measure[]" required>
             <option value="" disabled selected>Select unit</option>
             <option value="Gallons">Gallons</option>
             <option value="Pounds">Pounds</option>
         </select>
-        <label>Unit</label>
-   
+        
+      
+        </div>
+
+        <!-- ✅ ✅ DELETE BUTTON -->
+        <div class="delete">
+        <button type="button" class="delete-btn" onclick="deleteMaterial(this)">
+        <i class="fa-solid fa-trash"></i>
+       </button>
+        </div>
+    </div>
 </div>
 
 
@@ -141,6 +164,58 @@ document.getElementById("end_time").addEventListener("change", calculateTotalTim
 document.getElementById("break").addEventListener("input", calculateTotalTime);
 
     });
+
+
+   
+let maxRows = 5;
+
+function addMaterial() {
+    let container = document.getElementById("materials-container");
+    let rows = container.getElementsByClassName("material-row");
+    let count = rows.length;
+
+    if (count >= maxRows) {
+        alert("Maximum 5 materials allowed");
+        return;
+    }
+
+    let newRow = rows[0].cloneNode(true);
+
+    // Clear values
+    newRow.querySelectorAll("input").forEach(input => input.value = "");
+    newRow.querySelectorAll("select").forEach(select => select.selectedIndex = 0);
+
+    container.appendChild(newRow);
+
+    updateAddButtons(); // ✅ important
+}
+function updateAddButtons() {
+    let rows = document.querySelectorAll(".material-row");
+
+    rows.forEach((row, index) => {
+        let buttonDiv = row.querySelector(".add-btn");
+
+        if (index === rows.length - 1) {
+            buttonDiv.style.display = "visible"; // ✅ show only last
+        } else {
+            buttonDiv.style.display = "hidden"; // ✅ hide others
+        }
+    });
+}
+function deleteMaterial(button) {
+    let rows = document.querySelectorAll(".material-row");
+
+    if (rows.length <= 1) {
+        alert("At least one material is required");
+        return;
+    }
+
+    button.closest(".material-row").remove();
+
+    updateAddButtons(); // ✅ keep your + button logic correct
+}
+
+
     </script>
 
 </body>

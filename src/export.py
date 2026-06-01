@@ -1,7 +1,7 @@
 import pandas as pd
 import io
 
-def generate_excel(form_data):
+def generate_excel(form_data,materials, quantities, units):
 
     # ✅ Define consistent column order (important!)
     columns = [
@@ -23,6 +23,23 @@ def generate_excel(form_data):
         "Break": form_data.get("break"),
         "Total Time": form_data.get("total_time")
     }
+    max_materials = 5
+
+    for i in range(max_materials):
+        name_col = f"Material {i+1} Name"
+        qty_col = f"Material {i+1} Quantity"
+
+        columns.append(name_col)
+        columns.append(qty_col)
+
+        material = materials[i] if i < len(materials) else ""
+        quantity = quantities[i] if i < len(quantities) else ""
+        unit = units[i] if i < len(units) else ""
+
+        data[name_col] = material
+        data[qty_col] = f"{quantity} {unit}".strip()
+
+
 
     df = pd.DataFrame([data], columns=columns)
 
@@ -51,4 +68,4 @@ def generate_excel(form_data):
 
     output.seek(0)
 
-    return output.getvalue()
+    return output

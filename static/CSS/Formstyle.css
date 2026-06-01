@@ -106,3 +106,94 @@ button {
     background: #f5f5f5;
     padding: 0 5px;
 }
+
+
+
+
+
+.material-row {
+    display: flex;
+    align-items: flex-end; /* ✅ KEY FIX */
+    gap: 10px;
+    flex-wrap: nowrap; /* ✅ force single line */
+    width: fit-content;
+    /* margin-left: 5px;  */
+    padding:12px 12px 8px 12px ;
+}
+
+
+.field {
+    display: flex;
+    flex-direction: column;
+}
+
+.field label {
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+
+
+.field input,
+.field select {
+    height: 45px;
+    padding: 8px 12px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: white;
+    box-sizing: border-box;
+}
+
+
+
+
+/* + button */
+.add-btn button {
+    width: 32px;
+    height: 32px;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;              /* ✅ key */
+    align-items: center;        /* ✅ vertical center */
+    justify-content: center;    /* ✅ horizontal center */
+
+}
+
+.add-btn {
+    display: flex;
+    align-items: flex-end; /* ✅ aligns with fields */
+}
+
+
+/* trash */
+
+.delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: rgb(53, 51, 51);
+    height: 45px;
+    width: 40px;
+    display: flex;  
+}
+
+
+
+.delete {
+    display: flex;
+    align-items: flex-end; 
+    margin-left: 5px;
+    margin-top: 12px;
+    background: none;
+    width: 40px;
+    height: 45px;
+}
+
+
+
+
+.delete-btn:hover {
+    color: #615b5b;;
+}

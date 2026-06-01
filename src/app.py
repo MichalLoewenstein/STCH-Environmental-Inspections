@@ -26,12 +26,18 @@ def index():
     if request.method == "POST":
 
         form_data = request.form.to_dict()
+        materials = request.form.getlist("material[]")
+        quantities = request.form.getlist("quantity[]")
+        units = request.form.getlist("measure[]")
+
+        print("Materials received in form_data:", materials)  # Debugging line
 
         if not form_data:
             raise ValueError("No form data submitted")
 
         # ✅ Generate Excel
-        excel_file = generate_excel(form_data)
+        print("Generating Excel with form data:", form_data)  # Debugging line
+        excel_file = generate_excel(form_data,materials, quantities, units)
 
         # ✅ Send email
         send_email(excel_file, form_data)
@@ -53,7 +59,7 @@ def success():
 def export_excel():
     data = request.get_json()
     form_data = data.get('formData', {})
-
+    print ("Received form data in /export-excel route:", form_data)  # Debugging line
     return generate_excel(form_data)
 
     
@@ -70,7 +76,7 @@ def send_email(excel_file,form_data):
     # =========================
     # ✅ FIRST EMAIL 
     # =========================
-    receiver1 = "t.shaliyehsabou@shell.com"
+    receiver1 = "michal.lowenstein@shell.com"
 
     msg1 = EmailMessage()
     msg1['Subject'] = "STCH Maintenance"
