@@ -70,13 +70,13 @@ def send_email(excel_file,form_data):
     # =========================
     # ✅ FIRST EMAIL 
     # =========================
-    receiver1 = "ellen.hall@shell.com"
+    receiver1 = "t.shaliyehsabou@shell.com"
 
     msg1 = EmailMessage()
-    msg1['Subject'] = "New Form Submission"
+    msg1['Subject'] = "STCH Maintenance"
     msg1['From'] = sender
     msg1['To'] = receiver1
-    msg1.set_content("Attached is the submitted form.")
+    msg1.set_content("Attached is the submitted Paint form.")
 
     excel_file.seek(0)
     msg1.add_attachment(
