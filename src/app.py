@@ -70,7 +70,7 @@ def send_email(excel_file,form_data):
     # =========================
     # ✅ FIRST EMAIL 
     # =========================
-    receiver1 = "devolib@gmail.com"
+    receiver1 = "ellen.hall@shell.com"
 
     msg1 = EmailMessage()
     msg1['Subject'] = "New Form Submission"
