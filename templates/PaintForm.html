@@ -14,6 +14,16 @@
     {% endif %}
     
     <h2 class="form-title">Work Log Form</h2>
+    
+    <div class="input-group">
+        <select name="company" required>
+            <option value="" disabled selected hidden></option>
+            <option value="Brown & Root">Brown & Root</option>
+            <option value="Other">Other</option>
+        </select>
+        <label>Company</label>
+    </div>
+
     <div class="input-group">
         <input type="text" name="name" required placeholder=" ">
         <label>Name*</label>
@@ -58,6 +68,31 @@
         <input type="text" id="total_time" name="total_time" readonly placeholder=" ">
         <label>Total Time (hours)</label>
     </div>
+    <div class="row-group">
+    
+        <select name="material" required>
+            <option value="" disabled selected>Select material</option>
+            <option value="Dispersant A">Dispersant A</option>
+            <option value="Dispersant B">Dispersant B</option>
+        </select>
+        <label>Material</label>
+    
+
+    
+        <input type="number" name="quantity" required placeholder=" ">
+        <label>Quantity</label>
+    
+
+    
+        <select name="measure" required>
+            <option value="" disabled selected>Select unit</option>
+            <option value="Gallons">Gallons</option>
+            <option value="Pounds">Pounds</option>
+        </select>
+        <label>Unit</label>
+   
+</div>
+
 
     <button type="submit">Submit</button>
 

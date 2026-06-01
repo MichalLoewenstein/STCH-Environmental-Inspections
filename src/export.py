@@ -5,13 +5,14 @@ def generate_excel(form_data):
 
     # ✅ Define consistent column order (important!)
     columns = [
-        "Name", "Email", "Phone", "Location",
+       "Company", "Name", "Email", "Phone", "Location",
         "Date", "Start Time", "End Time",
         "Break", "Total Time"
     ]
 
     # ✅ Convert incoming form data keys to match column names
     data = {
+        "Company": form_data.get("company"),
         "Name": form_data.get("name"),
         "Email": form_data.get("email"),
         "Phone": form_data.get("phone"),
@@ -50,4 +51,4 @@ def generate_excel(form_data):
 
     output.seek(0)
 
-    return output
+    return output.getvalue()
