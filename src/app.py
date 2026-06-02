@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request,redirect, url_for
 from datetime import datetime, timedelta
 from export import generate_excel
 import smtplib
@@ -90,7 +90,7 @@ def send_email(excel_file,form_data):
     # =========================
     # ✅ FIRST EMAIL 
     # =========================
-    receiver1 = "michal.lowenstein@shell.com"
+    receiver1 = "T.Shaliyehsabou@shell.com"
 
     msg1 = EmailMessage()
     msg1['Subject'] = "STCH Maintenance"
@@ -109,7 +109,7 @@ def send_email(excel_file,form_data):
     # =========================
     # ✅ SECOND EMAIL 
     # =========================
-    receiver2 = "michal.lowenstein@shell.com"
+    receiver2 = "T.Shaliyehsabou@shell.com"
 
     utc_time = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
 
