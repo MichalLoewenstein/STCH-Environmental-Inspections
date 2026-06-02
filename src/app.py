@@ -36,6 +36,7 @@ def load_materials():
 @app.route("/form", methods=["GET", "POST"])
 def index():
     materialslist = load_materials()
+
     if request.method == "POST":
 
         form_data = request.form.to_dict()
@@ -46,39 +47,49 @@ def index():
 
         final_materials = []
 
+        # ✅ Process ALL rows
         for i in range(len(materials)):
-            m = materials[i]
-            other = other_material[i] if i < len(other_material) else ""
+            m = materials[i].strip()
+            qty = quantities[i].strip() if i < len(quantities) else ""
+            unit = units[i].strip() if i < len(units) else ""
+            other = other_material[i].strip() if i < len(other_material) else ""
 
+            # ✅ Resolve actual material name
             if m == "Other":
-                if not other.strip():
+                if not other:
                     raise ValueError(f"❌ Missing material name at row {i+1}")
 
-                final_materials.append(other.strip())
-                add_material(other.strip())
+                final_name = other
+
+                # ✅ Add to JSON if new
+                add_material(final_name)
 
             else:
-                final_materials.append(m)
-    
+                final_name = m
 
-        print("Materials received in form_data:", materials)  # Debugging line
+            # ✅ Build unified export structure
+            final_materials.append({
+                "name": final_name,
+                "quantity": qty,
+                "unit": unit
+            })
+
+        print("✅ Final materials for export:", final_materials)
 
         if not form_data:
             raise ValueError("No form data submitted")
 
-        # ✅ Generate Excel
-        print("Generating Excel with form data:", form_data)  # Debugging line
-        excel_file = generate_excel(form_data,materials, quantities, units)
+        # ✅ ✅ FIX: send final_materials
+        excel_file = generate_excel(form_data, final_materials, quantities, units)
 
         # ✅ Send email
         send_email(excel_file, form_data)
 
         print("✅ Excel created and email sent")
 
-        # ✅ Navigate to success page
         return redirect(url_for("success"))
 
-    return render_template("PaintForm.html", materialslist =materialslist )
+    return render_template("PaintForm.html", materialslist=materialslist)
 
 
 def add_material(name):
@@ -161,7 +172,7 @@ def send_email(excel_file,form_data):
     # =========================
     # ✅ SECOND EMAIL 
     # =========================
-    receiver2 = "T.Shaliyehsabou@shell.com"
+    receiver2 = ["T.Shaliyehsabou@shell.com","Michal.Lowenstein@shell.com"]
 
     utc_time = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
 
