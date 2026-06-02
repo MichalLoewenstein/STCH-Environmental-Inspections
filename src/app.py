@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from datetime import datetime, timedelta
 from export import generate_excel
 import smtplib
+import json
 from email.message import EmailMessage
 
 
@@ -11,6 +12,10 @@ import datetime
 app = Flask(__name__,
 template_folder=os.path.abspath(os.path.join(os.path.dirname(__file__), '../templates')),  
 static_folder=os.path.abspath(os.path.join(os.path.dirname(__file__), '../static')))
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+FILE_PATH = os.path.join(BASE_DIR, "materials.json")
+
  
 # Home route to display the form
 @app.route("/")
@@ -18,17 +23,26 @@ def home():
     return render_template("home.html")
 
 
-from flask import request, render_template, redirect, url_for
+
+def load_materials():
+    try:
+        with open(FILE_PATH, "r") as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return []
+
 
 @app.route("/form", methods=["GET", "POST"])
 def index():
-
+    materialslist = load_materials()
     if request.method == "POST":
 
         form_data = request.form.to_dict()
         materials = request.form.getlist("material[]")
         quantities = request.form.getlist("quantity[]")
         units = request.form.getlist("measure[]")
+
+        
 
         print("Materials received in form_data:", materials)  # Debugging line
 
@@ -47,7 +61,7 @@ def index():
         # ✅ Navigate to success page
         return redirect(url_for("success"))
 
-    return render_template("PaintForm.html")
+    return render_template("PaintForm.html", materialslist =materialslist )
 
 @app.route("/success")
 def success():

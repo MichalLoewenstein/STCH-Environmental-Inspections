@@ -80,12 +80,19 @@
         <!-- ✅ Material -->
          <div class="field">
             <label>Material</label>
-        <select name="material[]" required>
-            <option value="" disabled selected>Select material</option>
-            <option value="Dispersant A">Dispersant A</option>
-            <option value="Dispersant B">Dispersant B</option>
-        </select>
-        
+            <select name="material[]" onchange="checkOther(this)">
+                <option disabled selected>Select material</option>
+                {% for m in materialslist  %}
+                <option value="{{ m }}">{{ m }}</option>
+                {% endfor %}
+                 <option value="Other">Other</option>
+            </select>
+            <input type="text"
+           name="other_material[]"
+           class="other-input"
+           placeholder="Enter material name"
+           style="display:none; margin-top:6px;">
+
         </div>
 
         <!-- ✅ Quantity -->
@@ -215,6 +222,19 @@ function deleteMaterial(button) {
     updateAddButtons(); // ✅ keep your + button logic correct
 }
 
+function checkOther(selectElement) {
+    let container = selectElement.closest(".field");
+    let input = container.querySelector(".other-input");
+
+    if (selectElement.value === "Other") {
+        input.style.display = "block";   // ✅ show input
+        input.required = true;
+    } else {
+        input.style.display = "none";    // ✅ hide input
+        input.required = false;
+        input.value = "";
+    }
+}
 
     </script>
 
