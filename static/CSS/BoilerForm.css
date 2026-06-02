@@ -1,0 +1,171 @@
+body {
+    margin: 0;
+    padding: 40px;
+    background: #f5f6fa;
+
+    display: flex;
+    justify-content: center;
+}
+
+/* WHITE CARD */
+form {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+
+    padding: 40px;              /* ✅ equal spacing all sides */
+
+    width: 100%;                /* ✅ fill available space */
+    max-width: 600px;           /* ✅ limit max size (responsive) */
+}
+
+
+button {
+    width: 30vh;
+    padding: 12px;
+    background: #5a6cff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    margin-top: 20px;
+    cursor: pointer;
+    font-size: 20px;
+    display: block; 
+    margin: 15px auto;  
+}
+
+.input-group {
+    position: relative;
+    margin-top: 25px;
+    width: 100%;
+}
+
+/* INPUT */
+.input-group input {
+    width: 100%;
+    padding: 16px 12px 8px 12px; /* more top padding */
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    background: white;
+    transition: 0.2s;
+}
+
+/* Focus effect */
+.input-group input:focus {
+    border-color: #5a6cff;
+    box-shadow: 0 0 0 3px rgba(90, 108, 255, 0.15);
+}
+
+/* LABEL (starts inside) */
+.input-group label {
+    position: absolute;
+    top: 20px;
+    left: 12px;
+    color: #888;
+    font-size: 14px;
+    background: white;
+    padding: 0 5px;
+    transition: 0.2s ease;
+}
+
+/* ✅ FLOAT ABOVE INPUT (THIS IS THE MAIN FIX) */
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+    top: -10px;        /* move ABOVE */
+    left: 10px;
+    font-size: 12px;
+    color: #5a6cff;
+    font-weight: 500;
+}
+
+.form-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.input-group select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    background: transparent;
+    outline: none;
+    box-sizing: border-box;   /* ✅ THIS IS THE FIX */
+}
+
+
+/* Fix label position for dropdown */
+.input-group select + label {
+    top: -10px;
+    font-size: 12px;
+    left: 10px;
+    background: #f5f5f5;
+    padding: 0 5px;
+}
+
+
+.material-row {
+    display: flex;
+    align-items: flex-end; /* ✅ KEY FIX */
+    gap: 10px;
+    flex-wrap: nowrap; /* ✅ force single line */
+    width: fit-content;
+    /* margin-left: 5px;  */
+    padding:12px 12px 8px 12px ;
+}
+
+
+.field {
+    display: flex;
+    flex-direction: column;
+}
+
+.field label {
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+
+.field input,
+.field select {
+    height: 45px;
+    padding: 8px 12px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: white;
+    box-sizing: border-box;
+}
+
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+/* Default (desktop) */
+.toggle-label {
+  display: flex;
+  justify-content: space-between;  /* text left, toggle right */
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  width: 100%;
+}
+
+/* Make toggle size flexible */
+.switch {
+  flex-shrink: 0;
+}
+
+/* ✅ Mobile responsiveness */
+@media (max-width: 600px) {
+  .toggle-label {
+    flex-direction: column;     /* stack vertically */
+    align-items: flex-start;    /* align left */
+    gap: 8px;
+  }
+}

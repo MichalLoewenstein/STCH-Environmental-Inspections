@@ -31,7 +31,10 @@ def load_materials():
             return json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
         return []
-
+    
+@app.route("/Boiler", methods=["GET", "POST"])
+def Boiler():
+    return render_template("BoilerForm.html")
 
 @app.route("/form", methods=["GET", "POST"])
 def index():
