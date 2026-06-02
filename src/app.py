@@ -4,6 +4,7 @@ from export import generate_excel
 import smtplib
 import json
 from email.message import EmailMessage
+from datetime import datetime, timezone
 
 
 import os
@@ -41,8 +42,24 @@ def index():
         materials = request.form.getlist("material[]")
         quantities = request.form.getlist("quantity[]")
         units = request.form.getlist("measure[]")
+        other_material = request.form.getlist("other_material[]")
 
-        
+        final_materials = []
+
+        for i in range(len(materials)):
+            m = materials[i]
+            other = other_material[i] if i < len(other_material) else ""
+
+            if m == "Other":
+                if not other.strip():
+                    raise ValueError(f"❌ Missing material name at row {i+1}")
+
+                final_materials.append(other.strip())
+                add_material(other.strip())
+
+            else:
+                final_materials.append(m)
+    
 
         print("Materials received in form_data:", materials)  # Debugging line
 
@@ -62,6 +79,38 @@ def index():
         return redirect(url_for("success"))
 
     return render_template("PaintForm.html", materialslist =materialslist )
+
+
+def add_material(name):
+    name = name.strip()
+    if not name:
+        return
+
+    # ✅ Load existing materials
+    try:
+        with open(FILE_PATH, "r") as f:
+            materials = json.load(f)
+            if not isinstance(materials, list):
+                materials = []
+    except (FileNotFoundError, json.JSONDecodeError):
+        materials = []
+
+    # ✅ Check if already exists (case-insensitive)
+    existing_names = [m.strip().lower() for m in materials if isinstance(m, str)]
+
+    if name.lower() in existing_names:
+        print(f"Material '{name}' already exists")
+        return
+
+    # ✅ Add new material
+    materials.append(name)
+
+    # ✅ Save immediately (THIS is what you wanted)
+    with open(FILE_PATH, "w") as f:
+        json.dump(materials, f, indent=4)
+
+    print(f"✅ Added '{name}' to materials.json")
+
 
 @app.route("/success")
 def success():
@@ -98,12 +147,15 @@ def send_email(excel_file,form_data):
     msg1['To'] = receiver1
     msg1.set_content("Attached is the submitted Paint form.")
 
+    
+    utc_now = datetime.now(timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
+
     excel_file.seek(0)
     msg1.add_attachment(
         excel_file.read(),
         maintype='application',
         subtype='octet-stream',
-        filename='form_data.xlsx'
+        filename=f'form_data_{utc_now}.xlsx'
     )
 
     # =========================
