@@ -5,7 +5,7 @@
     <title>Basic Paint Form</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/BoilerForm.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <script src="{{ url_for('static', filename='js/paintform.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/boilerform.js')}}"></script>
 
 
 </head>
@@ -55,14 +55,14 @@
     </div>
 
 <div class="form-group">
-  <label class="toggle-label">
+  <label class="switch">
     Check Water Level ( Sight Glass)
-    <span class="switch">
+    <span class="slider">
       <input type="checkbox" id="toggle">
       <span class="slider"></span>
     </span>
   </label>
-
+<!--
 <div class="form-group">
   <label class="toggle-label">
     Blow Down Water Column
@@ -83,10 +83,7 @@
   </label>
 </div>
 
-
-
-
-
+-->
     <button type="submit">Submit</button>
 
 </form>
