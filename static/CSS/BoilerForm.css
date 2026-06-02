@@ -1,3 +1,4 @@
+
 body {
     margin: 0;
     padding: 40px;
@@ -146,26 +147,68 @@ button {
   margin-bottom: 20px;
 }
 
-/* Default (desktop) */
-.toggle-label {
-  display: flex;
-  justify-content: space-between;  /* text left, toggle right */
-  align-items: center;
-  gap: 10px;
-  font-weight: 500;
-  width: 100%;
-}
-
-/* Make toggle size flexible */
+/* Switch container */
 .switch {
-  flex-shrink: 0;
+  position: relative;
+  display: inline-block;
+  width: 3.5em;   /* responsive width */
+  height: 2em;    /* responsive height */
 }
 
-/* ✅ Mobile responsiveness */
+/* Hide default checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 2em;
+  inset: 0;
+}
+
+/* Circle */
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.5em;
+  width: 1.5em;
+  left: 0.25em;
+  bottom: 0.25em;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+/* ON state */
+input:checked + .slider {
+  background-color: #4CAF50;
+}
+
+/* Move circle */
+input:checked + .slider:before {
+  transform: translateX(1.5em);
+}
+
+
+
+.toggle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  gap: 10px;
+}
+
+/* Mobile fix */
 @media (max-width: 600px) {
-  .toggle-label {
-    flex-direction: column;     /* stack vertically */
-    align-items: flex-start;    /* align left */
-    gap: 8px;
+  .toggle-row {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

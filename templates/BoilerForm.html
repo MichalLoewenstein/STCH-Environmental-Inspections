@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Basic Paint Form</title>
+    <title>Boiler Form</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/BoilerForm.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="{{ url_for('static', filename='js/boilerform.js')}}"></script>
@@ -54,36 +54,68 @@
         <label>Boiler #</label>
     </div>
 
-<div class="form-group">
-  <label class="switch">
-    Check Water Level ( Sight Glass)
-    <span class="slider">
-      <input type="checkbox" id="toggle">
-      <span class="slider"></span>
-    </span>
-  </label>
-<!--
-<div class="form-group">
-  <label class="toggle-label">
-    Blow Down Water Column
-    <span class="switch">
-      <input type="checkbox">
-      <span class="slider"></span>
-    </span>
-  </label>
+
+    <div class = "form-group">
+
+         <div class="toggle-row">
+<label>
+  Check Water Level (Sight Glass)
+
+  <span class="switch">
+    <input type="checkbox">
+    <span class="slider"></span>
+  </span>
+</label>
 </div>
 
-<div class="form-group">
-  <label class="toggle-label">
-    Blow Down Sight Glass
-    <span class="switch">
-      <input type="checkbox">
-      <span class="slider"></span>
-    </span>
-  </label>
+<div class="toggle-row">
+<label>
+  Blow Down Water Column
+
+  <span class="switch">
+    <input type="checkbox">
+    <span class="slider"></span>
+  </span>
+</label>
 </div>
 
--->
+<div class="toggle-row">
+<label>
+  Blow Down Sight Glass
+
+  <span class="switch">
+    <input type="checkbox">
+    <span class="slider"></span>
+  </span>
+</label>
+
+</div>
+
+<div class="toggle-row">
+<label>
+  Blow Down Low Water Cut Out
+
+  <span class="switch">
+    <input type="checkbox">
+    <span class="slider"></span>
+  </span>
+</label>
+</div>
+
+<div class="toggle-row">
+<label>
+  Bottom Blow Boiler
+
+  <span class="switch">
+    <input type="checkbox">
+    <span class="slider"></span>
+  </span>
+</label>
+</div>
+
+
+</div>
+
     <button type="submit">Submit</button>
 
 </form>
