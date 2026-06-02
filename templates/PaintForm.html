@@ -5,6 +5,8 @@
     <title>Basic Paint Form</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/Formstyle.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="{{ url_for('static', filename='js/paintform.js')}}"></script>
+
 
 </head>
 
@@ -127,116 +129,7 @@
     <button type="submit">Submit</button>
 
 </form>
-    
-     <script>
-    document.addEventListener("DOMContentLoaded", function () {
-    let today = new Date().toISOString().split('T')[0];
-    document.getElementById("date").value = today;
-
-    
-    function calculateTotalTime() {
-
-    let start = document.getElementById("start_time").value;
-    let end = document.getElementById("end_time").value;
-    let breakTime = document.getElementById("break").value || 0;
-
-    if (!start || !end) return;
-
-    // Convert time to minutes
-    let startParts = start.split(":");
-    let endParts = end.split(":");
-
-    let startMinutes = parseInt(startParts[0]) * 60 + parseInt(startParts[1]);
-    let endMinutes = parseInt(endParts[0]) * 60 + parseInt(endParts[1]);
-
-    // Handle overnight case
-    if (endMinutes < startMinutes) {
-        endMinutes += 24 * 60;
-    }
-
-    // Calculate total
-    let totalMinutes = endMinutes - startMinutes - parseInt(breakTime);
-
-    // Convert back to hours:minutes
-    let hours = Math.floor(totalMinutes / 60);
-    let minutes = totalMinutes % 60;
-
-    document.getElementById("total_time").value =
-        `${hours}:${minutes.toString().padStart(2, '0')}`;
-}
-
-// ✅ Trigger calculation when values change
-document.getElementById("start_time").addEventListener("change", calculateTotalTime);
-document.getElementById("end_time").addEventListener("change", calculateTotalTime);
-document.getElementById("break").addEventListener("input", calculateTotalTime);
-
-    });
-
-
-   
-let maxRows = 5;
-
-function addMaterial() {
-    let container = document.getElementById("materials-container");
-    let rows = container.getElementsByClassName("material-row");
-    let count = rows.length;
-
-    if (count >= maxRows) {
-        alert("Maximum 5 materials allowed");
-        return;
-    }
-
-    let newRow = rows[0].cloneNode(true);
-
-    // Clear values
-    newRow.querySelectorAll("input").forEach(input => input.value = "");
-    newRow.querySelectorAll("select").forEach(select => select.selectedIndex = 0);
-
-    container.appendChild(newRow);
-
-    updateAddButtons(); // ✅ important
-}
-function updateAddButtons() {
-    let rows = document.querySelectorAll(".material-row");
-
-    rows.forEach((row, index) => {
-        let buttonDiv = row.querySelector(".add-btn");
-
-        if (index === rows.length - 1) {
-            buttonDiv.style.display = "visible"; // ✅ show only last
-        } else {
-            buttonDiv.style.display = "hidden"; // ✅ hide others
-        }
-    });
-}
-function deleteMaterial(button) {
-    let rows = document.querySelectorAll(".material-row");
-
-    if (rows.length <= 1) {
-        alert("At least one material is required");
-        return;
-    }
-
-    button.closest(".material-row").remove();
-
-    updateAddButtons(); // ✅ keep your + button logic correct
-}
-
-function checkOther(selectElement) {
-    let container = selectElement.closest(".field");
-    let input = container.querySelector(".other-input");
-
-    if (selectElement.value === "Other") {
-        input.style.display = "block";   // ✅ show input
-        input.required = true;
-    } else {
-        input.style.display = "none";    // ✅ hide input
-        input.required = false;
-        input.value = "";
-    }
-}
-
-    </script>
+  
 
 </body>
 </html>
