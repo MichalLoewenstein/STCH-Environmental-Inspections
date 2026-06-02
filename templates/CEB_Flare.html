@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Flare Inspection Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/Formstyle.css') }}">
+</head>
+
+<body>
+
+<form method="POST">
+
+    <h2 class="form-title">Flare / CEB Inspection Form</h2>
+
+    <!-- ===================================================== -->
+    <!-- ✅ TIME SELECTION -->
+    <!-- ===================================================== -->
+    <div class="input-group">
+        <select name="inspection_time">
+            <option disabled selected hidden></option>
+            <option>04:00</option>
+            <option>10:00</option>
+            <option>16:00</option>
+            <option>22:00</option>
+        </select>
+        <label>Inspection Time</label>
+    </div>
+
+
+    <!-- ===================================================== -->
+    <!-- ✅ PRESSURE / MEASUREMENTS -->
+    <!-- ===================================================== -->
+
+    <h3>Pressure / Measurement Readings</h3>
+
+    <div class="input-group">
+        <input type="number" name="sp1" placeholder=" ">
+        <label>SP-1 (Inches)</label>
+    </div>
+
+    <div class="input-group">
+        <input type="number" name="sp2" placeholder=" ">
+        <label>SP-2 (Inches)</label>
+    </div>
+
+    <div class="input-group">
+        <input type="number" name="kp1" placeholder=" ">
+        <label>KP-1 (Inches)</label>
+    </div>
+
+    <div class="input-group">
+        <input type="number" name="pilot_gas_pressure" placeholder=" ">
+        <label>Pilot Gas Pressure (PSIG)</label>
+    </div>
+
+    <div class="input-group">
+        <input type="number" name="supplemental_ng_flow1" placeholder=" ">
+        <label>Supplemental NG Flow (SCFM)</label>
+    </div>
+
+
+    <!-- ===================================================== -->
+    <!-- ✅ FLAME VISIBILITY -->
+    <!-- ===================================================== -->
+
+    <h3>Flame Visibility</h3>
+
+    <div class="input-group">
+        <select name="main_flame_visible">
+            <option disabled selected hidden></option>
+            <option>Yes</option>
+            <option>No</option>
+        </select>
+        <label>Main flame visible?</label>
+    </div>
+
+    <div class="input-group">
+        <select name="pilot_flame_visible">
+            <option disabled selected hidden></option>
+            <option>Yes</option>
+            <option>No</option>
+        </select>
+        <label>Pilot flame visible?</label>
+    </div>
+
+
+    <!-- ===================================================== -->
+    <!-- ✅ WASTE GAS -->
+    <!-- ===================================================== -->
+
+    <h3>Waste Gas</h3>
+
+    <div class="input-group">
+        <input type="number" name="waste_gas_flow" placeholder=" ">
+        <label>Waste Gas Flow (SCFM)</label>
+    </div>
+
