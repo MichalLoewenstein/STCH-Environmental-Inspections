@@ -19,8 +19,8 @@ def generate_boilerExcel(form_data):
         "Email": form_data.get("email"),
         "Phone": form_data.get("phone"),
         "Date": form_data.get("date"),
-        "Boiler Number": form_data.get("boilernumber"),
-        "Water Level 1": form_data.get("waterlevel1"),
+        "Boiler Number": form_data.get("boilerNumber"),
+        "Water Level 1": form_data.get("check_water_level"),
         "Water Level 2": form_data.get("waterlevel2"),
         "Water Level 3": form_data.get("waterlevel3"),
         "Water Level 4": form_data.get("waterlevel4")
