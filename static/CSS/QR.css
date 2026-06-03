@@ -26,6 +26,7 @@ body {
     display: flex;              /* ✅ KEY */
     flex-direction: column;     /* ✅ stack items */
     align-items: center;        /* ✅ center everything */
+    margin-top: 50px;
     
 }
 
