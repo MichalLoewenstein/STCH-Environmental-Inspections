@@ -3,49 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <title>Boiler Form</title>
+
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/BoilerForm.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="{{ url_for('static', filename='js/boilerform.js')}}"></script>
 
-
 </head>
 
 <body>
-    <form method="POST">
+
+<form method="POST">
+
     {% if error %}
         <p class="error">{{ error }}</p>
     {% endif %}
-    
+
     <h2 class="form-title">Boiler Form</h2>
 
-
-    <div class="input-group">
-        <input type="text" name="operator" required placeholder=" ">
+    <!-- ✅ BASIC INFO -->
+    <div class="input-row">
         <label>Operator*</label>
+        <input type="text" name="operator" required>
     </div>
 
-    <div class="input-group">
-        <input type="email" name="email" required placeholder=" ">
+    <div class="input-row">
         <label>Email Address*</label>
+        <input type="email" name="email" required>
     </div>
 
-    <div class="input-group">
-        <input type="tel" name="phone" required placeholder=" ">
+    <div class="input-row">
         <label>Phone Number*</label>
+        <input type="tel" name="phone" required>
     </div>
 
-         <div class="input-group">
-        <input type="text" name="boilerNumber" required placeholder=" ">
+    <div class="input-row">
         <label>Boiler #</label>
+        <input type="text" name="boilerNumber" required>
     </div>
 
-    <div class="input-group">
-        <input type="date" id="date" name="date">
+    <div class="input-row">
         <label>Date</label>
+        <input type="date" id="date" name="date">
     </div>
 
-
-    <div class="input-group">
+    <div class="input-row">
         <label>Time</label>
         <select name="time" required>
             <option value="" disabled selected hidden></option>
@@ -56,123 +57,105 @@
         </select>
     </div>
 
+    <!-- ✅ CHECKLIST -->
+    <div class="form-row">
 
+        <div class="toggle-row">
+            <label>
+                Check Water Level (Sight Glass)
+                <span class="switch">
+                    <input type="checkbox" name="check_water_level">
+                    <span class="slider"></span>
+                </span>
+            </label>
+        </div>
 
+        <div class="toggle-row">
+            <label>
+                Blow Down Water Column
+                <span class="switch">
+                    <input type="checkbox" name="blowDownWaterColumn">
+                    <span class="slider"></span>
+                </span>
+            </label>
+        </div>
 
-    <div class = "form-group">
+        <div class="toggle-row">
+            <label>
+                Blow Down Sight Glass
+                <span class="switch">
+                    <input type="checkbox" name="blowDownSightGlass">
+                    <span class="slider"></span>
+                </span>
+            </label>
+        </div>
 
-         <div class="toggle-row">
-<label>
-  Check Water Level (Sight Glass)
+        <div class="toggle-row">
+            <label>
+                Blow Down Low Water Cut Out
+                <span class="switch">
+                    <input type="checkbox" name="blowDownLowWaterCutOut">
+                    <span class="slider"></span>
+                </span>
+            </label>
+        </div>
 
-  <span class="switch">
-    <input type="checkbox" name="check_water_level">
-    <span class="slider"></span>
-  </span>
-</label>
-</div>
+        <div class="toggle-row">
+            <label>
+                Bottom Blow Boiler
+                <span class="switch">
+                    <input type="checkbox" name="bottomBlowBoiler">
+                    <span class="slider"></span>
+                </span>
+            </label>
+        </div>
 
-<div class="toggle-row">
-<label>
-  Blow Down Water Column
+        <div class="toggle-row">
+            <label>
+                Checked Burner Ring For Proper Flame Pattern
+                <span class="switch">
+                    <input type="checkbox" name="checkedBurnerRingForProperFlamePattern">
+                    <span class="slider"></span>
+                </span>
+            </label>
+        </div>
 
-  <span class="switch">
-    <input type="checkbox" name="blowDownWaterColumn">
-    <span class="slider"></span>
-  </span>
-</label>
-</div>
+        <div class="toggle-row">
+            <label>
+                Checked Excess Oxygen For Proper Level
+                <span class="switch">
+                    <input type="checkbox" name="checkedExcessOxygenForProperLevel">
+                    <span class="slider"></span>
+                </span>
+            </label>
+        </div>
 
-<div class="toggle-row">
-<label>
-  Blow Down Sight Glass
+        <div class="toggle-row">
+            <label>
+                Checked For Excess Combustibles
+                <span class="switch">
+                    <input type="checkbox" name="checkedForExcessCombustibles">
+                    <span class="slider"></span>
+                </span>
+            </label>
+        </div>
 
-  <span class="switch">
-    <input type="checkbox" name="blowDownSightGlass">
-    <span class="slider"></span>
-  </span>
-</label>
+        <div class="toggle-row">
+            <label>
+                Visually Checked Entire Boiler
+                <span class="switch">
+                    <input type="checkbox" name="visuallyCheckedEntireBoiler">
+                    <span class="slider"></span>
+                </span>
+            </label>
+        </div>
 
-</div>
+    </div>
 
-<div class="toggle-row">
-<label>
-  Blow Down Low Water Cut Out
+    <!-- ✅ SECTION -->
+    <h3>Infrastructure Support Inspections:</h3>
 
-  <span class="switch">
-    <input type="checkbox" name="blowDownLowWaterCutOut">
-    <span class="slider"></span>
-  </span>
-</label>
-</div>
-
-<div class="toggle-row">
-<label>
-  Bottom Blow Boiler
-
-  <span class="switch">
-    <input type="checkbox" name ="bottomBlowBoiler">
-    <span class="slider"></span>
-  </span>
-</label>
-</div>
-
-<div class="toggle-row">
-<label>
-  Checked Burner Ring For Proper Flame Pattern
-
-  <span class="switch">
-    <input type="checkbox" name = "checkedBurnerRingForProperFlamePattern">
-    <span class="slider"></span>
-  </span>
-</label>
-</div>
-
-<div class="toggle-row">
-<label>
-  Checked Excess Oxygen For Proper Level
-
-  <span class="switch">
-    <input type="checkbox" name = "checkedExcessOxygenForProperLevel">
-    <span class="slider"></span>
-  </span>
-</label>
-</div>
-
-<div class="toggle-row">
-<label>
-  Checked For Excess Combustibles
-
-  <span class="switch">
-    <input type="checkbox" name ="checkedForExcessCombustibles">
-    <span class="slider"></span>
-  </span>
-</label>
-</div>
-
-<div class="toggle-row">
-<label>
-  Visually Checked Entire Boiler
-
-  <span class="switch">
-    <input type="checkbox" name ="visuallyCheckedEntireBoiler">
-    <span class="slider"></span>
-  </span>
-</label>
-</div>
-
-
-</div>
-
-
-
-
-
-<h3>Infrastructure Support Inspections:</h3>
-
-
-
-    <div class="input-group">
+    <div class="input-row">
         <label>Visible Emissions?</label>
         <select name="emissions">
             <option value="" disabled selected hidden></option>
@@ -181,28 +164,25 @@
         </select>
     </div>
 
-
-    <div class="input-group">
-        <input type="time" id="time_smoke" name="timeSmokeFirstObserved">
+    <div class="input-row">
         <label>Time Smoke First Observed</label>
+        <input type="time" id="time_smoke" name="timeSmokeFirstObserved">
     </div>
 
-
-      <div class="input-group">
-        <input type="time" id="time_smoke_cleared" name="timeSmokeCleared">
+    <div class="input-row">
         <label>Time Smoke Cleared</label>
+        <input type="time" id="time_smoke_cleared" name="timeSmokeCleared">
     </div>
 
-
-     <div class="input-group">
-        <input type="text" name="comments">
+    <div class="input-row">
         <label>Comments:</label>
+        <input type="text" name="comments">
     </div>
 
     <button type="submit">Submit</button>
 
 </form>
-  
 
 </body>
 </html>
+

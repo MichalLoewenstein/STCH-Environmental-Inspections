@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Basic Paint Form</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/Formstyle.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/paintform.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="{{ url_for('static', filename='js/paintform.js')}}"></script>
 
@@ -17,61 +17,65 @@
         <p class="error">{{ error }}</p>
     {% endif %}
     
-    <h2 class="form-title">Paint, Products & Sandblasting LOG</h2>
+    <h1 class="form-title">Paint, Products & Sandblasting LOG</h1>
     
-    <div class="input-group">
+    <div class="input-row"> 
+        <label>Company</label>
         <select name="company" required>
             <option value="" disabled selected hidden></option>
             <option value="Brown & Root">Brown & Root</option>
             <option value="Other">Other</option>
         </select>
-        <label>Company</label>
+       
     </div>
 
-    <div class="input-group">
-        <input type="text" name="name" required placeholder=" ">
+    <div class="input-row"> 
         <label>Name*</label>
+        <input type="text" name="name" required >
+       
     </div>
 
-    <div class="input-group">
-        <input type="email" name="email" required placeholder=" ">
+    <div class="input-row">
         <label>Email Address*</label>
+        <input type="email" name="email" required >
+        
     </div>
 
-    <div class="input-group">
-        <input type="tel" name="phone" required placeholder=" ">
+    <div class="input-row">
         <label>Phone Number*</label>
+        <input type="tel" name="phone" required >
     </div>
 
-    <div class="input-group">
-        <input type="text" id="location" name="location" placeholder=" ">
+    <div class="input-row">
         <label>Location</label>
+        <input type="text" id="location" name="location" > 
     </div>
 
-    <div class="input-group">
-        <input type="date" id="date" name="date">
+    <div class="input-row">
         <label>Date</label>
+        <input type="date" id="date" name="date">
     </div>
 
-    <div class="input-group">
-        <input type="time" id="start_time" name="start_time">
+    <div class="input-row">
         <label>Start Time</label>
+        <input type="time" id="start_time" name="start_time"> 
     </div>
 
-    <div class="input-group">
-        <input type="time" id="end_time" name="end_time">
+    <div class="input-row">
         <label>End Time</label>
+        <input type="time" id="end_time" name="end_time">
     </div>
 
-    <div class="input-group">
-        <input type="number" id="break" name="break" value="0">
+    <div class="input-row">
         <label>Break (minutes)</label>
+        <input type="number" id="break" name="break" value="0">    
     </div>
 
-    <div class="input-group">
-        <input type="text" id="total_time" name="total_time" readonly placeholder=" ">
+    <div class="input-row">
         <label>Total Time (hours)</label>
+        <input type="text" id="total_time" name="total_time" readonly >  
     </div>
+<h3>Materials</h3>
     <div id="materials-container">
     <div class="row-group material-row">
 
@@ -79,7 +83,7 @@
         <div class="add-btn">
             <button type="button" onclick="addMaterial()">+</button>
         </div>
-
+        
         <!-- ✅ Material -->
          <div class="field">
             <label>Material</label>
@@ -101,20 +105,17 @@
         <!-- ✅ Quantity -->
         <div class="Quantity">
              <label>Quantity</label>
-        <input type="number" name="quantity[]" required placeholder=" ">
-       
-        </div>
+             <input type="number" name="quantity[]" required placeholder=" ">
+       </div>
 
         <!-- ✅ Unit -->
         <div class="unit">
               <label>Unit</label>
-        <select name="measure[]" required>
-            <option value="" disabled selected>Select unit</option>
-            <option value="Gallons">GAL</option>
-            <option value="Pounds">LBS</option>
-        </select>
-        
-      
+              <select name="measure[]" required>
+                    <option value="" disabled selected>Select unit</option>
+                    <option value="Gallons">GAL</option>
+                    <option value="Pounds">LBS</option>
+              </select>
         </div>
 
         <!-- ✅ ✅ DELETE BUTTON -->
