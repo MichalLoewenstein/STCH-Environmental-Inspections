@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Boiler Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/BoilerForm.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="{{ url_for('static', filename='js/boilerform.js')}}"></script>
+
+
+</head>
+
+<body>
+    <form method="POST">
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+    
+    <h2 class="form-title">Boiler Form</h2>
+
+
+    <div class="input-group">
+        <input type="text" name="name" required placeholder=" ">
+        <label>Operator*</label>
+    </div>
+
+    <div class="input-group">
+        <input type="email" name="email" required placeholder=" ">
+        <label>Email Address*</label>
+    </div>
+
+    <div class="input-group">
+        <input type="tel" name="phone" required placeholder=" ">
+        <label>Phone Number*</label>
+    </div>
+    <div class="input-group">
+        <input type="date" id="date" name="date">
+        <label>Date</label>
+    </div>
+
+    <div class="input-group">
+        <label>Time</label>
+        <select name="Time" required>
+            <option value="" disabled selected hidden></option>
+            <option value="4:00">4:00</option>
+            <option value="10:00">10:00</option>
+            <option value="16:00">16:00</option>
+            <option value="22:00">22:00</option>
+        </select>
+    </div>
+
+     <div class="input-group">
+        <input type="text" name="bolier" required placeholder=" ">
+        <label>Boiler #</label>
+    </div>
+
+
+    <div class = "form-group">
+
+         <div class="toggle-row">
+<label>
+  Check Water Level (Sight Glass)
+
+  <span class="switch">
+    <input type="checkbox">
+    <span class="slider"></span>
+  </span>
+</label>
+</div>
+
+<div class="toggle-row">
+<label>
+  Blow Down Water Column
+
+  <span class="switch">
+    <input type="checkbox">
+    <span class="slider"></span>
+  </span>
+</label>
+</div>
+
+<div class="toggle-row">
+<label>
+  Blow Down Sight Glass
+
+  <span class="switch">
+    <input type="checkbox">
+    <span class="slider"></span>
+  </span>
+</label>
+
+</div>
+
+<div class="toggle-row">
+<label>
+  Blow Down Low Water Cut Out
+
+  <span class="switch">
+    <input type="checkbox">
+    <span class="slider"></span>
+  </span>
+</label>
+</div>
+
+<div class="toggle-row">
+<label>
+  Bottom Blow Boiler
+
+  <span class="switch">
+    <input type="checkbox">
+    <span class="slider"></span>
+  </span>
+</label>
+</div>
+
+
+</div>
+
+    <button type="submit">Submit</button>
+
+</form>
+  
+
+</body>
+</html>

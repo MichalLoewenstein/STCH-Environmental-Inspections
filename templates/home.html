@@ -3,24 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>STCH Maintenance</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/home.css') }}">
 
-    
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/home.css') }}">
 </head>
 
 <body>
 
-<div class="card">
-    <h1>Hi, Welcome to STCH Maintenance</h1>
-    <p>Scan the QR code or click below to open the form</p>
 
-    <!-- ✅ QR CODE -->
-    <img src="{{ url_for('static', filename='dispersants_qr.png') }}" alt="QR Code">
 
-    <!-- ✅ BUTTON -->
-    <div>
-        <a href="/form">Open Work Log Form</a>
-        <a href="/CEB_Flare">Open Flare/CEB Form</a>
+
+<!-- ✅ Main Card -->
+<div class="container">
+    <div class="card">
+
+        
+
+        <H2>
+            Select your Activity
+        </H2>
+        <br>
+        <!-- ✅ Buttons -->
+        <div class="buttons">
+            <a href="/form" class="btn">Paint and Sandblasting</a> <br>
+            <a href="/boiler" class="btn">Boiler Inspection</a> <br>
+            <a href="/flare" class="btn">CEB / Flare Inspection</a> <br>
+        </div>
+
     </div>
 </div>
 

@@ -1,0 +1,108 @@
+/* ✅ BASE LAYOUT */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f6fa;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    padding-top: 40px;
+    min-height: 100vh;
+}
+
+/* ✅ CARD */
+.card {
+    background: white;
+    padding: 30px 25px;
+    border-radius: 14px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+
+    width: 90%;
+    max-width: 380px;
+
+    display: flex;              /* ✅ KEY */
+    flex-direction: column;     /* ✅ stack items */
+    align-items: center;        /* ✅ center everything */
+    
+}
+
+/* ✅ TEXT */
+h1 {
+    margin-bottom: 10px;
+    font-size: 20px;
+    text-align: center;
+}
+
+p {
+    color: #666;
+    margin-bottom: 18px;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* ✅ QR IMAGE (CENTERED) */
+img {
+    width: 140px;
+    max-width: 100%;
+    display: block;
+    margin: 15px auto;   /* ✅ forces center */
+}
+
+/* ✅ BUTTON (CENTERED + COMPACT) */
+a {
+    display: flex;                  /* ✅ better than inline-block */
+    justify-content: center;
+    align-items: center;
+
+    padding: 12px 18px;
+
+    background: #6f879d;
+    color: white;
+
+    text-decoration: none;
+    border-radius: 8px;
+
+    font-weight: 600;
+    font-size: 14px;
+
+    width: 160px;                  /* ✅ fixed nice size */
+    margin-top: 20px;
+
+    transition: 0.2s ease-in-out;
+}
+
+/* ✅ HOVER */
+a:hover {
+    background: #5b7388;
+}
+
+/* ✅ MOBILE */
+@media (max-width: 480px) {
+    body {
+        padding-top: 15px;
+    }
+
+    .card {
+        padding: 25px 18px;
+    }
+
+    h1 {
+        font-size: 18px;
+    }
+
+    p {
+        font-size: 13px;
+    }
+
+    img {
+        width: 130px;
+    }
+
+    a {
+        width: 140px;
+        font-size: 13px;
+    }
+}

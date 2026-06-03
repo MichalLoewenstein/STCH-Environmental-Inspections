@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/QR.css') }}">
+    <title>STCH Maintenance</title>
+</head>
+<body>
+
+    <div class="card">
+        <h1>Welcome to STCH Maintenance</h1>
+        <p>Scan the QR code or click below to open the form</p>
+
+        <img src="{{ url_for('static', filename='dispersants_qr.png') }}" alt="QR Code">
+
+        <a href="/home">Open Forms</a>
+    </div>
+
+</body>
+</html>
