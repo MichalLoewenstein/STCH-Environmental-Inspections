@@ -7,7 +7,11 @@ def generate_boilerExcel(form_data):
     columns = [
        "Operator 1", "Operator 2", "Operator 3", "Operator 4", "Email", "Phone", 
         "Date", "Boiler Number", "Water Level 1",
-        "Water Level 2", "Water Level 3", "Water Level 4"
+        "Water Level 2", "Water Level 3", "Water Level 4",
+        "Blow Down Water Column", "Blow Down Sight Glass", "Blow Down Low Water Cut Out", 
+        "Bottom Blow Boiler", "Checked Burner Ring For Proper Flame Pattern", "Checked Excess Oxygen For Proper Level",
+        "Checked For Excess Combustibles", "Visually Checked Entire Boiler", "Visible Emissions" , 
+        "Time Smoke First Observed", "Time Smoke Cleared", "Comments"
     ]
 
     # ✅ Convert incoming form data keys to match column names
@@ -23,7 +27,19 @@ def generate_boilerExcel(form_data):
         "Water Level 1": form_data.get("check_water_level"),
         "Water Level 2": form_data.get("waterlevel2"),
         "Water Level 3": form_data.get("waterlevel3"),
-        "Water Level 4": form_data.get("waterlevel4")
+        "Water Level 4": form_data.get("waterlevel4"),
+        "Blow Down Water Column": form_data.get("Blow Down Water Column"), 
+        "Blow Down Sight Glass": form_data.get("Blow Down Sight Glass"), 
+        "Blow Down Low Water Cut Out": form_data.get("Blow Down Low Water Cut Out"), 
+        "Bottom Blow Boiler": form_data.get("Bottom Blow Boiler"), 
+        "Checked Burner Ring For Proper Flame Pattern": form_data.get("Checked Burner Ring For Proper Flame Pattern"),  
+        "Checked Excess Oxygen For Proper Level": form_data.get("Checked Excess Oxygen For Proper Level"), 
+        "Checked For Excess Combustibles": form_data.get("Checked For Excess Combustibles"), 
+        "Visually Checked Entire Boiler": form_data.get("Visually Checked Entire Boiler"),  
+        "Visible Emissions" : form_data.get("Visible Emissions"), 
+        "Time Smoke First Observed": form_data.get("Time Smoke First Observed"), 
+        "Time Smoke Cleared": form_data.get("Time Smoke Cleared"),  
+        "Comments": form_data.get("Comments")
 
     }
 

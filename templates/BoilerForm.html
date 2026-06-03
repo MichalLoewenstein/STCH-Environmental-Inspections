@@ -20,7 +20,7 @@
 
 
     <div class="input-group">
-        <input type="text" name="name" required placeholder=" ">
+        <input type="text" name="operator1" required placeholder=" ">
         <label>Operator*</label>
     </div>
 
@@ -33,10 +33,17 @@
         <input type="tel" name="phone" required placeholder=" ">
         <label>Phone Number*</label>
     </div>
+
+         <div class="input-group">
+        <input type="text" name="bolierNumber" required placeholder=" ">
+        <label>Boiler #</label>
+    </div>
+
     <div class="input-group">
         <input type="date" id="date" name="date">
         <label>Date</label>
     </div>
+
 
     <div class="input-group">
         <label>Time</label>
@@ -49,10 +56,7 @@
         </select>
     </div>
 
-     <div class="input-group">
-        <input type="text" name="bolier" required placeholder=" ">
-        <label>Boiler #</label>
-    </div>
+
 
 
     <div class = "form-group">
@@ -62,7 +66,7 @@
   Check Water Level (Sight Glass)
 
   <span class="switch">
-    <input type="checkbox">
+    <input type="checkbox" name="check_water_level">
     <span class="slider"></span>
   </span>
 </label>
@@ -73,7 +77,7 @@
   Blow Down Water Column
 
   <span class="switch">
-    <input type="checkbox">
+    <input type="checkbox" name="blowDownWaterColumn">
     <span class="slider"></span>
   </span>
 </label>
@@ -84,7 +88,7 @@
   Blow Down Sight Glass
 
   <span class="switch">
-    <input type="checkbox">
+    <input type="checkbox" name="blowDownSightGlass">
     <span class="slider"></span>
   </span>
 </label>
@@ -96,7 +100,7 @@
   Blow Down Low Water Cut Out
 
   <span class="switch">
-    <input type="checkbox">
+    <input type="checkbox" name="blowDownLowWaterCutOut">
     <span class="slider"></span>
   </span>
 </label>
@@ -107,7 +111,51 @@
   Bottom Blow Boiler
 
   <span class="switch">
-    <input type="checkbox">
+    <input type="checkbox" name ="bottomBlowBoiler">
+    <span class="slider"></span>
+  </span>
+</label>
+</div>
+
+<div class="toggle-row">
+<label>
+  Checked Burner Ring For Proper Flame Pattern
+
+  <span class="switch">
+    <input type="checkbox" name = "checkedBurnerRingForProperFlamePattern">
+    <span class="slider"></span>
+  </span>
+</label>
+</div>
+
+<div class="toggle-row">
+<label>
+  Checked Excess Oxygen For Proper Level
+
+  <span class="switch">
+    <input type="checkbox" name = "checkedExcessOxygenForProperLevel">
+    <span class="slider"></span>
+  </span>
+</label>
+</div>
+
+<div class="toggle-row">
+<label>
+  Checked For Excess Combustibles
+
+  <span class="switch">
+    <input type="checkbox" name ="checkedForExcessCombustibles">
+    <span class="slider"></span>
+  </span>
+</label>
+</div>
+
+<div class="toggle-row">
+<label>
+  Visually Checked Entire Boiler
+
+  <span class="switch">
+    <input type="checkbox" name ="visuallyCheckedEntireBoiler">
     <span class="slider"></span>
   </span>
 </label>
@@ -115,6 +163,41 @@
 
 
 </div>
+
+
+
+
+
+<h3>Infrastructure Support Inspections:</h3>
+
+
+
+    <div class="input-group">
+        <label>Visible Emissions?</label>
+        <select name="emissions">
+            <option value="" disabled selected hidden></option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+
+
+    <div class="input-group">
+        <input type="time" id="time_smoke" name="timeSmokeFirstObserved">
+        <label>Time Smoke First Observed</label>
+    </div>
+
+
+      <div class="input-group">
+        <input type="time" id="time_smoke_cleared" name="timeSmokeCleared">
+        <label>Time Smoke Cleared</label>
+    </div>
+
+
+     <div class="input-group">
+        <input type="text" name="comments">
+        <label>Comments:</label>
+    </div>
 
     <button type="submit">Submit</button>
 
