@@ -60,7 +60,9 @@ def load_materials():
     except (FileNotFoundError, json.JSONDecodeError):
         return []
     
-
+@app.route("/flare")
+def flare():
+    return render_template("CEB_Flare.html")
 
 @app.route("/form", methods=["GET", "POST"])
 def index():
