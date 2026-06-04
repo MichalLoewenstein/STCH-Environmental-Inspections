@@ -1,5 +1,33 @@
 
 
+.table-container {
+  overflow-x: auto;
+}
+
+.responsive-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid #999;
+}
+
+.responsive-table th,
+.responsive-table td {
+  border: 1px solid #999;
+  padding: 10px;
+  text-align: center;
+}
+
+
+
+.responsive-table th {
+  font-weight: normal;   /* ✅ removes bold */
+}
+
+
+.responsive-table td:first-child {
+  text-align: left;
+  
+}
 /*this makes is stacked table*/
 
 @media (max-width: 600px) {
