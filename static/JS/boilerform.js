@@ -1,6 +1,7 @@
+const toggles = document.querySelectorAll('input[type="checkbox"]');
 
-const toggle = document.getElementById("toggle");
-
-toggle.addEventListener("change", () => {
-  console.log(toggle.checked ? "ON" : "OFF");
+toggles.forEach(toggle => {
+  toggle.addEventListener("change", () => {
+    console.log(toggle.name + ": " + (toggle.checked ? "ON" : "OFF"));
+  });
 });
