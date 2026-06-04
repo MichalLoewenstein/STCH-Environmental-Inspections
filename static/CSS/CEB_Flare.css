@@ -31,36 +31,37 @@
 /*this makes is stacked table*/
 
 @media (max-width: 600px) {
+
   .responsive-table thead {
     display: none;
   }
 
   .responsive-table,
-  .responsive-table tbody,
-  .responsive-table tr,
-  .responsive-table td {
+  .responsive-table tbody {
     display: block;
     width: 100%;
   }
 
   .responsive-table tr {
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
+    display: block;
+    border: 1px solid #999;
+    margin-bottom: 12px;
+    padding: 10px;
+    background: #fff;
+    border-radius: 6px;
   }
 
   .responsive-table td {
-    text-align: right;
-    padding-left: 50%;
-    position: relative;
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border: none;
   }
 
   .responsive-table td::before {
     content: attr(data-label);
-    position: absolute;
-    left: 10px;
-    width: 50%;
-    text-align: left;
-    font-weight: bold;
+    font-weight: 500;
+    color: #333;
   }
 }
 
