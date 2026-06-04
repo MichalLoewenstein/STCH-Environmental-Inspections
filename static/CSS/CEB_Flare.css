@@ -1,5 +1,27 @@
 
 
+/* ✅ Override input-row for full-width sections */
+.input-row.full-width {
+  display: block;        /* ✅ break the side-by-side layout */
+}
+
+.input-row.full-width input {
+  width: 100%;           /* ✅ FULL WIDTH */
+  max-width: 100%;
+}
+
+.input-row.full-width textarea {
+  width: 100%;
+  min-height: 120px;     /* ✅ default height */
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  resize: vertical;      /* ✅ user can expand */
+}
+
+
 .table-container {
   overflow-x: auto;
 }
