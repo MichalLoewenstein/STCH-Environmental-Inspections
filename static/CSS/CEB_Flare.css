@@ -1,0 +1,203 @@
+
+
+/* ✅ Override input-row for full-width sections */
+.input-row.full-width {
+  display: block;        /* ✅ break the side-by-side layout */
+}
+
+.input-row.full-width input {
+  width: 100%;           /* ✅ FULL WIDTH */
+  max-width: 100%;
+}
+.button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    align-items: center;
+}
+
+.input-row.full-width textarea {
+  width: 100%;
+  min-height: 120px;     /* ✅ default height */
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  resize: vertical;      /* ✅ user can expand */
+}
+
+
+.table-container {
+  overflow-x: auto;
+}
+
+.responsive-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid #999;
+}
+
+.responsive-table th,
+.responsive-table td {
+  border: 1px solid #999;
+  padding: 10px;
+  text-align: center;
+}
+
+
+
+.responsive-table th {
+  font-weight: normal;   /* ✅ removes bold */
+}
+
+
+.responsive-table td:first-child {
+  text-align: left;
+  
+}
+/*this makes is stacked table*/
+
+@media (max-width: 600px) {
+
+  .responsive-table thead {
+    display: none;
+  }
+
+  .responsive-table,
+  .responsive-table tbody {
+    display: block;
+    width: 100%;
+  }
+
+  .responsive-table tr {
+    display: block;
+    border: 1px solid #999;
+    margin-bottom: 12px;
+    padding: 10px;
+    background: #fff;
+    border-radius: 6px;
+  }
+
+  .responsive-table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border: none;
+  }
+
+  .responsive-table td::before {
+    content: attr(data-label);
+    font-weight: 500;
+    color: #333;
+  }
+  
+
+  /* Keep your existing styles... */
+
+  .responsive-table td {
+    display: flex;
+    justify-content: flex-start;   /* ✅ align everything left */
+    align-items: center;
+    padding: 6px 0;
+    border: none;
+    position: relative;
+  }
+
+  /* ✅ LEFT LABEL (like "Supplemental NG Flow", "25 SCFM") */
+  .responsive-table td::before {
+    content: attr(data-label);
+    min-width: 50%;            /* ✅ force left side width */
+    padding-right: 10px;
+    font-weight: 500;
+    color: #333;
+    text-align: left;          /* ✅ align to the left */
+    border-right: 2px solid #999;  /* ✅ THIS IS YOUR MIDDLE LINE */
+    margin-right: 10px;
+  }
+
+  /* ✅ RIGHT VALUE (numbers like 6.45, 12.9...) */
+  .responsive-table td {
+    text-align: left;
+  }
+
+
+}
+
+
+
+/* =====================================
+   IF WE DON'T WANT STACKED TABLE
+   Horizontal scroll version
+===================================== */
+
+/*
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+} 
+
+.responsive-table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 600px;
+  font-family: Arial, sans-serif;
+}
+
+.responsive-table th,
+.responsive-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+.responsive-table th:first-child,
+.responsive-table td:first-child {
+  text-align: left;
+  font-weight: bold;
+  background-color: #f5f5f5;
+}
+
+@media (max-width: 768px) {
+  .responsive-table th,
+  .responsive-table td {
+    padding: 8px;
+    font-size: 14px;
+  }
+}
+*/
+
+/* Time Buttons */
+
+
+.time-options {
+    display: flex;
+    gap: 10px;
+}
+
+/* Hide actual radio buttons */
+.time-options input[type="radio"] {
+    display: none;
+}
+
+/* Style the boxes */
+.time-box {
+    padding: 10px 20px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #f5f5f5;
+    transition: 0.2s;
+}
+
+/* Hover effect */
+.time-box:hover {
+    background: #e0e0e0;
+}
+
+/* Selected state */
+.time-options input[type="radio"]:checked + .time-box {
+    background: rgb(76, 72, 72);
+    color: white;
+    border-color:  rgb(76, 72, 72);
+}
