@@ -6,6 +6,9 @@
     <title>Flare Inspection Form</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/BoilerForm.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/CEB_Flare.css') }}">
+    <script src="{{ url_for('static', filename='js/boilerform.js')}}" defer></script>
+    
+
 </head>
 
 <body>
@@ -35,7 +38,7 @@
            <input type="radio" id="t1" name="time" value="4:00" required>
         <label for="t1" class="time-box">4:00</label>
     </div>
-
+</div>
     <!-- ===================================================== -->
     <!-- ✅ PRESSURE / MEASUREMENTS -->
     <!-- ===================================================== -->
@@ -208,3 +211,5 @@ ARI Environmental, Inc. 713-946-6222</h4>
         <label>Comments:</label>
         <input type="text" name="comments">    
     </div>
+    <button type="submit">Submit</button>
+</form>
