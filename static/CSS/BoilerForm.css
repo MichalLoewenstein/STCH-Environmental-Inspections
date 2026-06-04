@@ -222,6 +222,14 @@ input:checked + .slider:before {
     color: white;
     border-color:  rgb(76, 72, 72);
 }
+
+@media (max-width: 700px) {
+    .time-box {
+        flex: 1 1 calc(50% - 10px); /* ✅ 2 per row */
+        max-width: none;
+    }
+}
+
 /* =============================
    RESPONSIVE
 ============================= */
