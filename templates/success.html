@@ -2,44 +2,15 @@
 <html>
 <head>
     <title>Success</title>
-    <style>
-        body {
-            font-family: Arial;
-            background-color: #f5f5f5;
-            text-align: center;
-            padding-top: 100px;
-        }
-
-        .box {
-            background: white;
-            display: inline-block;
-            padding: 30px 40px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-
-        h2 {
-            color: green;
-        }
-
-        a {
-            display: inline-block;
-            margin-top: 20px;
-            text-decoration: none;
-            background: #0078d4;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/QR.css') }}">
 </head>
 
 <body>
+     <div class="card">
     <div class="box">
-        <h2>✅ Form successfully submitted</h2>
+        <h2> Form successfully submitted</h2>
         <p>Your data has been saved and emailed.</p>
-
-        <a href="/form">Submit another form</a>
+       </div>
     </div>
 </body>
 </html>

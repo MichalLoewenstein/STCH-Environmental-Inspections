@@ -1,0 +1,96 @@
+/* ✅ BASE LAYOUT */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f6fa;
+
+    padding: 12px;            /* ✅ small spacing like Power Apps */
+}
+
+/* ✅ CARD (FULL WIDTH STYLE) */
+.card {
+    width: 100%;
+    max-width: 500px;         /* ✅ nice width on desktop */
+
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+
+    margin: 10px auto;        /* ✅ center but not small */
+
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: stretch;     /* ✅ IMPORTANT (fix shrink issue) */
+}
+
+/* ✅ TITLE */
+h2 {
+    margin-bottom: 15px;
+    font-size: 20px;
+    text-align: center;
+}
+
+/* ✅ BUTTON CONTAINER */
+.buttons {
+    width: 100%;              /* ✅ allow full-width buttons */
+    display: flex;
+    flex-direction: column;
+}
+
+/* ✅ BUTTONS (POWER APPS STYLE) */
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;              /* ✅ FULL WIDTH (critical fix!) */
+    padding: 16px;
+
+    background: #6f879d;
+    color: white;
+
+    text-decoration: none;
+    border-radius: 10px;
+
+    font-weight: 600;
+    font-size: 16px;
+
+    margin-top: 12px;
+
+    transition: 0.2s ease;
+}
+
+/* ✅ HOVER EFFECT */
+.btn:hover {
+    background: #5b7388;
+}
+
+/* ✅ TOUCH FEEDBACK (like Power Apps) */
+.btn:active {
+    transform: scale(0.98);
+}
+
+/* ✅ MOBILE FIX */
+@media (max-width: 480px) {
+    body {
+        padding: 8px;
+    }
+
+    .card {
+        margin: 5px 0;
+        border-radius: 10px;
+        padding: 16px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    .btn {
+        font-size: 14px;
+        padding: 14px;
+    }
+}

@@ -1,0 +1,327 @@
+/* =============================
+   BASE
+============================= */
+body {
+    margin: 0;
+    padding: 30px;
+    background: #f5f6fa;
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* =============================
+   FORM
+============================= */
+form {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+
+    padding: 30px;
+    width: 60%;
+    max-width: 600px;
+}
+
+/* =============================
+   TITLE
+============================= */
+
+    
+
+.form-title {
+  margin: 0;
+  padding: 25px 10px;
+
+  width: 100%;              /* ✅ match form width */
+  max-width: 100%;          /* ✅ remove restriction */
+  
+  background-color: #6f879d;
+  color: white;
+
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+
+  border-radius: 12px 12px 0 0;   /* ✅ match card top */
+  box-sizing: border-box;
+}
+.button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    align-items: center;
+}
+
+/* =============================
+   BUTTON
+============================= */
+button {
+    width: 280px;
+    padding: 18px;
+
+    background: #6f879d;
+    color: white;
+
+    border: none;
+    border-radius: 8px;
+
+    margin: 20px auto 0;
+    cursor: pointer;
+
+    font-size: 16px;
+    display: block;
+}
+
+/* =============================
+   ✅ NORMAL FIELDS (FIXED)
+============================= */
+
+.input-row {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 12px;
+
+    align-items: center;
+    margin-top: 18px;
+}
+
+/* labels */
+.input-row label {
+    font-size: 15px;
+    color: #333;
+
+}
+.sub-header {
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: normal;
+    background-color:#e1dfdfcc;
+    color: rgb(76, 72, 72);
+    font-weight: 600;
+    text-align: center;
+    font-weight: bold !important;
+    padding: 8px 4px;
+}
+
+/* inputs + selects */
+.input-row input,
+.input-row select {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;      /* ✅ THIS fixes responsiveness */
+
+    height: 42px;
+    padding: 8px 12px;
+
+    border: 1px solid #ccc;
+    border-radius: 8px;
+
+    font-size: 9px;
+    background: white;
+
+    box-sizing: border-box; /* ✅ extra safety */
+}
+
+.input-row select {
+    appearance: none;
+    cursor: pointer;
+}
+
+/* focus */
+.input-row input:focus,
+.input-row select:focus {
+    border-color: #6f879d;
+    box-shadow: 0 0 0 3px rgba(90,108,255,0.15);
+    outline: none;
+}
+
+/* =============================
+   ✅ MATERIAL SECTION
+============================= */
+
+.material-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    margin-top: 15px;
+}
+
+/* Material */
+.material-row .field {
+    flex: 7;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+/* Quantity */
+.material-row .Quantity {
+    flex: 1;
+    min-width: 60px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Unit */
+.material-row .unit {
+    flex: 1;
+    min-width: 76px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Labels */
+.field label,
+.Quantity label,
+.unit label {
+    font-size: 15px;
+    margin-bottom: 4px;
+}
+
+/* ✅ INPUT STYLE (UNIFIED!) */
+.field input,
+.field select,
+.Quantity input,
+.unit select {
+    width: 100%;
+    height: 42px;
+
+    padding: 8px 12px;
+
+    border: 1px solid #ccc;
+    border-radius: 8px;
+
+    font-size: 14px;
+}
+
+/* focus */
+.field input:focus,
+.field select:focus,
+.Quantity input:focus,
+.unit select:focus {
+    border-color: #6f879d;
+    box-shadow: 0 0 0 3px rgba(90,108,255,0.15);
+    outline: none;
+}
+
+/* =============================
+   ADD & DELETE
+============================= */
+.add-btn {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.add-btn button {
+    width: 20px;
+    height: 20px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.delete-btn {
+    width: 26px;
+    height: 28px;
+
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: 6px;
+    color: #615e5e;
+
+    font-size: 12px;   /* 👈 key change (smaller icon) */
+    cursor: pointer;
+}
+
+
+.delete-btn:hover {
+    background-color: #615e5e;
+}
+
+/* =============================
+   RESPONSIVE
+============================= */
+@media (max-width: 700px) {
+
+    form {
+        padding: 20px;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* ✅ normal fields stack */
+    .input-row {
+        grid-template-columns: 1fr;
+    }
+
+    /* ✅ MATERIAL SECTION (2 ROW LAYOUT) */
+    .material-row {
+        display: grid;
+        grid-template-columns: 40px 1fr 40px;
+        grid-template-rows: auto auto;
+        gap: 10px;
+        width: 100%;
+    }
+
+    /* ✅ ROW 1 → [+] + MATERIAL */
+    .add-btn {
+        grid-column: 1 / 2;
+        grid-row: 1;
+        align-self: center;
+        justify-self: center;
+    }
+
+    .material-row .field {
+        grid-column: 2 / 4;  /* span full width */
+        grid-row: 1;
+        width: 100%;
+    }
+
+    /* ✅ ROW 2 → QTY + UNIT + DELETE */
+    .material-row .Quantity {
+        grid-column: 2 / 3;
+        grid-row: 2;
+        width: 100%;
+    }
+
+    .material-row .unit {
+        grid-column: 3 / 4;
+        grid-row: 2;
+        width: 100%;
+    }
+
+    .delete {
+        grid-column: 4 / 5;
+        grid-row: 2;
+    }
+
+    /* ✅ adjust layout width so delete fits nicely */
+    .material-row {
+        grid-template-columns: 40px 1fr 1fr 40px;
+    }
+
+    /* ✅ full width submit */
+    button {
+        width: 100%;
+    }
+}
+
+

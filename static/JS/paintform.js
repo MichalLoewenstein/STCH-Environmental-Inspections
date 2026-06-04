@@ -112,11 +112,11 @@ function updateAddButtons() {
     rows.forEach((row, index) => {
         let buttonDiv = row.querySelector(".add-btn");
 
-        if (index === rows.length - 1) {
-            buttonDiv.style.display = "block";  // ✅ show only last row
-        } else {
-            buttonDiv.style.display = "none";   // ✅ hide others
-        }
+        // if (index === rows.length - 1) {
+        //     buttonDiv.style.display = "block";  // ✅ show only last row
+        // } else {
+        //     buttonDiv.style.display = "none";   // ✅ hide others
+        // }
     });
 }
 

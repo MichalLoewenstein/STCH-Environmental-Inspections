@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request,redirect, url_for
 from datetime import datetime, timedelta
 from export import generate_excel
+from boilerExport import generate_boilerExcel
 import smtplib
 import json
 from email.message import EmailMessage
@@ -20,10 +21,37 @@ FILE_PATH = os.path.join(BASE_DIR, "materials.json")
  
 # Home route to display the form
 @app.route("/")
+def QRScreen():
+    return render_template("QRscreen.html")
+
+@app.route("/home")
 def home():
     return render_template("home.html")
 
+@app.route("/boiler", methods=["GET", "POST"])
+def Boiler():
 
+    if request.method == "POST":
+        # converts user inputs into python dictionary
+        form_data = request.form.to_dict()
+
+        if not form_data:
+            raise ValueError("No form data submitted")
+
+        # ✅ Generate Excel
+        print("Generating Excel with form data:", form_data)
+        excel_file = generate_boilerExcel(form_data)
+
+        # ✅ Send email
+        send_email(excel_file, form_data, subject= "STCH Maintenance Boiler")
+
+        print("✅ Excel created and email sent")
+
+        # ✅ Navigate to success page
+        return redirect(url_for("success"))
+
+    # ✅ This MUST be inside the function
+    return render_template("BoilerForm.html")
 
 def load_materials():
     try:
@@ -31,7 +59,10 @@ def load_materials():
             return json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
         return []
-
+    
+@app.route("/flare")
+def flare():
+    return render_template("CEB_Flare.html")
 
 @app.route("/form", methods=["GET", "POST"])
 def index():
@@ -83,7 +114,7 @@ def index():
         excel_file = generate_excel(form_data, final_materials, quantities, units)
 
         # ✅ Send email
-        send_email(excel_file, form_data)
+        send_email(excel_file, form_data, subject= "STCH Maintenance Paint and Soundblasting")
 
         print("✅ Excel created and email sent")
 
@@ -142,7 +173,7 @@ import smtplib
 from email.message import EmailMessage
 from datetime import datetime, timezone
 
-def send_email(excel_file,form_data):
+def send_email(excel_file,form_data, subject):
 
     sender = "devorawork2026@gmail.com"
     password = "pwgbpczelqlwqkqb"
@@ -153,7 +184,7 @@ def send_email(excel_file,form_data):
     receiver1 = "T.Shaliyehsabou@shell.com"
 
     msg1 = EmailMessage()
-    msg1['Subject'] = "STCH Maintenance"
+    msg1['Subject'] = subject
     msg1['From'] = sender
     msg1['To'] = receiver1
     msg1.set_content("Attached is the submitted Paint form.")
@@ -166,7 +197,7 @@ def send_email(excel_file,form_data):
         excel_file.read(),
         maintype='application',
         subtype='octet-stream',
-        filename=f'form_data_{utc_now}.xlsx'
+        filename=f'{subject}_{utc_now}.xlsx'
     )
 
     # =========================
