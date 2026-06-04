@@ -188,13 +188,47 @@ input:checked + .slider:before {
     padding: 5px 0
 }
 
+/* Time Buttons */
 
+
+.time-options {
+    display: flex;
+    gap: 10px;
+}
+
+/* Hide actual radio buttons */
+.time-options input[type="radio"] {
+    display: none;
+}
+
+/* Style the boxes */
+.time-box {
+    padding: 10px 20px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #f5f5f5;
+    transition: 0.2s;
+}
+
+/* Hover effect */
+.time-box:hover {
+    background: #e0e0e0;
+}
+
+/* Selected state */
+.time-options input[type="radio"]:checked + .time-box {
+    background: rgb(76, 72, 72);
+    color: white;
+    border-color:  rgb(76, 72, 72);
+}
 /* =============================
    RESPONSIVE
 ============================= */
 @media (max-width: 700px) {
 
     form {
+        padding: 20px;
         width: 100%;
         max-width: 100%;
     }

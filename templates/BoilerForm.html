@@ -6,7 +6,7 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/BoilerForm.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <script src="{{ url_for('static', filename='js/boilerform.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/boilerform.js')}}" defer></script>
 
 </head>
 
@@ -46,17 +46,26 @@
         <input type="date" id="date" name="date">
     </div>
 
-    <div class="input-row">
-        <label>Time</label>
-        <select name="time" required>
-            <option value="" disabled selected hidden></option>
-            <option value="4:00">4:00</option>
-            <option value="10:00">10:00</option>
-            <option value="16:00">16:00</option>
-            <option value="22:00">22:00</option>
-        </select>
+  <div class="input-row">
+    <label>Time</label>
+
+    <div class="time-options">
+     
+
+        <input type="radio" id="t2" name="time" value="10:00">
+        <label for="t2" class="time-box">10:00</label>
+
+        <input type="radio" id="t3" name="time" value="16:00">
+        <label for="t3" class="time-box">16:00</label>
+
+        <input type="radio" id="t4" name="time" value="22:00">
+        <label for="t4" class="time-box">22:00</label>
+
+           <input type="radio" id="t1" name="time" value="4:00" required>
+        <label for="t1" class="time-box">4:00</label>
     </div>
-    <div class="sub-header">placeholder </div>
+</div>
+   <!--  <div class="sub-header">placeholder </div> -->
     <!-- ✅ CHECKLIST -->
     <div class="form-row">
 

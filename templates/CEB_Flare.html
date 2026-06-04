@@ -17,18 +17,24 @@
     <!-- ===================================================== -->
     <!-- ✅ TIME SELECTION -->
     <!-- ===================================================== -->
-    <div class="input-row">
-        <label>Inspection Time</label>
-        <select name="inspection_time">
-            <option disabled selected hidden></option>
-            <option>04:00</option>
-            <option>10:00</option>
-            <option>16:00</option>
-            <option>22:00</option>
-        </select>
-        
-    </div>
+  <div class="input-row">
+    <label>Inspection Time</label>
 
+    <div class="time-options">
+     
+
+        <input type="radio" id="t2" name="time" value="10:00">
+        <label for="t2" class="time-box">10:00</label>
+
+        <input type="radio" id="t3" name="time" value="16:00">
+        <label for="t3" class="time-box">16:00</label>
+
+        <input type="radio" id="t4" name="time" value="22:00">
+        <label for="t4" class="time-box">22:00</label>
+
+           <input type="radio" id="t1" name="time" value="4:00" required>
+        <label for="t1" class="time-box">4:00</label>
+    </div>
 
     <!-- ===================================================== -->
     <!-- ✅ PRESSURE / MEASUREMENTS -->
