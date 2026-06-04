@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flare Inspection Form</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/Formstyle.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/paintform.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/CEB_Flare.css') }}">
 </head>
 
@@ -12,12 +12,13 @@
 
 <form method="POST">
 
-    <h2 class="form-title">Flare / CEB Inspection Form</h2>
+    <h1 class="form-title">Flare / CEB Inspection Form</h1>
 
     <!-- ===================================================== -->
     <!-- ✅ TIME SELECTION -->
     <!-- ===================================================== -->
-    <div class="input-group">
+    <div class="input-row">
+        <label>Inspection Time</label>
         <select name="inspection_time">
             <option disabled selected hidden></option>
             <option>04:00</option>
@@ -25,7 +26,7 @@
             <option>16:00</option>
             <option>22:00</option>
         </select>
-        <label>Inspection Time</label>
+        
     </div>
 
 
@@ -36,29 +37,29 @@
      <!--<h3>Pressure / Measurement Readings</h3>-->
     <h3>Ground Flare Only</h3>
 
-    <div class="input-group">
-        <input type="number" name="sp1" placeholder=" ">
+    <div class="input-row">
         <label>SP-1 (Inches)</label>
+        <input type="number" name="sp1" >   
     </div>
 
-    <div class="input-group">
-        <input type="number" name="sp2" placeholder=" ">
+    <div class="input-row">
         <label>SP-2 (Inches)</label>
+        <input type="number" name="sp2" >
     </div>
 
-    <div class="input-group">
-        <input type="number" name="kp1" placeholder=" ">
+    <div class="input-row">
         <label>KP-1 (Inches)</label>
+        <input type="number" name="kp1" >  
     </div>
 
-    <div class="input-group">
-        <input type="number" name="pilot_gas_pressure" placeholder=" ">
+    <div class="input-row">
         <label>Pilot Gas Pressure (PSIG)</label>
+        <input type="number" name="pilot_gas_pressure" >  
     </div>
 
-    <div class="input-group">
-        <input type="number" name="supplemental_ng_flow1" placeholder=" ">
+    <div class="input-row">
         <label>Supplemental NG Flow (SCFM)</label>
+        <input type="number" name="supplemental_ng_flow1" >  
     </div>
 
 
@@ -66,22 +67,28 @@
     <!-- ✅ FLAME VISIBILITY -->
     <!-- ===================================================== -->
 
+<<<<<<< HEAD
     <div class="input-group">
+=======
+     <div class="sub-header">Flame Visibility</div>
+
+    <div class="input-row">
+        <label>Main flame visible?</label>
+>>>>>>> d36d9bc (CEB Flare)
         <select name="main_flame_visible">
             <option disabled selected hidden></option>
             <option>Yes</option>
             <option>No</option>
         </select>
-        <label>Main flame visible?</label>
     </div>
 
-    <div class="input-group">
+    <div class="input-row">
+        <label>Pilot flame visible?</label>
         <select name="pilot_flame_visible">
             <option disabled selected hidden></option>
             <option>Yes</option>
             <option>No</option>
         </select>
-        <label>Pilot flame visible?</label>
     </div>
 
 
@@ -89,19 +96,19 @@
     <!-- ✅ WASTE GAS -->
     <!-- ===================================================== -->
 
-   <!-- <h3>Waste Gas</h3>-->
+   <div class="sub-header">Waste Gas</div>
 
-    <div class="input-group">
-        <input type="number" name="waste_gas_flow" placeholder=" ">
+    <div class="input-row"> 
         <label>Waste Gas Flow (SCFM)</label>
+        <input type="number" name="waste_gas_flow" >   
     </div>
-<div class="input-group">
-        <input type="number" name="waste_gas_temp" placeholder=" ">
+    <div class="input-row">
         <label>Waste Gas Temperature (&deg;F):</label>
+        <input type="number" name="waste_gas_temp" >
     </div>
 
 
-    <h3>Table</h3>
+    <div class="sub-header">Table</div>
 
 
 <div class="table-container">
@@ -135,9 +142,9 @@
   </table>
 </div>
 
-<h3>CEB only:</h3>
+<div class="sub-header">CEB only:</div>
 
-<div class="input-group">
+<div class="input-row">
     <label>CEB On/Off</label>
         <select name="CEBchoice" required>
             <option value="" disabled selected hidden></option>
@@ -148,19 +155,20 @@
     </div>
 
 
-   <div class="input-group">
-        <input type="number" name="supplemental_ng_flow2" placeholder=" ">
+   <div class="input-row">
         <label>Supplemental NG Flow (SCFM)</label>
+        <input type="number" name="supplemental_ng_flow2" >   
     </div>
 
 
-    <div class="input-group">
-        <input type="number" name="stacktemperature" placeholder=" ">
+    <div class="input-row">
         <label>Stack Temperature (&deg;F)</label>
+        <input type="number" name="stacktemperature" >
+        
     </div>
 
    
-<div class="input-group">
+<div class="input-row">
     <label>Is maintenance complete?</label>
         <select name="maintaincomplete" required>
             <option value="" disabled selected hidden></option>
@@ -170,9 +178,9 @@
         
     </div>
 
-    <h3>Infrastructre Support Supervisor Inspections:</h3>
+    <div class="sub-header">Infrastructre Support Supervisor Inspections:</div>
 
-    <div class="input-group">
+    <div class="input-row">
     <label>Flare Visible Emissions?</label>
         <select name="flarevisemission" required>
             <option value="" disabled selected hidden></option>
@@ -182,7 +190,7 @@
         
     </div>
 
-    <div class="input-group">
+    <div class="input-row">
     <label>CEB Visible Emissions?</label>
         <select name="CEBvisemission" required>
             <option value="" disabled selected hidden></option>
@@ -196,7 +204,7 @@
 Call Gas Sampling Company When the CEB is Down
 ARI Environmental, Inc. 713-946-6222</h4>
 
- <div class="input-group">
-        <input type="text" name="comments">
+ <div class="input-row">
         <label>Comments:</label>
+        <input type="text" name="comments">    
     </div>
