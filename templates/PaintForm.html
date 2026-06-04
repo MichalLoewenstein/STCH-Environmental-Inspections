@@ -17,7 +17,7 @@
         <p class="error">{{ error }}</p>
     {% endif %}
     
-    <h1 class="form-title">Paint, Products & Sandblasting LOG</h1>
+    <div class="form-title">Paint, Products & Sandblasting LOG</div>
     
     <div class="input-row"> 
         <label>Company</label>
@@ -45,7 +45,7 @@
         <label>Phone Number*</label>
         <input type="tel" name="phone" required >
     </div>
-
+    <div class="sub-header">Location and Date</div>
     <div class="input-row">
         <label>Location</label>
         <input type="text" id="location" name="location" > 
@@ -112,7 +112,7 @@
         <div class="unit">
               <label>Unit</label>
               <select name="measure[]" required>
-                    <option value="" disabled selected>Select unit</option>
+                    <option value="" disabled selected>Select</option>
                     <option value="Gallons">GAL</option>
                     <option value="Pounds">LBS</option>
               </select>
@@ -129,6 +129,8 @@
      <br>
 
     <button type="submit">Submit</button>
+     <div class="button">
+    <a href="/home">Cancel</a></div>
 
 </form>
   

@@ -30,11 +30,31 @@ form {
 /* =============================
    TITLE
 ============================= */
+
+    
+
 .form-title {
-    text-align: center;
-    margin-bottom: 25px;
-    color: #6f879d;
-    font-size: 24px;
+  margin: 0;
+  padding: 25px 10px;
+
+  width: 100%;              /* ✅ match form width */
+  max-width: 100%;          /* ✅ remove restriction */
+  
+  background-color: #6f879d;
+  color: white;
+
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+
+  border-radius: 12px 12px 0 0;   /* ✅ match card top */
+  box-sizing: border-box;
+}
+.button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    align-items: center;
 }
 
 /* =============================
@@ -78,7 +98,7 @@ button {
 }
 .sub-header {
     margin-top: 30px;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: normal;
     background-color:#e1dfdfcc;
     color: rgb(76, 72, 72);
@@ -101,7 +121,7 @@ button {
     border: 1px solid #ccc;
     border-radius: 8px;
 
-    font-size: 14px;
+    font-size: 9px;
     background: white;
 
     box-sizing: border-box; /* ✅ extra safety */
@@ -143,7 +163,7 @@ button {
 /* Quantity */
 .material-row .Quantity {
     flex: 1;
-    min-width: 100px;
+    min-width: 60px;
     display: flex;
     flex-direction: column;
 }
@@ -151,7 +171,7 @@ button {
 /* Unit */
 .material-row .unit {
     flex: 1;
-    min-width: 110px;
+    min-width: 76px;
     display: flex;
     flex-direction: column;
 }
@@ -200,9 +220,9 @@ button {
 }
 
 .add-btn button {
-    width: 32px;
-    height: 32px;
-
+    width: 20px;
+    height: 20px;
+    font-size: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -215,20 +235,22 @@ button {
 }
 
 .delete-btn {
-    width: 32px;
-    height: 32px;
+    width: 26px;
+    height: 28px;
 
+    background-color: white;
     display: flex;
     align-items: center;
     justify-content: center;
 
     border: none;
     border-radius: 6px;
-    
+    color: #615e5e;
 
-    font-size: 16px;
+    font-size: 12px;   /* 👈 key change (smaller icon) */
     cursor: pointer;
 }
+
 
 .delete-btn:hover {
     background-color: #615e5e;

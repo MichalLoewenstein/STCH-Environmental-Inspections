@@ -16,11 +16,15 @@
 <form method="POST">
 
     <h1 class="form-title">Flare / CEB Inspection Form</h1>
-
+     <br>
     <!-- ===================================================== -->
     <!-- ✅ TIME SELECTION -->
     <!-- ===================================================== -->
-  <div class="input-row">
+    <div class="input-row">
+        <label>Date</label>
+        <input type="date" id="date" name="date">
+    </div>
+    <div class="input-row">
     <label>Inspection Time</label>
 
     <div class="time-options">
@@ -39,6 +43,10 @@
         <label for="t1" class="time-box">4:00</label>
     </div>
 </div>
+ <div class="input-row">
+        <label>Operator*</label>
+        <input type="text" name="operator" required>
+    </div>
     <!-- ===================================================== -->
     <!-- ✅ PRESSURE / MEASUREMENTS -->
     <!-- ===================================================== -->
@@ -215,4 +223,6 @@
     </div>
     <br>
     <button type="submit">Submit</button>
+    <div class="button">
+    <a href="/home">Cancel</a></div>
 </form>

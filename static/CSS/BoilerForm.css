@@ -10,6 +10,31 @@ body {
     display: flex;
     justify-content: center;
 }
+.input-row.full-width {
+  display: block;        /* ✅ break the side-by-side layout */
+}
+
+.input-row.full-width input {
+  width: 100%;           /* ✅ FULL WIDTH */
+  max-width: 100%;
+}
+
+.input-row.full-width textarea {
+  width: 100%;
+  min-height: 120px;     /* ✅ default height */
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  resize: vertical;      /* ✅ user can expand */
+}
+.button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    align-items: center;
+}
 
 * {
     box-sizing: border-box;
@@ -31,10 +56,21 @@ form {
    TITLE
 ============================= */
 .form-title {
-    text-align: center;
-    margin-bottom: 25px;
-    color: #6f879d;
-    font-size: 24px;
+  margin: 0;
+  padding: 25px 10px;
+
+  width: 100%;              /* ✅ match form width */
+  max-width: 100%;          /* ✅ remove restriction */
+  
+  background-color: #6f879d;
+  color: white;
+
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+
+  border-radius: 12px 12px 0 0;   /* ✅ match card top */
+  box-sizing: border-box;
 }
 
 /* =============================

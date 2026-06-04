@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boiler Form</title>
+    <title>Boiler Inspection Form</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/BoilerForm.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -19,8 +19,33 @@
         <p class="error">{{ error }}</p>
     {% endif %}
 
-    <h1 class="form-title">Boiler Form</h1>
+    <h1 class="form-title">Boiler Inspection Form</h1>
+    
+    <div class="input-row">
+        <label>Date</label>
+        <input type="date" id="date" name="date">
+    </div>
+    
+  <div class="input-row">
+    <label>Time</label>
 
+    <div class="time-options">
+     
+
+        <input type="radio" id="t2" name="time" value="10:00" required>
+        <label for="t2" class="time-box">10:00</label>
+
+        <input type="radio" id="t3" name="time" value="16:00">
+        <label for="t3" class="time-box">16:00</label>
+
+        <input type="radio" id="t4" name="time" value="22:00">
+        <label for="t4" class="time-box">22:00</label>
+
+           <input type="radio" id="t1" name="time" value="4:00">
+        <label for="t1" class="time-box">4:00</label>
+    </div>
+</div>
+     <div class="sub-header">Operator</div>
     <!-- ✅ BASIC INFO -->
     <div class="input-row">
         <label>Operator*</label>
@@ -42,32 +67,11 @@
         <input type="text" name="boilerNumber" required>
     </div>
 
-    <div class="input-row">
-        <label>Date</label>
-        <input type="date" id="date" name="date">
-    </div>
+    
 
-  <div class="input-row">
-    <label>Time</label>
-
-    <div class="time-options">
-     
-
-        <input type="radio" id="t2" name="time" value="10:00" required>
-        <label for="t2" class="time-box">10:00</label>
-
-        <input type="radio" id="t3" name="time" value="16:00">
-        <label for="t3" class="time-box">16:00</label>
-
-        <input type="radio" id="t4" name="time" value="22:00">
-        <label for="t4" class="time-box">22:00</label>
-
-           <input type="radio" id="t1" name="time" value="4:00">
-        <label for="t1" class="time-box">4:00</label>
-    </div>
-</div>
    <!--  <div class="sub-header">placeholder </div> -->
     <!-- ✅ CHECKLIST -->
+     <div class="sub-header">Inspection </div>
     <div class="form-row">
 
         <div class="toggle-row">
@@ -188,8 +192,15 @@
         <label>Comments:</label>
         <input type="text" name="comments">
     </div>
+    <div class="sub-header">Comments</div>
+    <div class="input-row full-width">
+        <!-- <label>Comments:</label> -->
+        <textarea name="comments" placeholder="Comments"></textarea>
+    </div>
 
     <button type="submit">Submit</button>
+     <div class="button">
+    <a href="/home">Cancel</a></div>
 
 </form>
 
