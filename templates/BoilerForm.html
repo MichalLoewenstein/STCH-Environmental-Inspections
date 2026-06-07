@@ -4,7 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boiler Inspection Form</title>
+<style>
+html { visibility: hidden; }
+</style>
 
+
+<script>
+(function () {
+    const nav = performance.getEntriesByType("navigation")[0];
+
+    if (nav && nav.type === "back_forward") {
+        window.location.replace("/");
+    } else {
+        document.documentElement.style.visibility = "visible";
+    }
+})();
+</script>
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/BoilerForm.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="{{ url_for('static', filename='js/boilerform.js')}}" defer></script>
@@ -13,7 +28,7 @@
 
 <body>
 
-<form method="POST">
+<form method="POST" autocomplete="off">
 
     {% if error %}
         <p class="error">{{ error }}</p>
