@@ -114,10 +114,8 @@ button {
     width: 100%;
     max-width: 100%;
     min-width: 0;      /* ✅ THIS fixes responsiveness */
-
     height: 42px;
     padding: 8px 12px;
-
     border: 1px solid #ccc;
     border-radius: 8px;
     background: white;

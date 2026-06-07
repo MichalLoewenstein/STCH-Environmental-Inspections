@@ -41,3 +41,7 @@ toggles.forEach(toggle => {
       if (message) message.textContent = "";
     });
   });
+
+
+  let today = new Date().toISOString().split('T')[0];
+    document.getElementById("date").value = today;
