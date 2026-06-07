@@ -44,7 +44,7 @@ form {
   color: white;
 
   text-align: center;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 600;
 
   border-radius: 12px 12px 0 0;   /* ✅ match card top */
@@ -120,8 +120,6 @@ button {
 
     border: 1px solid #ccc;
     border-radius: 8px;
-
-    font-size: 9px;
     background: white;
 
     box-sizing: border-box; /* ✅ extra safety */
