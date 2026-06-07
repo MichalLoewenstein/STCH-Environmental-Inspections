@@ -94,7 +94,7 @@ def flare():
     return response
 
 
-@app.route("/form", methods=["GET", "POST"])
+@app.route("/paint", methods=["GET", "POST"])
 def index():
 
     materialslist = load_materials()
