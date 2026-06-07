@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request,redirect, url_for
+from flask import Flask, render_template, request,redirect, url_for, make_response
 from datetime import datetime, timedelta
 from export import generate_excel
 from boilerExport import generate_boilerExcel
+from CEBflareExport import generate_flareExcel
 import smtplib
 import json
 from email.message import EmailMessage
@@ -60,12 +61,38 @@ def load_materials():
     except (FileNotFoundError, json.JSONDecodeError):
         return []
     
-@app.route("/flare")
+@app.route("/flare", methods=["GET", "POST"])
 def flare():
-    return render_template("CEB_Flare.html")
+
+    if request.method == "POST":
+                # converts user inputs into python dictionary
+        form_data = request.form.to_dict()
+
+        if not form_data:
+            raise ValueError("No form data submitted")
+
+        # ✅ Generate Excel
+        print("Generating Excel with form data:", form_data)
+        excel_file = generate_flareExcel(form_data)
+
+        # ✅ Send email
+        send_email(excel_file, form_data, subject= "STCH Maintenance CEB_Flare")
+
+        print("✅ Excel created and email sent")
+        # ✅ Navigate to success page
+        return redirect(url_for("success"))
+    
+    response = make_response(render_template('CEB_Flare.html'))
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+
+    return response
+
 
 @app.route("/form", methods=["GET", "POST"])
 def index():
+
     materialslist = load_materials()
     if request.method == "POST":
 
@@ -108,6 +135,7 @@ def index():
 
         # ✅ Navigate to success page
         return redirect(url_for("success"))
+
 
     return render_template("PaintForm.html", materialslist =materialslist )
 

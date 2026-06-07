@@ -162,3 +162,5 @@ function checkOther(selectElement) {
         input.value = "";                // ✅ clear value
     }
 }
+
+
