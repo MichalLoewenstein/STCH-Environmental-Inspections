@@ -130,6 +130,7 @@ button {
 .input-row select {
     appearance: none;
     cursor: pointer;
+     font-size: 14px;
 }
 
 /* focus */
@@ -138,6 +139,7 @@ button {
     border-color: #6f879d;
     box-shadow: 0 0 0 3px rgba(90,108,255,0.15);
     outline: none;
+   
 }
 
 /* =============================
