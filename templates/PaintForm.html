@@ -22,9 +22,9 @@ html { visibility: hidden; }
     }
 })();
 </script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/paintform.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/PaintForm.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <script src="{{ url_for('static', filename='js/paintform.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/PaintForm.js')}}"></script>
 </head>
 
 <body>
@@ -33,7 +33,7 @@ html { visibility: hidden; }
         <p class="error">{{ error }}</p>
     {% endif %}
     
-    <div class="form-title">Paint, Products & Sandblasting LOG</div>
+    <div class="form-title">Paint, Products & Sandblasting Log</div>
     
     <div class="input-row"> 
         <label>Company</label>
@@ -84,7 +84,7 @@ html { visibility: hidden; }
 
     <div class="input-row">
         <label>Break (minutes)</label>
-        <input type="number" id="break" name="break" value="0">    
+        <input type="number" min="0" id="break" name="break" value="0">    
     </div>
 
     <div class="input-row">
@@ -121,7 +121,7 @@ html { visibility: hidden; }
         <!-- ✅ Quantity -->
         <div class="Quantity">
              <label>Quantity</label>
-             <input type="number" name="quantity[]" required placeholder=" ">
+             <input type="number" min="0" name="quantity[]" required placeholder=" ">
        </div>
 
         <!-- ✅ Unit -->

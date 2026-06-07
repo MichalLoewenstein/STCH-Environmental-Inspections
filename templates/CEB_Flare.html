@@ -78,27 +78,27 @@ html { visibility: hidden; }
 
     <div class="input-row">
         <label>SP-1 (Inches)</label>
-        <input type="number" name="sp1" >   
+        <input type="number" min="0" name="sp1" >   
     </div>
 
     <div class="input-row">
         <label>SP-2 (Inches)</label>
-        <input type="number" name="sp2" >
+        <input type="number" min="0" name="sp2" >
     </div>
 
     <div class="input-row">
         <label>KP-1 (Inches)</label>
-        <input type="number" name="kp1" >  
+        <input type="number" min="0" name="kp1" >  
     </div>
 
     <div class="input-row">
         <label>Pilot Gas Pressure (PSIG)</label>
-        <input type="number" name="pilot_gas_pressure" >  
+        <input type="number" min="0" name="pilot_gas_pressure" >  
     </div>
 
     <div class="input-row">
         <label>Supplemental NG Flow (SCFM)</label>
-        <input type="number" name="supplemental_ng_flow1" >  
+        <input type="number" min="0" name="supplemental_ng_flow1" >  
     </div>
 
 
@@ -133,49 +133,42 @@ html { visibility: hidden; }
 
     <div class="input-row"> 
         <label>Waste Gas Flow (SCFM)</label>
-        <input type="number" name="waste_gas_flow" >   
+        <input type="number" min="0" name="waste_gas_flow" >   
     </div>
     <div class="input-row">
         <label>Waste Gas Temperature (&deg;F):</label>
-        <input type="number" name="waste_gas_temp" >
+        <input type="number" min="0"name="waste_gas_temp" >
     </div>
 
 
     <div class="sub-header">Table</div>
 
 <br>
+
+
 <div class="table-container">
   <table class="responsive-table">
     <thead>
       <tr>
         <th>Waste Gas Flow (SCFM)</th>
-        <th>25</th>
-        <th>50</th>
-        <th>75</th>
-        <th>100</th>
-        <th>125</th>
-        <th>150</th>
-        <th>175</th>
-        <th>200</th>
+        <th>Supplemental NG Flow</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td data-label="Flow">Supplemental NG Flow</td>
-        <td data-label="25 SCFM">6.45</td>
-        <td data-label="50 SCFM">12.9</td>
-        <td data-label="75 SCFM">19.3</td>
-        <td data-label="100 SCFM">25.8</td>
-        <td data-label="125 SCFM">32.2</td>
-        <td data-label="150 SCFM">38.7</td>
-        <td data-label="175 SCFM">45.1</td>
-        <td data-label="200 SCFM">51.6</td>
-      </tr>
+      <tr><td>25</td><td>6.45</td></tr>
+      <tr><td>50</td><td>12.9</td></tr>
+      <tr><td>75</td><td>19.3</td></tr>
+      <tr><td>100</td><td>25.8</td></tr>
+      <tr><td>125</td><td>32.2</td></tr>
+      <tr><td>150</td><td>38.7</td></tr>
+      <tr><td>175</td><td>45.1</td></tr>
+      <tr><td>200</td><td>51.6</td></tr>
     </tbody>
   </table>
 </div>
 
-<div class="sub-header">CEB only:</div>
+
+<div class="sub-header">CEB Only</div>
 
 <div class="input-row">
     <label>CEB On/Off</label>
@@ -190,13 +183,13 @@ html { visibility: hidden; }
 
    <div class="input-row">
         <label>Supplemental NG Flow (SCFM)</label>
-        <input type="number" name="supplemental_ng_flow2" >   
+        <input type="number" min="0" name="supplemental_ng_flow2" >   
     </div>
 
 
     <div class="input-row">
         <label>Stack Temperature (&deg;F)</label>
-        <input type="number" name="stacktemperature" >
+        <input type="number" min="0" name="stacktemperature" >
         
     </div>
 
@@ -211,7 +204,7 @@ html { visibility: hidden; }
         
     </div>
 
-    <div class="sub-header">Infrastructre Support Supervisor Inspections:</div>
+    <div class="sub-header">Infrastructre Support Supervisor Inspections</div>
 
     <div class="input-row">
     <label>Flare Visible Emissions?</label>
@@ -234,7 +227,7 @@ html { visibility: hidden; }
     </div>
     <div class="sub-header">Comments</div>
     <br>
-    <label>When Off-Line call EO Unit to find out their status 9-281-544-7371 (4-7371)
+    <label class="Comments">When Off-Line call EO Unit to find out their status 9-281-544-7371 (4-7371)
         Call Gas Sampling Company When the CEB is Down
         ARI Environmental, Inc. 713-946-6222</label>
       
