@@ -260,6 +260,17 @@ input:checked + .slider:before {
     border-color:  rgb(76, 72, 72);
 }
 
+
+
+#autoSelectMsg {
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 5px;
+  font-style: italic;
+  transition: opacity 0.3s ease;
+}
+
+
 @media (max-width: 700px) {
     .time-box {
         flex: 1 1 calc(50% - 10px); /* ✅ 2 per row */
