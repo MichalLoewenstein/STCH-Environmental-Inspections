@@ -84,7 +84,7 @@ html { visibility: hidden; }
 
     <div class="input-row">
         <label>Break (minutes)</label>
-        <input type="number" id="break" name="break" value="0">    
+        <input type="number" min="0" id="break" name="break" value="0">    
     </div>
 
     <div class="input-row">
@@ -121,7 +121,7 @@ html { visibility: hidden; }
         <!-- ✅ Quantity -->
         <div class="Quantity">
              <label>Quantity</label>
-             <input type="number" name="quantity[]" required placeholder=" ">
+             <input type="number" min="0" name="quantity[]" required placeholder=" ">
        </div>
 
         <!-- ✅ Unit -->
