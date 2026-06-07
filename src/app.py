@@ -50,9 +50,15 @@ def Boiler():
 
         # ✅ Navigate to success page
         return redirect(url_for("success"))
+    
 
-    # ✅ This MUST be inside the function
-    return render_template("BoilerForm.html")
+    response = make_response(render_template('BoilerForm.html'))
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+
+    return response
+
 
 def load_materials():
     try:
@@ -137,7 +143,15 @@ def index():
         return redirect(url_for("success"))
 
 
-    return render_template("PaintForm.html", materialslist =materialslist )
+    # ✅ GET request → return response WITH no-cache headers
+    response = make_response(render_template("PaintForm.html", materialslist=materialslist))
+
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+
+    return response
+
 
 
 def add_material(name):
