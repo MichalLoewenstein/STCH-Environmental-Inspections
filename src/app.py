@@ -57,6 +57,36 @@ def Boiler():
 
     return response
 
+@app.route("/Generator", methods=["GET", "POST"])
+def Generator():
+
+    if request.method == "POST":
+        # converts user inputs into python dictionary
+        form_data = request.form.to_dict()
+
+        if not form_data:
+            raise ValueError("No form data submitted")
+
+        # ✅ Generate Excel
+        print("Generating Excel with form data:", form_data)
+        #excel_file = generate_boilerExcel(form_data)
+
+        # ✅ Send email
+       # send_email(excel_file, form_data, subject= "STCH Maintenance Boiler")
+
+        print("✅ Excel created and email sent")
+
+        # ✅ Navigate to success page
+        return redirect(url_for("success"))
+    
+
+    response = make_response(render_template('Generator.html'))
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+
+    return response
+
 
 def load_materials():
     try:
