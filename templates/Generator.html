@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flare Inspection Form</title>
+
+
+
+<style>
+html { visibility: hidden; }
+</style>
+
+
+<script>
+(function () {
+    const nav = performance.getEntriesByType("navigation")[0];
+
+    if (nav && nav.type === "back_forward") {
+        window.location.replace("/");
+    } else {
+        document.documentElement.style.visibility = "visible";
+    }
+})();
+</script>
+    
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/BoilerForm.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/CEB_Flare.css') }}">
+    <script src="{{ url_for('static', filename='js/generator.js')}}" defer></script>
+    
+
+</head>
+
+<body>
+
+<form method="POST" autocomplete="off">
+
+    <h1 class="form-title">Generator Log New</h1>
+     <br>
+    <!-- ===================================================== -->
+    <!-- ✅ TIME SELECTION -->
+    <!-- ===================================================== -->
+     <div class="input-row">
+        <label>Inspector Name</label>
+        <input type="text" name="operator" required>
+    </div>
+    <div class="input-row">
+            <label>Vendor</label>
+            <select name="vendor" onchange="checkOther(this)">
+                <option disabled selected>Select vendor</option>
+                <option value="B&R">B&R</option>
+                <option value="Other" >Other</option>
+            </select>
+            <input type="text"
+           name="other_vendor"
+           class="other-input"
+           placeholder="Enter vendor name"
+           style="display:none; margin-top:6px;">
+
+    </div>
+    <div class="input-row">
+        <label>Generator</label>
+        <select id="generator"name="generator">
+            <option disabled selected hidden></option>
+            <option value="MS">MS</option>
+            <option value="BD">BD</option>
+            <option value="CA">CA</option>
+            <option value="R">R</option>
+            <option value="C">C</option>
+            <option value="M">M</option>
+            <option value="SO">SO</option>
+            <option value="SU">SU</option>
+            <option value="N">N</option>
+        </select>
+    </div>
+    <div class="input-row">
+        <label>Date</label>
+        <input type="date" id="date" name="date">
+    </div>
+    <div class="input-row">
+    <label>Starting Hours Time</label>
+
+    <div class="time-options">
+
+        <input type="radio" id="t2" name="time" value="10:00">
+        <label for="t2" class="time-box">10:00</label>
+
+        <input type="radio" id="t3" name="time" value="16:00">
+        <label for="t3" class="time-box">16:00</label>
+
+        <input type="radio" id="t4" name="time" value="22:00">
+        <label for="t4" class="time-box">22:00</label>
+
+           <input type="radio" id="t1" name="time" value="4:00" required>
+        <label for="t1" class="time-box">4:00</label>
+    </div>
+    <div id="autoSelectMsg"></div>
+</div>
+ <div class="input-row">
+        <label>Start Time</label>
+        <input type="time" id="start_time" name="start_time"> 
+    </div>
+
+    <div class="input-row">
+        <label>Stop Time</label>
+        <input type="time" id="stop_time" name="stop_time">
+    </div>
+
+
+    <div class="input-row">
+        <label>Run Duration</label>
+        <input type="text" id="run_duration" name="run_duration" readonly >  
+    </div>
+
+    <!-- ===================================================== -->
+    <!-- ✅ PRESSURE / MEASUREMENTS -->
+    <!-- ===================================================== -->
+        
+    <div class="input-row">
+        <label>Starting Hours</label>
+        <span id="starting_hours">--</span>
+    </div>
+
+   
+    <div class="input-row">
+        <label>Clock Run Hours</label>
+        <input type="number" min="0"name="Clock Run Hours" >
+    </div>
+
+   
+<div class="input-row">
+    <label>Run Reason</label>
+        <select name="run_reason" onchange="checkOther(this)" required>
+            <option value="" disabled selected hidden></option>
+            <option value="Test">Test</option>
+            <option value="Emergency">Emergency</option>
+            <option value="Other">Other</option>
+        </select>
+         <input type="text"
+           name="other_run_reason"
+           class="other-input"
+           placeholder="Enter run reason"
+           style="display:none; margin-top:6px;">
+        
+    </div>
+    <div class="sub-header">Visible Emission</div>
+     <div class="input-row">
+        <label>Are Visible Emissions Present</label>
+        <select name="emissions">
+            <option value="" disabled selected hidden></option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+    
+    <div class="input-row">
+        <label>Comment on Why the Visible Emissions</label>
+        <input type="text" name="Clock Run Hours" >
+    </div>
+   
+    <div class="sub-header">Comments</div>
+    <br>
+    
+
+ <div class="input-row full-width">
+        <!-- <label>Comments:</label> -->
+        <textarea name="comments" placeholder="Comments"></textarea>
+    </div>
+    <br>
+    <button type="submit">Submit</button>
+    <div class="button">
+    <a href="/home">Cancel</a></div>
+</form>
