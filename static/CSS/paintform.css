@@ -85,6 +85,7 @@ button {
     gap: 12px;
     align-items: center;
     margin-top: 18px;
+   
 }
 
 .input-row label {
@@ -111,6 +112,7 @@ button {
     border: 1px solid #ccc;
     border-radius: 8px;
     background: white;
+    min-width: 0;
 }
 
 /* Focus */
@@ -218,6 +220,7 @@ button {
     border: 1px solid #ccc;
     border-radius: 8px;
     background: white;
+    min-width: 0;
 }
 
 /* =============================
