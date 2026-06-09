@@ -61,9 +61,9 @@
 }
 /*this makes is stacked table*/
 
-@media (max-width: 765px) {
+@media (max-width: 765px) {}
 
-  .responsive-table thead {
+ /* .responsive-table thead {
     display: none;
   }
 
@@ -97,29 +97,29 @@
   
 
   /* Keep your existing styles... */
-
+/*
   .responsive-table td {
     display: flex;
-    justify-content: flex-start;   /* ✅ align everything left */
+    justify-content: flex-start;   
     align-items: center;
     padding: 6px 0;
     border: none;
     position: relative;
   }
 
-  /* ✅ LEFT LABEL (like "Supplemental NG Flow", "25 SCFM") */
+  
   .responsive-table td::before {
     content: attr(data-label);
-    min-width: 50%;            /* ✅ force left side width */
+    min-width: 50%;            
     padding-right: 10px;
     font-weight: 500;
     color: #333;
     text-align: center;          /* ✅ align to the left */
-    border-right: 2px solid #999;  /* ✅ THIS IS YOUR MIDDLE LINE */
-    margin-right: 10px;
+   /* border-right: 2px solid #999;  /* ✅ THIS IS YOUR MIDDLE LINE */
+    /*margin-right: 10px;
   }
 
-  /* ✅ RIGHT VALUE (numbers like 6.45, 12.9...) */
+ 
   .responsive-table td {
     text-align: left;
   }
@@ -127,7 +127,7 @@
 
 }
 
-
+*/
 
 /* Time Buttons */
 
