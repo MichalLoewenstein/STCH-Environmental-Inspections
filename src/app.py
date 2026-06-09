@@ -164,7 +164,7 @@ def send_email(excel_file,form_data, subject):
     # =========================
     # ✅ SEND BOTH EMAILS (same connection)
     # =========================
-    with smtplib.SMTP("smtp.gmail.com", 587) as smtp:
+    with smtplib.SMTP("smtp.gmail.com", 587,timeout=10) as smtp:
         smtp.starttls()
         smtp.login(sender, password)
         print("✅ Excel created and email sent")
