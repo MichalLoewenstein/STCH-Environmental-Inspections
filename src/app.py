@@ -175,7 +175,7 @@ def index():
         excel_file = generate_excel(form_data, final_materials)
 
         # ✅ Send email
-        #send_email(excel_file, form_data, subject= "STCH Maintenance Paint and Soundblasting")
+        send_email(excel_file, form_data, subject= "STCH Maintenance Paint and Soundblasting")
 
         print("✅ Excel created and email sent")
 
