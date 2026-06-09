@@ -61,7 +61,7 @@
 }
 /*this makes is stacked table*/
 
-@media (max-width: 600px) {
+@media (max-width: 765px) {
 
   .responsive-table thead {
     display: none;

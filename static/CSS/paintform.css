@@ -223,7 +223,7 @@ button {
 /* =============================
    RESPONSIVE
 ============================= */
-@media (max-width: 700px) {
+@media (max-width: 765px) {
 
     form {
         width: 100%;
