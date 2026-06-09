@@ -69,10 +69,10 @@ def Generator():
 
         # ✅ Generate Excel
         print("Generating Excel with form data:", form_data)
-        #excel_file = generate_boilerExcel(form_data)
+        excel_file = generate_boilerExcel(form_data)
 
         # ✅ Send email
-       # send_email(excel_file, form_data, subject= "STCH Maintenance Boiler")
+        send_email(excel_file, form_data, subject= "STCH Maintenance Boiler")
 
         print("✅ Excel created and email sent")
 
@@ -112,7 +112,7 @@ def flare():
         # ✅ Send email
         send_email(excel_file, form_data, subject= "STCH Maintenance CEB_Flare")
 
-        print("✅ Excel created and email sent")
+        
         # ✅ Navigate to success page
         return redirect(url_for("success"))
     
@@ -174,12 +174,8 @@ def index():
         # ✅ ✅ FIX: send final_materials
         excel_file = generate_excel(form_data, final_materials)
 
-        # ✅ Send email
-        send_email(excel_file, form_data, subject= "STCH Maintenance Paint and Soundblasting")
 
-        print("✅ Excel created and email sent")
-
-        return redirect(url_for("success"))
+        return redirect(url_for("success",excel_file=excel_file,form_data=form_data, subject= "STCH Maintenance Paint and Soundblasting"))
 
 
     # ✅ GET request → return response WITH no-cache headers
@@ -224,10 +220,18 @@ def add_material(name):
     print(f"✅ Added '{name}' to materials.json")
 
 
+from flask import request
+
 @app.route("/success")
 def success():
-    return render_template("success.html")
+    excel_file = request.args.get("excel_file")
+    subject = request.args.get("subject")
+    form_data = request.args.get("form_data")
+    print("In success route")
+    # 👉 Call your email function here
+    send_email(excel_file, form_data, subject= subject)
 
+    return render_template("success.html")
 
 
 @app.route('/export-excel', methods=['POST'])
@@ -300,6 +304,7 @@ def send_email(excel_file,form_data, subject):
     with smtplib.SMTP("smtp.gmail.com", 587) as smtp:
         smtp.starttls()
         smtp.login(sender, password)
+        print("✅ Excel created and email sent")
         print("create a reference to the email server and log in successfully")
 
         smtp.send_message(msg1)  # ✅ first email
