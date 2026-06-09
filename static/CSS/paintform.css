@@ -121,6 +121,12 @@ button {
     outline: none;
 }
 
+.submit-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+
 /* =============================
    ✅ MATERIAL SECTION (FINAL CLEAN)
 ============================= */
