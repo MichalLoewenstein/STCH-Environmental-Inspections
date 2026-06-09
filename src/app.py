@@ -172,7 +172,7 @@ def index():
             raise ValueError("No form data submitted")
 
         # ✅ ✅ FIX: send final_materials
-        excel_file = generate_excel(form_data, final_materials, quantities, units)
+        excel_file = generate_excel(form_data, final_materials)
 
         # ✅ Send email
         send_email(excel_file, form_data, subject= "STCH Maintenance Paint and Soundblasting")

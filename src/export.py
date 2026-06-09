@@ -1,7 +1,7 @@
 import pandas as pd
 import io
 
-def generate_excel(form_data, materials, quantities, units):
+def generate_excel(form_data, materials):
 
     # ✅ Base columns
     columns = [
