@@ -175,7 +175,7 @@ def index():
         excel_file = generate_excel(form_data, final_materials)
 
         # ✅ Send email
-        send_email(excel_file, form_data, subject= "STCH Maintenance Paint and Soundblasting")
+        #send_email(excel_file, form_data, subject= "STCH Maintenance Paint and Soundblasting")
 
         print("✅ Excel created and email sent")
 
@@ -300,6 +300,7 @@ def send_email(excel_file,form_data, subject):
     with smtplib.SMTP("smtp.gmail.com", 587) as smtp:
         smtp.starttls()
         smtp.login(sender, password)
+        print("create a reference to the email server and log in successfully")
 
         smtp.send_message(msg1)  # ✅ first email
         smtp.send_message(msg2)  # ✅ second email
