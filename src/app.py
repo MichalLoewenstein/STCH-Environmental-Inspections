@@ -215,10 +215,10 @@ def add_material(name):
         return
 
     # ✅ Add new material
-    materials.append(name)
+    #materials.append(name)
 
     # ✅ Save immediately (THIS is what you wanted)
-    with open(FILE_PATH, "w") as f:
+    #with open(FILE_PATH, "w") as f:
         json.dump(materials, f, indent=4)
 
     print(f"✅ Added '{name}' to materials.json")
