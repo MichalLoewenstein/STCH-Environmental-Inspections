@@ -5,151 +5,153 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Basic Paint Form</title>
 
+    <style>
+        html { visibility: hidden; }
+    </style>
 
-<style>
-html { visibility: hidden; }
-</style>
+    <script>
+    (function () {
+        const nav = performance.getEntriesByType("navigation")[0];
+        if (nav && nav.type === "back_forward") {
+            window.location.replace("/");
+        } else {
+            document.documentElement.style.visibility = "visible";
+        }
+    })();
+    </script>
 
-
-<script>
-(function () {
-    const nav = performance.getEntriesByType("navigation")[0];
-
-    if (nav && nav.type === "back_forward") {
-        window.location.replace("/");
-    } else {
-        document.documentElement.style.visibility = "visible";
-    }
-})();
-</script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/PaintForm.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/PaintForm.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <script src="{{ url_for('static', filename='js/PaintForm.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/PaintForm.js') }}"></script>
 </head>
 
 <body>
-    <form method="POST" autocomplete="off">
+<form method="POST" autocomplete="off">
+
     {% if error %}
         <p class="error">{{ error }}</p>
     {% endif %}
-    
+
     <div class="form-title">Paint, Products & Sandblasting Log</div>
-    
-    <div class="input-row"> 
+
+    <!-- NORMAL FIELDS -->
+    <div class="input-row">
         <label>Company</label>
         <select name="company" required>
             <option value="" disabled selected hidden></option>
             <option value="Brown & Root">Brown & Root</option>
             <option value="Other">Other</option>
         </select>
-       
     </div>
 
-    <div class="input-row"> 
+    <div class="input-row">
         <label>Name*</label>
-        <input type="text" name="name" required >
-       
+        <input type="text" name="name" required>
     </div>
 
     <div class="input-row">
         <label>Email Address*</label>
-        <input type="email" name="email" required >
-        
+        <input type="email" name="email" required>
     </div>
 
     <div class="input-row">
         <label>Phone Number*</label>
-        <input type="tel" name="phone" required >
+        <input type="tel" name="phone" required>
     </div>
+
     <div class="sub-header">Location and Date</div>
+
     <div class="input-row">
         <label>Location</label>
-        <input type="text" id="location" name="location" > 
+        <input type="text" name="location">
     </div>
 
     <div class="input-row">
         <label>Date</label>
-        <input type="date" id="date" name="date">
+        <input type="date" name="date">
     </div>
 
     <div class="input-row">
         <label>Start Time</label>
-        <input type="time" id="start_time" name="start_time"> 
+        <input type="time" name="start_time">
     </div>
 
     <div class="input-row">
         <label>End Time</label>
-        <input type="time" id="end_time" name="end_time">
+        <input type="time" name="end_time">
     </div>
 
     <div class="input-row">
         <label>Break (minutes)</label>
-        <input type="number" min="0" id="break" name="break" value="0">    
+        <input type="number" min="0" name="break" value="0">
     </div>
 
     <div class="input-row">
         <label>Total Time (hours)</label>
-        <input type="text" id="total_time" name="total_time" readonly >  
+        <input type="text" name="total_time" readonly>
     </div>
+
+    <!-- MATERIALS -->
     <div class="sub-header">Materials</div>
+
     <div id="materials-container">
-    <div class="row-group material-row">
 
-        <!-- ✅ + BUTTON ON THE LEFT -->
-        <div class="add-btn">
-            <button type="button" onclick="addMaterial()">+</button>
-        </div>
-        
-        <!-- ✅ Material -->
-         <div class="field">
-            <label>Material</label>
-            <select name="material[]" onchange="checkOther(this)">
-                <option disabled selected>Select material</option>
-                {% for m in materialslist  %}
-                <option value="{{ m }}">{{ m }}</option>
-                {% endfor %}
-                 <option value="Other">Other</option>
-            </select>
-            <input type="text"
-           name="other_material[]"
-           class="other-input"
-           placeholder="Enter material name"
-           style="display:none; margin-top:6px;">
+        <div class="material-row">
 
-        </div>
+            <!-- ADD BUTTON -->
+            <button type="button" class="add-btn" onclick="addMaterial()">+</button>
 
-        <!-- ✅ Quantity -->
-        <div class="Quantity">
-             <label>Quantity</label>
-             <input type="number" min="0" name="quantity[]" required placeholder=" ">
-       </div>
+            <!-- MATERIAL -->
+            <div class="field">
+                <label>Material</label>
+                <select name="material[]" onchange="checkOther(this)">
+                    <option disabled selected>Select material</option>
+                    {% for m in materialslist %}
+                        <option value="{{ m }}">{{ m }}</option>
+                    {% endfor %}
+                    <option value="Other">Other</option>
+                </select>
 
-        <!-- ✅ Unit -->
-        <div class="unit">
-              <label>Unit</label>
-              <select name="measure[]" required>
+                <input type="text"
+                    name="other_material[]"
+                    class="other-input"
+                    placeholder="Enter material name"
+                    style="display:none; margin-top:6px;">
+            </div>
+
+            <!-- QUANTITY -->
+            <div class="field quantity">
+                <label>Quantity</label>
+                <input type="number" min="0" name="quantity[]" required>
+            </div>
+
+            <!-- UNIT -->
+            <div class="field unit">
+                <label>Unit</label>
+                <select name="measure[]" required>
                     <option value="" disabled selected>Select</option>
                     <option value="Gallons">GAL</option>
                     <option value="Pounds">LBS</option>
-              </select>
+                </select>
+            </div>
+
+            <!-- DELETE -->
+            <button type="button" class="delete-btn" onclick="deleteMaterial(this)">
+                <i class="fa-solid fa-trash"></i>
+            </button>
+
         </div>
 
-        <!-- ✅ ✅ DELETE BUTTON -->
-        <div class="delete">
-        <button type="button" class="delete-btn" onclick="deleteMaterial(this)">
-        <i class="fa-solid fa-trash"></i>
-       </button>
-        </div>
     </div>
-</div>
-     <br>
+
+    <br>
 
     <button type="submit">Submit</button>
-     <div class="button">
-    <a href="/home">Cancel</a></div>
+
+    <div class="button">
+        <a href="/home">Cancel</a>
+    </div>
 
 </form>
-  
-
 </body>
 </html>
