@@ -25,7 +25,8 @@ html { visibility: hidden; }
 </script>
     
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/BoilerForm.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components/time-selection.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/CEB_Flare.css') }}">
     <script src="{{ url_for('static', filename='js/boilerform.js')}}" defer></script>
     
@@ -61,7 +62,7 @@ html { visibility: hidden; }
         <label for="t4" class="time-box">22:00</label>
 
            <input type="radio" id="t1" name="time" value="4:00" required>
-        <label for="t1" class="time-box">4:00</label>
+        <label for="t1" class="time-box">04:00</label>
     </div>
     <div id="autoSelectMsg"></div>
 </div>
