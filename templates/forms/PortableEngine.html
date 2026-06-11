@@ -61,26 +61,59 @@ html { visibility: hidden; }
         <label>Location</label>
         <select id="location"name="location">
             <option disabled selected hidden></option>
-            <option value="select1">select1</option>
-            <option value="select2">select2</option>
+            <option value="select1">location1</option>
+            <option value="select2">location2</option>
         </select>
     </div>
 
 
         <div class="input-row">
         <label>Purpose</label>
-        <select id="location"name="location">
+        <select id="purpose"name="purpose">
             <option disabled selected hidden></option>
             <option value="opt1">Tree Removal</option>
             <option value="opt2">Tree Trimming</option>
+            <option value="opt2">Tree Work</option>
+            <option value="opt2">Other</option>
         </select>
+        <input type="text"
+           name="other_purpose"
+           class="other-input"
+           placeholder="Enter purpose"
+           style="display:none; margin-top:6px;">
+
     </div>
 
 <div class="sub-header">Service Hours and Meter Readings</div>
 
     <div class="input-row">
         <label>Arrival Date</label>
-        <input type="date" id="date" name="date">
+        <input type="date" id="arrivalDate" name="arrivalDate">
+    </div>
+
+    <div class="input-row">
+        <label>In Service Date</label>
+        <input type="date" id="inServiceDate" name="inServiceDate">
+    </div>
+
+    <div class="input-row">
+        <label>Initial Meter Read</label>
+        <input type="number" min="0" id="initialMeterRead" name="initialMeterRead">
+    </div>
+
+    <div class="input-row">
+        <label>Departure Date</label>
+        <input type="date" id="departureDate" name="departureDate">
+    </div>
+
+    <div class="input-row">
+        <label>Final Meter Read</label>
+        <input type="number" min="0" id="finalMeterRead" name="finalMeterRead">
+    </div>
+
+    <div class="input-row">
+        <label>Total Hours</label>
+        <input type="text" id="total_time" name="totalHours" step="0.1">
     </div>
     
 
@@ -90,13 +123,74 @@ html { visibility: hidden; }
 
         <div class="input-row">
         <label>Horsepower</label>
-        <select id="location"name="location">
+        <select id="horsepower"name="horsepower">
             <option disabled selected hidden></option>
-            <option value="opt1">Tree Removal</option>
-            <option value="opt2">Tree Trimming</option>
+            <option value="horsepower1">36.4</option>
+            <option value="horsepower2">44.0</option>
+            <option value="horsepower3">48.8</option>
+            <option value="horsepower4">74.0</option>
+            <option value="horsepower5">145.0</option>
+            <option value="horsepower6">49 or 74</option>
         </select>
     </div>
 
+    <div class="input-row">
+        <label>Manufacturer</label>
+        <select id="manufacturer"name="manufacturer">
+            <option disabled selected hidden></option>
+            <option value="manufacturer1">Manufacturer 1</option>
+            <option value="manufacturer2">Manufacturer 2</option>
+        </select>
+    </div>
+
+    <div class="input-row">
+        <label>Model Number</label>
+        <select id="modelNumber"name="modelNumber">
+            <option disabled selected hidden></option>
+            <option value="model1">Model 1</option>
+            <option value="model2">Model 2</option>
+        </select>
+    </div>
+
+    <div class="input-row">
+        <label>Serial Number</label>
+        <input type="text" name="serialNumber">
+    </div>
+
+        <div class="input-row">
+        <label>Manufacture Date</label>
+        <input type="date" id="manufactureDate" name="manufactureDate">
+    </div>
+
+
+    <div class="input-row">
+        <label>Tier</label>
+        <select id="tier"name="tier">
+            <option disabled selected hidden></option>
+            <option value="tier1">Tier 1</option>
+            <option value="tier2">Tier 2</option>
+        </select>
+    </div>
+
+
+    <div class="input-row">
+        <label>Fuel</label>
+        <select id="fuel"name="fuel">
+            <option disabled selected hidden></option>
+            <option value="fuel1">Fuel 1</option>
+            <option value="fuel2">Fuel 2</option>
+        </select>
+    </div>
+
+
+    <div class="input-row">
+        <label>Onsite Status</label>
+        <select id="onsiteStatus"name="onsiteStatus">
+            <option disabled selected hidden></option>
+            <option value="status1">Offsite</option>
+            <option value="status2">Onsite</option>
+        </select>
+    </div>
 
 
  
