@@ -20,15 +20,14 @@ static_folder=os.path.abspath(os.path.join(os.path.dirname(__file__), '../static
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 FILE_PATH = os.path.join(BASE_DIR, "materials.json")
 
+# Home route to display the form
+@app.route("/")
+def QRScreen():
+    return render_template("QRscreen.html")
+
 @app.route("/home")
 def home():
     return render_template("home.html")
-
-
-@app.route("/")
-def root():
-    return redirect(url_for("home"))
-
 
 @app.route("/paint", methods=["GET", "POST"])
 def index():
@@ -74,7 +73,7 @@ def index():
         # ✅ Redirect to success page
         return redirect(url_for("success"))
 
-    return render_template("PaintForm.html")
+    return render_template("forms/PaintForm.html")
 
 @app.route("/download")
 def download():
@@ -193,7 +192,7 @@ def Boiler():
         return redirect(url_for("success"))
     
 
-    response = make_response(render_template('BoilerForm.html'))
+    response = make_response(render_template('forms/BoilerForm.html'))
     response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
     response.headers['Pragma'] = 'no-cache'
     response.headers['Expires'] = '0'
@@ -221,7 +220,7 @@ def flare():
         # ✅ Navigate to success page
         return redirect(url_for("success"))
     
-    response = make_response(render_template('CEB_Flare.html'))
+    response = make_response(render_template('forms/CEB_Flare.html'))
     response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
     response.headers['Pragma'] = 'no-cache'
     response.headers['Expires'] = '0'
@@ -230,7 +229,7 @@ def flare():
 
 
 
-@app.route("/Generator", methods=["GET", "POST"])
+@app.route("/generator", methods=["GET", "POST"])
 def Generator():
 
     if request.method == "POST":
@@ -253,12 +252,50 @@ def Generator():
         return redirect(url_for("success"))
     
 
-    response = make_response(render_template('Generator.html'))
+    response = make_response(render_template('forms/Generator.html'))
     response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
     response.headers['Pragma'] = 'no-cache'
     response.headers['Expires'] = '0'
 
     return response
+
+
+@app.route("/portableEngine", methods=["GET", "POST"])
+def portableEngine():
+
+    if request.method == "POST":
+        # converts user inputs into python dictionary
+        form_data = request.form.to_dict()
+
+        if not form_data:
+            raise ValueError("No form data submitted")
+
+        # ✅ Generate Excel
+        print("Generating Excel with form data:", form_data)
+        excel_file = generate_boilerExcel(form_data)
+
+        # ✅ Send email
+        send_email(excel_file, form_data, subject= "STCH Maintenance Portable Engine")
+
+        print("✅ Excel created and email sent")
+
+        # ✅ Navigate to success page
+        return redirect(url_for("success"))
+    
+
+    response = make_response(render_template('forms/PortableEngine.html'))
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+
+    return response
+
+
+
+
+
+
+
 
 
 

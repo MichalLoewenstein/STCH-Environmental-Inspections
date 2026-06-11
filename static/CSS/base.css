@@ -117,8 +117,6 @@ button {
   resize: vertical;      /* ✅ user can expand */
 }
 
-
-
 /* focus */
 .input-row input:focus,
 .input-row select:focus {

@@ -3,7 +3,7 @@
 
 .time-options {
     display: flex;
-    flex-wrap: wrap;   /* ✅ critical */
+    flex-wrap: wrap;  /* ✅ critical */
     gap: 10px;
     width: 100%;
 }
@@ -15,7 +15,9 @@
 
 /* Style the boxes */
 .time-box {
-    padding: 10px 20px;
+    flex: 1 1 calc(25% - 10px); /* ✅ 4 per row on desktop */
+    text-align: center;
+    padding: 10px 10px;
     border: 2px solid #ccc;
     border-radius: 6px;
     cursor: pointer;
@@ -46,9 +48,10 @@
 }
 
 
-@media (max-width: 765px) {
+@media (max-width: 940px) {
     .time-box {
         flex: 1 1 calc(50% - 10px); /* ✅ 2 per row */
-        max-width: none;
+        /* max-width: none; */
+        /* flex-wrap: wrap;   ✅ allows wrapping */
     }
 }

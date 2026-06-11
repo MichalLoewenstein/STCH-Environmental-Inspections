@@ -1,3 +1,5 @@
+document.addEventListener("DOMContentLoaded", function () {   
+
 const radios = document.querySelectorAll('input[name="time"]');
   const message = document.getElementById("autoSelectMsg");
 
@@ -34,5 +36,4 @@ const radios = document.querySelectorAll('input[name="time"]');
   });
 
 
-  let today = new Date().toISOString().split('T')[0];
-    document.getElementById("date").value = today;
+})

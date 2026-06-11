@@ -19,12 +19,15 @@ html { visibility: hidden; }
         document.documentElement.style.visibility = "visible";
     }
 })();
+
 </script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/components/time-selection.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components/time-auto-select.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/components/toggles.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="{{ url_for('static', filename='js/components/time-auto-select.js')}}" defer></script>
+    <script src="{{ url_for('static', filename='js/components/date-auto-fill.js')}}" defer></script>
+    
     <script src="{{ url_for('static', filename='js/boilerform.js')}}" defer></script>
 
 </head>

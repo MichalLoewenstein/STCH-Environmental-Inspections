@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portable Engine Log</title>
+
+
+
+<style>
+html { visibility: hidden; }
+</style>
+
+
+<script>
+(function () {
+    const nav = performance.getEntriesByType("navigation")[0];
+
+    if (nav && nav.type === "back_forward") {
+        window.location.replace("/");
+    } else {
+        document.documentElement.style.visibility = "visible";
+    }
+})();
+</script>
+    
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+
+    
+
+</head>
+
+<body>
+
+<form method="POST" action="/portableEngine" autocomplete="off">
+
+    <h1 class="form-title">Portable Engine Log</h1>
+     <br>
+ 
+     <div class="input-row">
+        <label>Operator</label>
+        <input type="text" name="operator" required>
+    </div>
+    <div class="input-row">
+            <label>Equipment</label>
+            <select name="equipment" onchange="checkOther(this)">
+                <option disabled selected>Select Equipment</option>
+                <option value="equipment1">Chipper</option>
+                  <option value="equipment2">Lift Machine</option>
+                <option value="Other" >Other</option>
+            </select>
+            <input type="text"
+           name="other_vendor"
+           class="other-input"
+           placeholder="Enter equipment name"
+           style="display:none; margin-top:6px;">
+
+    </div>
+    <div class="input-row">
+        <label>Location</label>
+        <select id="location"name="location">
+            <option disabled selected hidden></option>
+            <option value="select1">select1</option>
+            <option value="select2">select2</option>
+        </select>
+    </div>
+
+
+        <div class="input-row">
+        <label>Purpose</label>
+        <select id="location"name="location">
+            <option disabled selected hidden></option>
+            <option value="opt1">Tree Removal</option>
+            <option value="opt2">Tree Trimming</option>
+        </select>
+    </div>
+
+<div class="sub-header">Service Hours and Meter Readings</div>
+
+    <div class="input-row">
+        <label>Arrival Date</label>
+        <input type="date" id="date" name="date">
+    </div>
+    
+
+<div class="sub-header">Engine Data</div>
+
+
+
+        <div class="input-row">
+        <label>Horsepower</label>
+        <select id="location"name="location">
+            <option disabled selected hidden></option>
+            <option value="opt1">Tree Removal</option>
+            <option value="opt2">Tree Trimming</option>
+        </select>
+    </div>
+
+
+
+ 
+
+ 
+    
+
+    <br>
+    <button type="submit">Submit</button>
+    <div class="button">
+    <a href="/home">Cancel</a></div>
+</form>
+
+</body>
