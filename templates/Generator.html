@@ -25,8 +25,8 @@ html { visibility: hidden; }
 </script>
     
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/BoilerForm.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/CEB_Flare.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <script src="{{ url_for('static', filename='js/components/date-auto-fill.js')}}" defer></script>
     <script src="{{ url_for('static', filename='js/generator.js')}}" defer></script>
     
 
@@ -78,25 +78,7 @@ html { visibility: hidden; }
         <label>Date</label>
         <input type="date" id="date" name="date">
     </div>
-    <div class="input-row">
-    <label>Starting Hours Time</label>
-
-    <div class="time-options">
-
-        <input type="radio" id="t2" name="time" value="10:00">
-        <label for="t2" class="time-box">10:00</label>
-
-        <input type="radio" id="t3" name="time" value="16:00">
-        <label for="t3" class="time-box">16:00</label>
-
-        <input type="radio" id="t4" name="time" value="22:00">
-        <label for="t4" class="time-box">22:00</label>
-
-           <input type="radio" id="t1" name="time" value="4:00" required>
-        <label for="t1" class="time-box">04:00</label>
-    </div>
-    <div id="autoSelectMsg"></div>
-</div>
+    
  <div class="input-row">
         <label>Start Time</label>
         <input type="time" id="start_time" name="start_time"> 
@@ -155,7 +137,7 @@ html { visibility: hidden; }
     </div>
     
     <div class="input-row">
-        <label>Comment on Why the Visible Emissions</label>
+        <label>Comment on why the Visible Emissions</label>
         <input type="text" name="Clock Run Hours" >
     </div>
    

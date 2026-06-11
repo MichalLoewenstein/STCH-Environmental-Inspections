@@ -138,21 +138,11 @@ button {
 }
 
 
-/* Focus */
-.input-row input:focus,
-.input-row select:focus {
-    border-color: #6f879d;
-    box-shadow: 0 0 0 3px rgba(90,108,255,0.15);
-    outline: none;
-}
 
 .submit-wrapper {
     display: flex;
     justify-content: center;
 }
-
-
-
 
 
 /* =============================
@@ -170,9 +160,6 @@ button {
         grid-template-columns: 1fr;
     }
 
-    .material-row {
-        grid-template-columns: 40px 1fr 1fr 40px;
-    }
  /* ✅ full width submit */
     button {
         width: 100%;

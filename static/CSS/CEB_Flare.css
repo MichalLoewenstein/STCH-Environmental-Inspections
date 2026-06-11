@@ -1,17 +1,3 @@
-
-
-.input-row.full-width textarea {
-  width: 100%;
-  min-height: 120px;     /* ✅ default height */
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-  resize: vertical;      /* ✅ user can expand */
-}
-
-
 .table-container {
   overflow-x: auto;
 }
