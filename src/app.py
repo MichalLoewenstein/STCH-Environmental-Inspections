@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request,redirect, url_for, make_response
+from flask import Flask, render_template, request,redirect, url_for, make_response, send_file
 from datetime import datetime, timedelta
 from export import generate_excel
 from boilerExport import generate_boilerExcel
 from CEBflareExport import generate_flareExcel
+
 import smtplib
 import json
 from email.message import EmailMessage
@@ -24,11 +25,13 @@ def home():
     return render_template("home.html")
 
 
+@app.route("/")
+def root():
+    return redirect(url_for("home"))
+
 
 @app.route("/paint", methods=["GET", "POST"])
 def index():
-
-  
 
     if request.method == "POST":
 
@@ -49,9 +52,7 @@ def index():
             if m == "Other":
                 if not other:
                     raise ValueError(f"Missing material name at row {i+1}")
-
                 final_name = other
-                
             else:
                 final_name = m
 
@@ -61,33 +62,29 @@ def index():
                 "unit": unit
             })
 
-        print("✅ Final materials:", final_materials)
-
-        if not form_data:
-            raise ValueError("No form data submitted")
-
         # ✅ Generate Excel
         excel_file = generate_excel(form_data, final_materials)
 
-        # ✅ ✅ SEND EMAIL HERE (before redirect)
-        send_email(
-            excel_file,
-            form_data,
-            subject="STCH Maintenance Paint and Soundblasting"
-        )
+       
+# ✅ Save file temporarily
+        file_path = os.path.join(BASE_DIR, "temp.xlsx")
+        with open(file_path, "wb") as f:
+            f.write(excel_file.getbuffer())
 
-        print("✅ Excel + Email done")
-
-        # ✅ Then redirect ONLY
+        # ✅ Redirect to success page
         return redirect(url_for("success"))
 
-    response = make_response(render_template("PaintForm.html"))
-    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
-    response.headers['Pragma'] = 'no-cache'
-    response.headers['Expires'] = '0'
+    return render_template("PaintForm.html")
 
-    return response
+@app.route("/download")
+def download():
+    file_path = os.path.join(BASE_DIR, "temp.xlsx")
 
+    return send_file(
+        file_path,
+        as_attachment=True,
+        download_name="Paint_Form.xlsx"
+    )
 
 
 
@@ -97,14 +94,11 @@ from flask import request
 def success():
    
     print("In success route")
-    # 👉 Call your email function here
     
 
     return render_template("success.html")
 
 
-
-    
 
 import smtplib
 from email.message import EmailMessage
@@ -174,6 +168,99 @@ def send_email(excel_file,form_data, subject):
         smtp.send_message(msg2)  # ✅ second email
 
     print("✅ Both emails sent successfully")
+
+
+@app.route("/boiler", methods=["GET", "POST"])
+def Boiler():
+
+    if request.method == "POST":
+        # converts user inputs into python dictionary
+        form_data = request.form.to_dict()
+
+        if not form_data:
+            raise ValueError("No form data submitted")
+
+        # ✅ Generate Excel
+        print("Generating Excel with form data:", form_data)
+        excel_file = generate_boilerExcel(form_data)
+
+        # ✅ Send email
+        send_email(excel_file, form_data, subject= "STCH Maintenance Boiler")
+
+        print("✅ Excel created and email sent")
+
+        # ✅ Navigate to success page
+        return redirect(url_for("success"))
+    
+
+    response = make_response(render_template('BoilerForm.html'))
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+
+    return response
+
+@app.route("/flare", methods=["GET", "POST"])
+def flare():
+
+    if request.method == "POST":
+                # converts user inputs into python dictionary
+        form_data = request.form.to_dict()
+
+        if not form_data:
+            raise ValueError("No form data submitted")
+
+        # ✅ Generate Excel
+        print("Generating Excel with form data:", form_data)
+        excel_file = generate_flareExcel(form_data)
+
+        # ✅ Send email
+        send_email(excel_file, form_data, subject= "STCH Maintenance CEB_Flare")
+
+        
+        # ✅ Navigate to success page
+        return redirect(url_for("success"))
+    
+    response = make_response(render_template('CEB_Flare.html'))
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+
+    return response
+
+
+
+@app.route("/Generator", methods=["GET", "POST"])
+def Generator():
+
+    if request.method == "POST":
+        # converts user inputs into python dictionary
+        form_data = request.form.to_dict()
+
+        if not form_data:
+            raise ValueError("No form data submitted")
+
+        # ✅ Generate Excel
+        print("Generating Excel with form data:", form_data)
+        excel_file = generate_boilerExcel(form_data)
+
+        # ✅ Send email
+        send_email(excel_file, form_data, subject= "STCH Maintenance Boiler")
+
+        print("✅ Excel created and email sent")
+
+        # ✅ Navigate to success page
+        return redirect(url_for("success"))
+    
+
+    response = make_response(render_template('Generator.html'))
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+
+    return response
+
+
 
 
 if __name__ == "__main__":
