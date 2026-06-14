@@ -126,16 +126,16 @@ html { visibility: hidden; }
     <div class="sub-header">Visible Emission</div>
      <div class="input-row">
         <label>Are Visible Emissions Present</label>
-        <select name="emissions">
+        <select name="emissions" id="emissions">
             <option value="" disabled selected hidden></option>
             <option value="Yes">Yes</option>
             <option value="No">No</option>
         </select>
     </div>
     
-    <div class="input-row">
+    <div class="input-row" id="visibleEmissionCommentRow">
         <label>Comment on why the Visible Emissions</label>
-        <input type="text" name="visibleEmissionComment" >
+        <input type="text" name="visibleEmissionComment">
     </div>
    
     <div class="sub-header">Comments</div>

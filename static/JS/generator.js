@@ -12,7 +12,24 @@ function checkOther(selectElement) {
 
 document.addEventListener("DOMContentLoaded", function () {
 
+
     console.log("✅ generator.js loaded");
+
+    const emissionsSelect = document.getElementById("emissions");
+    const commentRow = document.getElementById("visibleEmissionCommentRow");
+
+    function toggleEmissionComment() {
+        
+
+        if (emissionsSelect.value === "Yes") {
+            commentRow.style.display = "";
+        } else {
+            commentRow.style.display = "none";
+        }
+    }
+
+    emissionsSelect.addEventListener("change", toggleEmissionComment);
+
 
 
     // ✅ Run duration calculation
@@ -72,6 +89,33 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+
 });
+    /// Display comment field only if visible emissions selected to Yes///
+/*
+    
+function checkEmissions(selectElement) {
+    const container = selectElement.closest(".input-row").parentElement;
+    const commentRow = container.querySelector("visibleEmissionComment");
+
+    const isYes = selectElement.value === "Yes";
+
+    commentRow.style.display = isYes ? "block" : "none";
+
+    const input = commentRow.querySelector("input");
+    input.required = isYes;
+
+    if (!isYes) input.value = "";
+}
+
+
+const emissionsSelect = document.getElementById("emissions");
+
+emissionsSelect.addEventListener("change", function () {
+    checkEmissions(this);
+});
+
+*/
+
 
   
