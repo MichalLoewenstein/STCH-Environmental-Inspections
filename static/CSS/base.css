@@ -97,6 +97,8 @@ button {
     font-size: 14px;
 }
 
+
+
 .input-row.full-width {
   display: block;        /* ✅ break the side-by-side layout */
 }
