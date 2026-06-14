@@ -10,17 +10,27 @@ def generate_generatorExcel(form_data):
        "Inspector Name", "Vendor", "Generator", "Date", "Start Time", "Stop Time", "Run Duration","Clock Run Hours","Run Reason" ,"Comment Visual Emissions","Comments"
     ]
 
+    vendor = form_data.get("vendor")
+
+    if vendor == "Other":
+        vendor = form_data.get("other_vendor")
+
+    run_reason = form_data.get("run_reason")
+
+    if run_reason == "Other":
+        run_reason = form_data.get("other_run_reason")
+
     # ✅ Convert incoming form data keys to match column names
     data = {
         "Inspector Name": form_data.get("inspector"),
-        "Vendor": form_data.get("vendor"),
+        "Vendor": vendor,
         "Generator": form_data.get("generator"),
         "Date": form_data.get("date"),
         "Start Time": form_data.get("start_time"),
         "Stop Time": form_data.get("stop_time"),
         "Run Duration": form_data.get("run_duration"),
         "Clock Run Hours": form_data.get("clock_run_hours"),
-        "Run Reason": form_data.get("run_reason"),
+        "Run Reason": run_reason,
         "Emissions": form_data.get("emissions"),
         "Comment Visual Emissions": form_data.get("visibleEmissionComment"),
         "Comments": form_data.get("comments")
