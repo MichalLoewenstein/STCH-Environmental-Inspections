@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from export import generate_excel
 from boilerExport import generate_boilerExcel
 from CEBflareExport import generate_flareExcel
-
+from generator import generate_generatorExcel
 import smtplib
 import json
 from email.message import EmailMessage
@@ -71,7 +71,7 @@ def index():
             f.write(excel_file.getbuffer())
 
         # ✅ Redirect to success page
-        return redirect(url_for("success"))
+        return redirect(url_for("success", download = "paint"))
 
     return render_template("forms/PaintForm.html")
 
@@ -92,10 +92,9 @@ from flask import request
 @app.route("/success")
 def success():
    
-    print("In success route")
-    
 
-    return render_template("success.html")
+    download = request.args.get("download")
+    return render_template("success.html", download=download)
 
 
 
@@ -241,10 +240,10 @@ def Generator():
 
         # ✅ Generate Excel
         print("Generating Excel with form data:", form_data)
-        excel_file = generate_boilerExcel(form_data)
+        excel_file = generate_generatorExcel(form_data)
 
         # ✅ Send email
-        send_email(excel_file, form_data, subject= "STCH Maintenance Boiler")
+        send_email(excel_file, form_data, subject= "STCH Maintenance Emergency Generator Run Log")
 
         print("✅ Excel created and email sent")
 
@@ -289,15 +288,6 @@ def portableEngine():
     response.headers['Expires'] = '0'
 
     return response
-
-
-
-
-
-
-
-
-
 
 
 if __name__ == "__main__":

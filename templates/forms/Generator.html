@@ -34,7 +34,7 @@ html { visibility: hidden; }
 
 <body>
 
-<form method="POST" action="/Generator" autocomplete="off">
+<form method="POST" action="/generator" autocomplete="off">
 
     <h1 class="form-title">Emergency Generator Run Log</h1>
      <br>
@@ -43,7 +43,7 @@ html { visibility: hidden; }
     <!-- ===================================================== -->
      <div class="input-row">
         <label>Inspector Name</label>
-        <input type="text" name="operator" required>
+        <input type="text" name="inspector" required>
     </div>
     <div class="input-row">
             <label>Vendor</label>
@@ -98,16 +98,11 @@ html { visibility: hidden; }
     <!-- ===================================================== -->
     <!-- ✅ PRESSURE / MEASUREMENTS -->
     <!-- ===================================================== -->
-        
-    <div class="input-row">
-        <label>Starting Hours</label>
-        <span id="starting_hours">--</span>
-    </div>
 
    
     <div class="input-row">
         <label>Clock Run Hours</label>
-        <input type="number" min="0" name="Clock Run Hours" >
+        <input type="number" min="0" id="clock_run_hours" name="clock_run_hours" >
     </div>
 
    
@@ -138,7 +133,7 @@ html { visibility: hidden; }
     
     <div class="input-row">
         <label>Comment on why the Visible Emissions</label>
-        <input type="text" name="Clock Run Hours" >
+        <input type="text" name="visibleEmissionComment" >
     </div>
    
     <div class="sub-header">Comments</div>

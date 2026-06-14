@@ -9,15 +9,21 @@
      <div class="card">
     <div class="box">
         <h2> Form successfully submitted</h2>
-        <p>Your download should start automatically.</p>
+        <p>Your submission has been sent to the management.</p>
        </div>
     </div>
+
+
+{% if download == "paint" %}
+<script>
+    window.onload = function() {
+        window.location.href = "{{ url_for('download') }}";
+    };
+</script>
+{% endif %}
+
 </body>
 </html>
 
 
-<script>
-    window.onload = function() {
-        window.location.href = "/download";
-    };
-</script>
+
