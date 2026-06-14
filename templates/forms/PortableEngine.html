@@ -26,6 +26,8 @@ html { visibility: hidden; }
     
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <script src="{{ url_for('static', filename='js/components/date-auto-fill.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/portable-engine.js') }}"></script>
 
     
 
@@ -61,8 +63,15 @@ html { visibility: hidden; }
         <label>Location</label>
         <select id="location"name="location">
             <option disabled selected hidden></option>
-            <option value="select1">location1</option>
-            <option value="select2">location2</option>
+            <option value="select1">Purple Zone</option>
+            <option value="select2">N Courtyard/Building SS</option>
+            <option value="select3">Building N Courtyard</option>
+            <option value="select4">Building MM</option>
+            <option value="select5">MP and MS Courtyard</option>
+            <option value="select6">In</option>
+            <option value="select7">Road H and Butterfly Field</option>
+            <option value="select8">Building MD</option>
+
         </select>
     </div>
 
@@ -113,7 +122,7 @@ html { visibility: hidden; }
 
     <div class="input-row">
         <label>Total Hours</label>
-        <input type="text" id="total_time" name="totalHours" step="0.1">
+        <input type="number" id="total_time" name="totalHours" step="0.1" readonly>
     </div>
     
 
@@ -192,10 +201,6 @@ html { visibility: hidden; }
         </select>
     </div>
 
-
- 
-
- 
     
 
     <br>
