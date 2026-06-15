@@ -110,7 +110,7 @@ button {
 
 .input-row.full-width textarea {
   width: 100%;
-  min-height: 120px;     /* ✅ default height */
+  min-height: 90px;     /* ✅ default height */
   padding: 10px;
   border-radius: 6px;
   border: 1px solid #ccc;

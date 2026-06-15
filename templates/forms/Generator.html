@@ -101,7 +101,7 @@ html { visibility: hidden; }
     <!-- ===================================================== -->
     <div class="input-row">
         <label>Starting Hours</label>
-        <span id="starting_hours">--</span>
+        <span id="starting_hours" name="starting_hours" >--</span>
     </div>
 
    
@@ -127,6 +127,15 @@ html { visibility: hidden; }
            style="display:none; margin-top:6px;">
         
     </div>
+
+        <div class="sub-header">Comments</div>
+    <br>
+    
+
+ <div class="input-row full-width">
+        <!-- <label>Comments:</label> -->
+        <textarea name="comments" placeholder="Comments"></textarea>
+    </div>
     <div class="sub-header">Visible Emission</div>
      <div class="input-row">
         <label>Are Visible Emissions Present</label>
@@ -142,14 +151,7 @@ html { visibility: hidden; }
         <input type="text" name="visibleEmissionComment">
     </div>
    
-    <div class="sub-header">Comments</div>
-    <br>
-    
 
- <div class="input-row full-width">
-        <!-- <label>Comments:</label> -->
-        <textarea name="comments" placeholder="Comments"></textarea>
-    </div>
     <br>
     <button type="submit">Submit</button>
     <div class="button">

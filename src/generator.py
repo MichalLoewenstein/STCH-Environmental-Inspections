@@ -7,7 +7,7 @@ def generate_generatorExcel(form_data):
     print(form_data)
     # ✅ Define consistent column order (important!)
     columns = [
-       "Inspector Name", "Vendor", "Generator", "Date", "Start Time", "Stop Time", "Run Duration","Clock Run Hours","Run Reason" ,"Visible Emissions","Comment Visible Emissions","Comments"
+       "Inspector Name", "Vendor", "Generator", "Date", "Start Time", "Stop Time", "Run Duration","Starting Hours","Clock Run Hours","Run Reason" ,"Visible Emissions","Comment Visible Emissions","Comments"
     ]
 
     vendor = form_data.get("vendor")
@@ -29,6 +29,7 @@ def generate_generatorExcel(form_data):
         "Start Time": form_data.get("start_time"),
         "Stop Time": form_data.get("stop_time"),
         "Run Duration": form_data.get("run_duration"),
+        "Starting Hours": form_data.get("starting_hours"),
         "Clock Run Hours": form_data.get("clock_run_hours"),
         "Run Reason": run_reason,
         "Visible Emissions": form_data.get("emissions"),
