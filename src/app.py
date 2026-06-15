@@ -20,6 +20,7 @@ static_folder=os.path.abspath(os.path.join(os.path.dirname(__file__), '../static
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 FILE_PATH = os.path.join(BASE_DIR, "materials.json")
 
+
 # Home route to display the form
 @app.route("/")
 def QRScreen():
@@ -60,6 +61,7 @@ def index():
                 "quantity": qty,
                 "unit": unit
             })
+            
 
         # ✅ Generate Excel
         excel_file = generate_excel(form_data, final_materials)
@@ -288,6 +290,8 @@ def portableEngine():
     response.headers['Expires'] = '0'
 
     return response
+
+
 
 
 if __name__ == "__main__":
