@@ -32,9 +32,10 @@ def generate_generatorExcel(form_data):
         "Starting Hours": form_data.get("starting_hours"),
         "Clock Run Hours": form_data.get("clock_run_hours"),
         "Run Reason": run_reason,
+        "Comments": form_data.get("comments"),
         "Visible Emissions": form_data.get("emissions"),
-        "Comment Visible Emissions": form_data.get("visibleEmissionComment"),
-        "Comments": form_data.get("comments")
+        "Comment Visible Emissions": form_data.get("visibleEmissionComment")
+        
 
     }
 

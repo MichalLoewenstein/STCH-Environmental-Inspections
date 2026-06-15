@@ -61,10 +61,15 @@ document.addEventListener("DOMContentLoaded", function () {
         let minutes = total % 60;
 
         runDurationEl.value = `${hours}:${String(minutes).padStart(2, "0")}`;
+        updateClockRunHours();
     }
+
+     
 
     document.getElementById("start_time")?.addEventListener("change", calculateTotalTime);
     document.getElementById("stop_time")?.addEventListener("change", calculateTotalTime);
+
+   
 
     // ✅ Generator → Starting Hours mapping
     const generatorSelect = document.getElementById("generator");
@@ -86,11 +91,42 @@ document.addEventListener("DOMContentLoaded", function () {
         generatorSelect.addEventListener("change", function () {
             const selected = this.value.toUpperCase();
             startingHours.textContent = generatorValues[selected] || "--";
+
+            updateClockRunHours();
         });
+
+    generatorSelect.dispatchEvent(new Event("change"))
+
     }
 
+    // ✅ Add run duration + starting hours → clock run hours
+    function updateClockRunHours() {
+    const start = parseFloat(startingHours.textContent) || 0;
+    const runDuration = document.getElementById("run_duration").value;
 
+    let duration = 0;
+
+    if (runDuration && runDuration.includes(":")) {
+        const [hours, minutes] = runDuration.split(":").map(Number);
+        duration = hours + (minutes / 60);
+    }
+
+    const total = start + duration;
+
+    document.getElementById("clock_run_hours").value =
+        total ? total.toFixed(2) : "";
+}
 });
+
+
+
+
+
+
+
+
+
+
     /// Display comment field only if visible emissions selected to Yes///
 /*
     

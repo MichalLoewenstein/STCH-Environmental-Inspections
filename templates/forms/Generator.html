@@ -26,6 +26,7 @@ html { visibility: hidden; }
     
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/generator.css') }}">
     <script src="{{ url_for('static', filename='js/components/date-auto-fill.js')}}" defer></script>
     <script src="{{ url_for('static', filename='js/generator.js')}}" defer></script>
     
@@ -107,7 +108,7 @@ html { visibility: hidden; }
    
     <div class="input-row">
         <label>Clock Run Hours</label>
-        <input type="number" min="0" id="clock_run_hours" name="clock_run_hours" >
+        <input type="text" id="clock_run_hours" name="clock_run_hours" readonly >  
     </div>
 
    
