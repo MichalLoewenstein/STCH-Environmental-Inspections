@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (generatorSelect) {
         generatorSelect.addEventListener("change", function () {
             const selected = this.value.toUpperCase();
-            startingHours.textContent = generatorValues[selected] || "--";
+            startingHours.value = generatorValues[selected] || "--";
 
             updateClockRunHours();
         });
@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // ✅ Add run duration + starting hours → clock run hours
     function updateClockRunHours() {
-    const start = parseFloat(startingHours.textContent) || 0;
+    const start = parseFloat(startingHours.value) || 0;
     const runDuration = document.getElementById("run_duration").value;
 
     let duration = 0;
