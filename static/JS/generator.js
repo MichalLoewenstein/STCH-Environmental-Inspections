@@ -1,15 +1,3 @@
-function checkOther(selectElement) {
-    const container = selectElement.closest(".input-row");
-    const input = container.querySelector(".other-input");
-
-    const isOther = selectElement.value === "Other";
-
-    input.style.display = isOther ? "inline-block" : "none";
-    input.required = isOther;
-
-    if (!isOther) input.value = "";
-}
-
 document.addEventListener("DOMContentLoaded", function () {
 
 

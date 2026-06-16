@@ -29,6 +29,7 @@ html { visibility: hidden; }
     <script src="{{ url_for('static', filename='js/components/date-auto-fill.js')}}" defer></script>
     <script src="{{ url_for('static', filename='js/generator.js')}}" defer></script>
     <script src="{{ url_for('static', filename='js/components/submit-disable-btn.js')}}" defer></script>
+    <script src="{{ url_for('static', filename='js/components/other-input.js')}}" defer></script>
 
 </head>
 
@@ -47,7 +48,7 @@ html { visibility: hidden; }
     </div>
     <div class="input-row">
             <label>Vendor</label>
-            <select name="vendor" onchange="checkOther(this)">
+            <select name="vendor" class="has-other">
                 <option disabled selected>Select vendor</option>
                 <option value="B&R">B&R</option>
                 <option value="Other" >Other</option>
@@ -56,6 +57,7 @@ html { visibility: hidden; }
             <input type="text"
            name="other_vendor"
            class="other-input"
+           id = "other_vendor"
            placeholder="Enter vendor name"
            style="display:none; margin-top:6px;">
 
@@ -114,7 +116,7 @@ html { visibility: hidden; }
    
 <div class="input-row">
     <label>Run Reason</label>
-        <select name="run_reason" onchange="checkOther(this)" required>
+        <select name="run_reason" class="has-other" required>
             <option value="" disabled selected hidden></option>
             <option value="Test">Test</option>
             <option value="Emergency">Emergency</option>
@@ -124,6 +126,7 @@ html { visibility: hidden; }
          <input type="text"
            name="other_run_reason"
            class="other-input"
+           id = "other_reason"
            placeholder="Enter run reason"
            style="display:none; margin-top:6px;">
         

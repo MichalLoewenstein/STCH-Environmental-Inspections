@@ -29,6 +29,8 @@ html { visibility: hidden; }
     <script src="{{ url_for('static', filename='js/components/date-auto-fill.js') }}"></script>
     <script src="{{ url_for('static', filename='js/portable-engine.js') }}"></script>
     <script src="{{ url_for('static', filename='js/components/submit-disable-btn.js')}}" defer></script>
+    <script src="{{ url_for('static', filename='js/components/other-input.js')}}" defer></script>
+
 
     
 
@@ -47,16 +49,18 @@ html { visibility: hidden; }
     </div>
     <div class="input-row">
             <label>Equipment</label>
-            <select name="equipment" onchange="checkOther(this)">
+            <select name="equipment" class="has-other">
                 <option disabled selected>Select Equipment</option>
                 <option value="equipment1">Chipper</option>
                   <option value="equipment2">Lift Machine</option>
                 <option value="Other" >Other</option>
             </select>
+             <label></label>
             <input type="text"
-           name="other_vendor"
+           name="other_equipment"
+           id ="other_equipment"
            class="other-input"
-           placeholder="Enter equipment name"
+           placeholder="Enter equipment"
            style="display:none; margin-top:6px;">
 
     </div>
@@ -93,21 +97,22 @@ html { visibility: hidden; }
     </div>
 
 
-        <div class="input-row">
+    <div class="input-row">
         <label>Purpose</label>
-        <select id="purpose"name="purpose">
-            <option disabled selected hidden></option>
+        <select id="purpose"name="purpose" class="has-other">
+            <option disabled selected hidden>Select Purpose</option>
             <option value="opt1">Tree Removal</option>
             <option value="opt2">Tree Trimming</option>
-            <option value="opt2">Tree Work</option>
-            <option value="opt2">Other</option>
+            <option value="opt3">Tree Work</option>
+            <option value="Other">Other</option>
         </select>
-        <input type="text"
+        <label></label>
+            <input type="text"
            name="other_purpose"
+           id = "other_purpose"
            class="other-input"
            placeholder="Enter purpose"
            style="display:none; margin-top:6px;">
-
     </div>
 
 <div class="sub-header">Service Hours and Meter Readings</div>
@@ -218,7 +223,7 @@ html { visibility: hidden; }
 
     <div class="input-row">
         <label>On-Site Status</label>
-        <select id="onsiteStatus"name="onsiteStatus">
+        <select id="onsiteStatus" name="onsiteStatus">
             <option disabled selected hidden></option>
             <option value="status1">Off-Site</option>
             <option value="status2">On-Site</option>

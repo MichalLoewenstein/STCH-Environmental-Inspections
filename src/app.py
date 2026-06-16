@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from export import generate_excel
 from boilerExport import generate_boilerExcel
 from CEBflareExport import generate_flareExcel
+from portable_engine_log import generate_portableExcel
 from generator import generate_generatorExcel
 import smtplib
 import json
@@ -273,7 +274,7 @@ def portableEngine():
 
         # ✅ Generate Excel
         print("Generating Excel with form data:", form_data)
-        excel_file = generate_boilerExcel(form_data)
+        excel_file = generate_portableExcel(form_data)
 
         # ✅ Send email
         send_email(excel_file, form_data, subject= "STCH Maintenance Portable Engine")
