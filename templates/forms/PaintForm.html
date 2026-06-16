@@ -25,10 +25,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="{{ url_for('static', filename='js/components/date-auto-fill.js') }}"></script>
     <script src="{{ url_for('static', filename='js/paintform.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/components/submit-disable-btn.js')}}" defer></script>
 </head>
 
 <body>
-<form method="POST" action="/paint" autocomplete="off">
+<form method="POST" action="/paint" autocomplete="off" id="form">
 
     {% if error %}
         <p class="error">{{ error }}</p>
@@ -146,7 +147,7 @@
 
     <br>
     <div class="submit-wrapper">
-    <button type="submit" name="action" value="export">Submit and Export to Excel</button>
+    <button type="submit" name="action" value="export" id="submitBtn">Submit and Export to Excel</button>
     </div>
     <br>
 

@@ -28,6 +28,7 @@ html { visibility: hidden; }
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
     <script src="{{ url_for('static', filename='js/components/date-auto-fill.js') }}"></script>
     <script src="{{ url_for('static', filename='js/portable-engine.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/components/submit-disable-btn.js')}}" defer></script>
 
     
 
@@ -35,7 +36,7 @@ html { visibility: hidden; }
 
 <body>
 
-<form method="POST" action="/portableEngine" autocomplete="off">
+<form method="POST" action="/portableEngine" autocomplete="off" id="form">
 
     <h1 class="form-title">Portable Engine Log</h1>
      <br>
@@ -233,7 +234,7 @@ html { visibility: hidden; }
     </div>
 
     <br>
-    <button type="submit">Submit</button>
+    <button type="submit" id="submitBtn">Submit</button>
     <div class="button">
     <a href="/home">Cancel</a></div>
 </form>

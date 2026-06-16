@@ -30,13 +30,14 @@ html { visibility: hidden; }
     <link rel="stylesheet" href="{{ url_for('static', filename='css/CEB_Flare.css') }}">
     <script src="{{ url_for('static', filename='js/components/time-auto-select.js')}}" defer></script>
     <script src="{{ url_for('static', filename='js/components/date-auto-fill.js')}}" defer></script>
+    <script src="{{ url_for('static', filename='js/components/submit-disable-btn.js')}}" defer></script>
     
 
 </head>
 
 <body>
 
-<form method="POST" autocomplete="off">
+<form method="POST" autocomplete="off" id="form">
 
     <h1 class="form-title">Flare / CEB Inspection Form</h1>
      <br>
@@ -239,7 +240,7 @@ html { visibility: hidden; }
         <textarea name="comments" placeholder="Comments"></textarea>
     </div>
     <br>
-    <button type="submit">Submit</button>
+    <button type="submit" id="submitBtn">Submit</button>
     <div class="button">
     <a href="/home">Cancel</a></div>
 </form>

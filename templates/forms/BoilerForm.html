@@ -27,14 +27,14 @@ html { visibility: hidden; }
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="{{ url_for('static', filename='js/components/time-auto-select.js')}}" defer></script>
     <script src="{{ url_for('static', filename='js/components/date-auto-fill.js')}}" defer></script>
-    
     <script src="{{ url_for('static', filename='js/boilerform.js')}}" defer></script>
+    <script src="{{ url_for('static', filename='js/components/submit-disable-btn.js')}}" defer></script>
 
 </head>
 
 <body>
 
-<form method="POST" autocomplete="off">
+<form method="POST" autocomplete="off" id="form">
 
     {% if error %}
         <p class="error">{{ error }}</p>
@@ -220,7 +220,7 @@ html { visibility: hidden; }
         <textarea name="comments" placeholder="Comments"></textarea>
     </div>
 
-    <button type="submit">Submit</button>
+    <button type="submit" id="submitBtn">Submit</button>
      <div class="button">
     <a href="/home">Cancel</a></div>
 
