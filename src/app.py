@@ -34,6 +34,7 @@ def home():
 @app.route("/paint", methods=["GET", "POST"])
 def index():
 
+
     if request.method == "POST":
 
         form_data = request.form.to_dict()
@@ -63,30 +64,33 @@ def index():
                 "unit": unit
             })
             
+        print("✅ Final materials:", final_materials)
+
+        if not form_data:
+                raise ValueError("No form data submitted")
 
         # ✅ Generate Excel
         excel_file = generate_excel(form_data, final_materials)
 
-       
-# ✅ Save file temporarily
-        file_path = os.path.join(BASE_DIR, "temp.xlsx")
-        with open(file_path, "wb") as f:
-            f.write(excel_file.getbuffer())
+        # ✅ ✅ SEND EMAIL HERE (before redirect)
+        send_email(
+            excel_file,
+            form_data,
+            subject="STCH Maintenance Paint and Soundblasting"
+        )
 
-        # ✅ Redirect to success page
-        return redirect(url_for("success", download = "paint"))
+        print("✅ Excel + Email done")
 
-    return render_template("forms/PaintForm.html")
+        # ✅ Then redirect ONLY
+        return redirect(url_for("success"))
 
-@app.route("/download")
-def download():
-    file_path = os.path.join(BASE_DIR, "temp.xlsx")
+    response = make_response(render_template("forms/PaintForm.html"))
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
 
-    return send_file(
-        file_path,
-        as_attachment=True,
-        download_name="Paint_Form.xlsx"
-    )
+
+    return response
 
 
 
