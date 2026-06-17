@@ -1,10 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    // Time Calculation //
-    const initial = parseFloat(document.getElementById("initialMeterRead").value) || 0;
-    const final = parseFloat(document.getElementById("finalMeterRead").value) || 0;
-
     function calculateTotal() {
+
+
+            // Time Calculation //
+        const initial = parseFloat(document.getElementById("initialMeterRead").value) || 0;
+        const final = parseFloat(document.getElementById("finalMeterRead").value) || 0;
 
         if (final >= initial) {
             const total = final - initial;

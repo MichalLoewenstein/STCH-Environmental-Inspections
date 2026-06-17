@@ -88,6 +88,7 @@ button {
 .input-row input,
 .input-row select {
     width: 100%;
+    max-width: 100%; /*will not let fields jut out  */
     height: 42px;
     padding: 8px 12px;
     border: 1px solid #ccc;
@@ -97,6 +98,13 @@ button {
     font-size: 14px;
 }
 
+input[type="date"] {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    appearance: none;
+    -webkit-appearance: none;
+}
 
 
 .input-row.full-width {
@@ -142,6 +150,14 @@ button {
 .submit-wrapper {
     display: flex;
     justify-content: center;
+}
+
+
+
+.readonly-field {
+    background-color: #f8f9fa;
+    color: #6c757d;
+    cursor: not-allowed;
 }
 
 
