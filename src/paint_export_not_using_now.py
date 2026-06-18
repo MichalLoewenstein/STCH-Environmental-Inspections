@@ -20,6 +20,7 @@ static_folder=os.path.abspath(os.path.join(os.path.dirname(__file__), '../static
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 FILE_PATH = os.path.join(BASE_DIR, "materials.json")
+
 @app.route("/paint", methods=["GET", "POST"])
 def index():
 

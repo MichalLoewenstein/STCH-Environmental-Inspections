@@ -26,10 +26,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (departureDate.value) {
             // If there is a date → Off-Site
-            onsiteStatus.value = "status1";
+            onsiteStatus.value = "Off-Site";
         } else {
             // If empty → On-Site
-            onsiteStatus.value = "status2";
+            onsiteStatus.value = "On-Site";
         }
     }
 
