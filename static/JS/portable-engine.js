@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (final >= initial) {
             const total = final - initial;
-            document.getElementById("total_time").value = total.toFixed(1);
+            document.getElementById("total_time").value = total.toFixed(2);
         } else {
             document.getElementById("total_time").value = "Invalid";
         }
@@ -26,10 +26,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (departureDate.value) {
             // If there is a date → Off-Site
-            onsiteStatus.value = "status1";
+            onsiteStatus.value = "Off-Site";
         } else {
             // If empty → On-Site
-            onsiteStatus.value = "status2";
+            onsiteStatus.value = "On-Site";
         }
     }
 
