@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (final >= initial) {
             const total = final - initial;
-            document.getElementById("total_time").value = total.toFixed(1);
+            document.getElementById("total_time").value = total.toFixed(2);
         } else {
             document.getElementById("total_time").value = "Invalid";
         }
