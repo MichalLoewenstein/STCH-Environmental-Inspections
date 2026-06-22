@@ -98,7 +98,8 @@ button {
     font-size: 14px;
 }
 
-input[type="date"] {
+input[type="date"],
+input [type="time"] {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;

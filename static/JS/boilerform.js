@@ -1,13 +1,13 @@
+document.querySelector("form").addEventListener("submit", function () {
+  const toggles = document.querySelectorAll('input[type="checkbox"]');
 
-//toggle message to the console, can maybe delete
+  toggles.forEach(toggle => {
+    const hidden = document.querySelector(
+      `input[name="${toggle.name}_hidden"]`
+    );
 
-const toggles = document.querySelectorAll('input[type="checkbox"]');
-
-toggles.forEach(toggle => {
-  toggle.addEventListener("change", () => {
-    console.log(toggle.name + ": " + (toggle.checked ? "ON" : "OFF"));
+    if (hidden) {
+      hidden.value = toggle.checked ? "ON" : "OFF";
+    }
   });
 });
-
-
- 
