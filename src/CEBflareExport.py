@@ -10,7 +10,7 @@ def generate_flareExcel(form_data):
        "Date", "Inspection Time", "Operator", 
         "SP-1 (Inches)", "SP-2 (Inches)", "KP-1 (Inches)", "Pilot Gas Pressure (PSIG)",
         "Supplemental NG Flow (SCFM)", "Main flame visible?", "Pilot flame visible?", 
-        "Waste Gas Flow (SCFM)", "Waste Gas Temperature(Faranheit)", "CEB On/Off",
+        "Waste Gas Flow (SCFM)", "Waste Gas Temperature(Faranheit)", "CEB (On,Off)",
         "Supplemental NG Flow (SCFM) 2", "Stack Temperature(Faranheit)", "Is maintenance complete?" , 
         "Flare Visible Emissions?", "CEB Visible Emissions?", "Comments"
     ]
@@ -29,7 +29,7 @@ def generate_flareExcel(form_data):
         "Pilot flame visible?": form_data.get("pilot_flame_visible"), 
         "Waste Gas Flow (SCFM)": form_data.get("waste_gas_flow"), 
         "Waste Gas Temperature(Faranheit)": form_data.get("waste_gas_temp"),  
-        "CEB On/Off": form_data.get("CEBchoice"), 
+        "CEB (On,Off)": form_data.get("CEBchoice"), 
         "Supplemental NG Flow (SCFM) 2": form_data.get("supplemental_ng_flow2"), 
         "Stack Temperature(Faranheit)": form_data.get("stacktemperature"),  
         "Is maintenance complete?" : form_data.get("maintaincomplete"), 
