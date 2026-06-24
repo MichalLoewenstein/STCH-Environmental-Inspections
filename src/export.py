@@ -30,9 +30,11 @@ def generate_excel(form_data, materials):
 
         name_col = f"Material {i+1} Name"
         qty_col = f"Material {i+1} Quantity"
+        unit_col = f"Material {i+1} Unit"
 
         columns.append(name_col)
         columns.append(qty_col)
+        columns.append(unit_col)
 
         if i < len(materials):
             material = materials[i]
@@ -49,7 +51,8 @@ def generate_excel(form_data, materials):
 
         # ✅ ✅ Clean output
         data[name_col] = name
-        data[qty_col] = f"{quantity} {unit}".strip()
+        data[qty_col] = quantity
+        data[unit_col] = unit
 
     # ✅ Build dataframe
     df = pd.DataFrame([data], columns=columns)
