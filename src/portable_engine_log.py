@@ -1,5 +1,6 @@
 import pandas as pd
 import io
+from flask import Flask, request
 
 def generate_portableExcel(form_data):
 
@@ -21,6 +22,7 @@ def generate_portableExcel(form_data):
     if purpose == "Other":
         purpose = form_data.get("other_purpose") or "Other"
 
+
     # ✅ Convert incoming form data keys to match column names
     data = {
         "Operator": form_data.get("operator"),
@@ -32,7 +34,7 @@ def generate_portableExcel(form_data):
         "Initial Meter Read": form_data.get("initialMeterRead"),
         "Departure Date": form_data.get("departureDate"),
         "Final Meter Read": form_data.get("finalMeterRead"),
-        "Total Hours": form_data.get("totalHours"),
+        "Total Hours": float(request.form.get("total_time") or 0),
         "Horsepower": form_data.get("horsepower"),
         "Manufacturer": form_data.get("manufacturer"),
         "Model Number": form_data.get("modelNumber"),
@@ -44,6 +46,7 @@ def generate_portableExcel(form_data):
         "Comments": form_data.get("comments")  
 
     }
+   
 
 # columns inferred automatically
     df = pd.DataFrame([data], columns=columns)

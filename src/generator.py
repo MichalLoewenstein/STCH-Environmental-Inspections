@@ -1,5 +1,6 @@
 import pandas as pd
 import io
+from flask import Flask, request
 
 def generate_generatorExcel(form_data):
 
@@ -21,6 +22,24 @@ def generate_generatorExcel(form_data):
     if run_reason == "Other":
         run_reason = form_data.get("other_run_reason") or "Other"
 
+    run_duration = form_data.get("run_duration")
+
+    
+    run_duration = form_data.get("run_duration")
+
+    if run_duration:
+        hours, minutes = map(int, run_duration.split(":"))
+        total_hours = hours + (minutes / 60)
+    else:
+        total_hours = 0
+
+#  round to 2 decimal places
+    total_hours = round(total_hours, 2)
+
+    print(total_hours)
+
+
+
     # ✅ Convert incoming form data keys to match column names
     data = {
         "Inspector Name": form_data.get("inspector"),
@@ -29,7 +48,7 @@ def generate_generatorExcel(form_data):
         "Date": form_data.get("date"),
         "Start Time": form_data.get("start_time"),
         "Stop Time": form_data.get("stop_time"),
-        "Run Duration": form_data.get("run_duration"),
+        "Run Duration": total_hours,
         "Run Reason": run_reason,
         "Comments": form_data.get("comments"),
         "Visible Emissions": form_data.get("emissions"),

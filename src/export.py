@@ -12,9 +12,12 @@ def generate_excel(form_data, materials):
 
     total_time = form_data.get("total_time")
 
-
-    hours, minutes = map(int, total_time.split(":"))
-    total_minutes = hours * 60 + minutes
+    if total_time:
+        hours, minutes = map(int, total_time.split(":"))
+        total_minutes = hours * 60 + minutes
+    
+    else:
+        total_minutes = 0
 
     print(total_minutes)  
 
