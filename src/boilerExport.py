@@ -1,21 +1,28 @@
 import pandas as pd
 import io
 
+# ✅ Helper to correctly read checkbox values
+def get_checkbox(form_data, field):
+    return "Yes" if form_data.get(field + "cb") == "ON" else "No"
+
+
 def generate_boilerExcel(form_data):
 
+    print("Generating Excel with form data:", form_data)
 
-    print(form_data)
-    # ✅ Define consistent column order (important!)
+    # ✅ Define consistent column order
     columns = [
-       "Operator", "Email", "Phone", 
+        "Operator", "Email", "Phone",
         "Boiler Number", "Date", "Time", "Water Level",
-        "Blow Down Water Column", "Blow Down Sight Glass", "Blow Down Low Water Cut Out", 
-        "Bottom Blow Boiler", "Checked Burner Ring For Proper Flame Pattern", "Checked Excess Oxygen For Proper Level",
-        "Checked For Excess Combustibles", "Visually Checked Entire Boiler", "Visible Emissions" , 
+        "Blow Down Water Column", "Blow Down Sight Glass", "Blow Down Low Water Cut Out",
+        "Bottom Blow Boiler",
+        "Checked Burner Ring For Proper Flame Pattern", "Checked Excess Oxygen For Proper Level",
+        "Checked For Excess Combustibles", "Visually Checked Entire Boiler",
+        "Visible Emissions",
         "Time Smoke First Observed", "Time Smoke Cleared", "Comments"
     ]
 
-    # ✅ Convert incoming form data keys to match column names
+    # ✅ Map form data (FIXED ✅ checkboxes now read correctly)
     data = {
         "Operator": form_data.get("operator"),
         "Email": form_data.get("email"),
@@ -23,35 +30,38 @@ def generate_boilerExcel(form_data):
         "Boiler Number": form_data.get("boilerNumber"),
         "Date": form_data.get("date"),
         "Time": form_data.get("time"),
-        "Water Level": form_data.get("check_water_level"),
-        "Blow Down Water Column": form_data.get("blowDownWaterColumn"), 
-        "Blow Down Sight Glass": form_data.get("blowDownSightGlass"), 
-        "Blow Down Low Water Cut Out": form_data.get("blowDownLowWaterCutOut"), 
-        "Bottom Blow Boiler": form_data.get("bottomBlowBoiler"), 
-        "Checked Burner Ring For Proper Flame Pattern": form_data.get("checkedBurnerRingForProperFlamePattern"),  
-        "Checked Excess Oxygen For Proper Level": form_data.get("checkedExcessOxygenForProperLevel"), 
-        "Checked For Excess Combustibles": form_data.get("checkedForExcessCombustibles"), 
-        "Visually Checked Entire Boiler": form_data.get("visuallyCheckedEntireBoiler"),  
-        "Visible Emissions" : form_data.get("emissions"), 
-        "Time Smoke First Observed": form_data.get("timeSmokeFirstObserved"), 
-        "Time Smoke Cleared": form_data.get("timeSmokeCleared"),  
-        "Comments": form_data.get("comments")
 
+        "Water Level": get_checkbox(form_data, "check_water_level"),
+        "Blow Down Water Column": get_checkbox(form_data, "blowDownWaterColumn"),
+        "Blow Down Sight Glass": get_checkbox(form_data, "blowDownSightGlass"),
+        "Blow Down Low Water Cut Out": get_checkbox(form_data, "blowDownLowWaterCutOut"),
+        "Bottom Blow Boiler": get_checkbox(form_data, "bottomBlowBoiler"),
+
+        "Checked Burner Ring For Proper Flame Pattern": get_checkbox(form_data, "checkedBurnerRingForProperFlamePattern"),
+        "Checked Excess Oxygen For Proper Level": get_checkbox(form_data, "checkedExcessOxygenForProperLevel"),
+        "Checked For Excess Combustibles": get_checkbox(form_data, "checkedForExcessCombustibles"),
+        "Visually Checked Entire Boiler": get_checkbox(form_data, "visuallyCheckedEntireBoiler"),
+
+        "Visible Emissions": form_data.get("emissions"),
+
+        "Time Smoke First Observed": form_data.get("timeSmokeFirstObserved"),
+        "Time Smoke Cleared": form_data.get("timeSmokeCleared"),
+        "Comments": form_data.get("comments")
     }
 
-# columns inferred automatically
+    # ✅ Create DataFrame
     df = pd.DataFrame([data], columns=columns)
 
     output = io.BytesIO()
 
-    # ✅ Use Excel writer with xlsxwriter (supports tables)
+    # ✅ Write to Excel
     with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
         df.to_excel(writer, index=False, sheet_name='WorkLog')
 
         workbook = writer.book
         worksheet = writer.sheets['WorkLog']
 
-        # ✅ Add Excel Table (THIS is the key for Power Automate)
+        # ✅ Add Excel Table (important for Power Automate)
         (max_row, max_col) = df.shape
 
         worksheet.add_table(
@@ -62,7 +72,7 @@ def generate_boilerExcel(form_data):
             }
         )
 
-        # ✅ Optional column width (nice UX)
+        # ✅ Set column width
         worksheet.set_column(0, max_col - 1, 20)
 
     output.seek(0)

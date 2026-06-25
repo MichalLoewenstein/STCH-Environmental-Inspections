@@ -117,7 +117,7 @@ def send_email(excel_file,form_data, subject):
     # =========================
     # ✅ FIRST EMAIL 
     # =========================
-    receiver1 = "T.Shaliyehsabou@shell.com"
+    receiver1 = ["T.Shaliyehsabou@shell.com","Michal.Lowenstein@shell.com"]
 
     msg1 = EmailMessage()
     msg1['Subject'] = subject
