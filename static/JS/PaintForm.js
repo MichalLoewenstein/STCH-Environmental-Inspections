@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // ✅ SAFELY attach event listeners
+    // ✅ calculate total time
     let startInput = document.getElementById("start_time");
     let endInput = document.getElementById("end_time");
     let breakInput = document.getElementById("break");
