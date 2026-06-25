@@ -3,7 +3,7 @@ import io
 
 # ✅ Helper to correctly read checkbox values
 def get_checkbox(form_data, field):
-    return "Yes" if form_data.get(field + "cb") == "ON" else "No"
+    return "ON" if form_data.get(field + "cb") == "ON" else "OFF"
 
 
 def generate_boilerExcel(form_data):
