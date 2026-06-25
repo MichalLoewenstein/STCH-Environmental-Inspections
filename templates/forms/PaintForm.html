@@ -37,6 +37,16 @@
 
     <div class="form-title">Paint, Products & Sandblasting Log</div>
 
+   <!-- NORMAL FIELDS -->
+    <div class="input-row">
+        <label>Activity</label>
+        <select name="activity" required>
+            <option value="" disabled selected hidden></option>
+            <option value="Paint">Paint</option>
+            <option value="Sandblasting">Sandblasting</option>
+        </select>
+    </div>
+
     <!-- NORMAL FIELDS -->
     <div class="input-row">
         <label>Company</label>
@@ -123,7 +133,7 @@
             <!-- QUANTITY -->
             <div class="field quantity">
                 <label>Quantity</label>
-                <input type="number" min="0" step="0.01" name="quantity[]" required>
+                <input type="number" min="0" step="0.01" name="quantity[]" value = "0" required>
             </div>
 
             <!-- UNIT -->

@@ -145,3 +145,14 @@ function checkOther(selectElement) {
         input.value = "";
     }
 }
+
+
+
+
+document.getElementById("form").addEventListener("submit", function() {
+    document.querySelectorAll('input[name="quantity[]"]').forEach(function(input) {
+        if (input.value === "" || input.value === null) {
+            input.value = 0;
+        }
+    });
+});

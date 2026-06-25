@@ -5,12 +5,23 @@ def generate_excel(form_data, materials):
 
     # ✅ Base columns
     columns = [
-        "Company", "Name", "Email", "Phone", "Location",
+       "Activity", "Company", "Name", "Email", "Phone", "Location",
         "Date", "Start Time", "End Time",
         "Break", "Total Time"
     ]
 
+    total_time = form_data.get("total_time")
+
+
+    hours, minutes = map(int, total_time.split(":"))
+    total_minutes = hours * 60 + minutes
+
+    print(total_minutes)  
+
+
+
     data = {
+        "Activity": form_data.get("activity"),
         "Company": form_data.get("company"),
         "Name": form_data.get("name"),
         "Email": form_data.get("email"),
@@ -20,7 +31,7 @@ def generate_excel(form_data, materials):
         "Start Time": form_data.get("start_time"),
         "End Time": form_data.get("end_time"),
         "Break": form_data.get("break"),
-        "Total Time": form_data.get("total_time")
+        "Total Time": total_minutes
     }
 
     max_materials = 5
