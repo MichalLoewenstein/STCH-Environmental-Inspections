@@ -34,7 +34,7 @@ def generate_portableExcel(form_data):
         "Initial Meter Read": form_data.get("initialMeterRead"),
         "Departure Date": form_data.get("departureDate"),
         "Final Meter Read": form_data.get("finalMeterRead"),
-        "Total Hours": float(request.form.get("total_time") or 0),
+        "Total Hours": float(request.form.get("totalHours") or 0),
         "Horsepower": form_data.get("horsepower"),
         "Manufacturer": form_data.get("manufacturer"),
         "Model Number": form_data.get("modelNumber"),
