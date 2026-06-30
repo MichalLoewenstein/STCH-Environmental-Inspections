@@ -1,0 +1,105 @@
+[
+    {
+        "equipment": "Chipper Machine",
+        "manufacturer": "Vermeer",
+        "model_number": "BC1000XL",
+        "serial_number": "7000G140REVC",
+        "manufacture_date": "2018-08-01",
+        "horsepower": [
+            49,
+            74
+        ],
+        "tier": 4,
+        "fuel": "Diesel"
+    },
+    {
+        "equipment": "Lift Machine",
+        "manufacturer": "JLG Lift",
+        "model_number": "600AJ",
+        "serial_number": "#0300240343",
+        "manufacture_date": "2018-02-01",
+        "horsepower": null,
+        "tier": 4,
+        "fuel": "Diesel"
+    },
+    {
+        "equipment": "Lift Machine",
+        "manufacturer": "JLG Lift",
+        "model_number": "600AJ",
+        "serial_number": "#0300303537",
+        "manufacture_date": "2018-02-01",
+        "horsepower": null,
+        "tier": 4,
+        "fuel": "Diesel"
+    },
+    {
+        "equipment": "Lift Machine",
+        "manufacturer": "JLG",
+        "model_number": "660SJ",
+        "serial_number": "#0300257281",
+        "manufacture_date": "2019",
+        "horsepower": 48.8,
+        "tier": 4,
+        "fuel": "Diesel"
+    },
+    {
+        "equipment": "Lift Machine",
+        "manufacturer": "MEC",
+        "model_number": "60-J",
+        "serial_number": "14401332",
+        "manufacture_date": "2023-12-01",
+        "horsepower": 44.0,
+        "tier": 4,
+        "fuel": "Diesel"
+    },
+    {
+        "equipment": "Lift Machine",
+        "manufacturer": "JLG Lift",
+        "model_number": "660SJ",
+        "serial_number": "#0300307986",
+        "manufacture_date": null,
+        "horsepower": 36.4,
+        "tier": 4,
+        "fuel": "Diesel"
+    },
+    {
+        "equipment": "Chipper Machine",
+        "manufacturer": "Morbark, LLC",
+        "model_number": null,
+        "serial_number": null,
+        "manufacture_date": null,
+        "horsepower": 145.0,
+        "tier": null,
+        "fuel": null
+    },
+    {
+        "equipment": "Lift Machine",
+        "manufacturer": "Skyjack",
+        "model_number": "SJ66T+",
+        "serial_number": "A401001631",
+        "manufacture_date": null,
+        "horsepower": 74.0,
+        "tier": 3,
+        "fuel": "Diesel"
+    },
+    {
+        "equipment": "Other1",
+        "manufacturer": "Howells",
+        "model_number": "0",
+        "serial_number": "234",
+        "manufacture_date": "2001-01-01",
+        "horsepower": "3",
+        "tier": "4",
+        "fuel": "Gas"
+    },
+    {
+        "equipment": "Herr",
+        "manufacturer": "Tommys",
+        "model_number": "678",
+        "serial_number": "234567",
+        "manufacture_date": "2024-01-01",
+        "horsepower": "23",
+        "tier": "3",
+        "fuel": "Gasoline"
+    }
+]

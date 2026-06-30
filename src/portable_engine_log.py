@@ -77,3 +77,48 @@ def generate_portableExcel(form_data):
     output.seek(0)
 
     return output
+
+
+
+import json
+import os
+
+def save_new_engine(form_data):
+    file_path = "data/portable_engine_inventory.json"
+
+    # ✅ Load existing data
+    if os.path.exists(file_path):
+        with open(file_path, "r") as f:
+            engines = json.load(f)
+    else:
+        engines = []
+
+    # ✅ Create new engine object
+    new_engine = {
+        "equipment": form_data.get("other_equipment"),
+        "manufacturer": form_data.get("manufacturer"),
+        "model_number": form_data.get("modelNumber"),
+        "serial_number": form_data.get("serialNumber"),
+        "manufacture_date": form_data.get("manufactureDate"),
+        "horsepower": form_data.get("horsepower"),
+        "tier": form_data.get("tier"),
+        "fuel": form_data.get("fuel")
+    }
+
+    # ✅ Prevent duplicates (important)
+    exists = any(
+        e["model_number"] == new_engine["model_number"] and
+        e["serial_number"] == new_engine["serial_number"]
+        for e in engines
+    )
+
+    if not exists:
+        engines.append(new_engine)
+
+        # ✅ Save back to file
+        with open(file_path, "w") as f:
+            json.dump(engines, f, indent=4)
+
+        print("✅ New engine saved")
+    else:
+        print("⚠️ Engine already exists")

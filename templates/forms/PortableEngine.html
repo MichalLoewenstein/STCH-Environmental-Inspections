@@ -49,19 +49,11 @@ html { visibility: hidden; }
     </div>
     <div class="input-row">
             <label>Equipment</label>
-            <select name="equipment" class="has-other">
-                <option disabled selected>Select Equipment</option>
-                <option value="Chipper Machine">Chipper Machine</option>
-                  <option value="Lift Machine">Lift Machine</option>
-                <option value="Other" >Other</option>
-            </select>
-             <label></label>
-            <input type="text"
-           name="other_equipment"
-           id ="other_equipment"
-           class="other-input"
-           placeholder="Enter equipment"
-           style="display:none; margin-top:6px;">
+            
+<select id="equipment" name="equipment" class="has-other">
+    <option disabled selected>Select Equipment</option>
+</select>
+
 
     </div>
     <div class="input-row">
@@ -150,12 +142,39 @@ html { visibility: hidden; }
 
 <div class="sub-header">Engine Data</div>
 
+  <div class="input-row">
+        <label>Model Number</label>
+       <!-- <select id="modelNumber"name="modelNumber">
+            <option disabled selected hidden></option>
+            <option value="600AJ">600AJ</option>
+            <option value="60-J">60-J</option>
+            <option value="660SJ">660SJ</option>
+            <option value="BC1000XL">BC1000XL</option>
+            <option value="SJ66T+">SJ66T+</option>
+        </select>-->
+        
 
+
+
+    <!-- ✅ Dropdown (normal mode) -->
+    <select id="modelNumber" name="modelNumber">
+        <option disabled selected hidden>Select Model</option>
+    </select>
+
+    <!-- ✅ Input (Other mode) -->
+    <input type="text"
+           id="modelNumberInput"
+           name="modelNumberOther"
+           placeholder="Enter model number"
+           style="display:none; margin-top:6px;">
+
+    </div>
 
         <div class="input-row">
         <label>Horsepower</label>
+        <!--
         <select id="horsepower"name="horsepower">
-            <option value="0" selected>0</option> <!--this will help us not have an empty in power automate as well-->
+            <option value="0" selected>0</option> this will help us not have an empty in power automate as well
             <option value="36.4">36.4</option>
             <option value="44.0">44.0</option>
             <option value="48.8">48.8</option>
@@ -164,32 +183,37 @@ html { visibility: hidden; }
             <option value="145.0">145.0</option>
             <option value="74.0">74.0</option>
         </select>
+    -->
+        <input type="text"
+       id="horsepowerInput"
+       name="horsepower"
+       placeholder="Enter horsepower"
+       >
+
+ 
     </div>
 
     <div class="input-row">
         <label>Manufacturer</label>
-        <select id="manufacturer"name="manufacturer">
+       <!-- <select id="manufacturer"name="manufacturer">
             <option disabled selected hidden></option>
             <option value="JLG">JLG</option>
             <option value="JLG Lift">JLG Lift</option>
             <option value="MEC">MEC</option>
             <option value="Morbark, LLC">Morbark, LLC</option>
-            <option value=Skyjack">Skyjack</option>
+            <option value=Skyjack>Skyjack</option>
             <option value="Vermeer">Vermeer</option>
-        </select>
+        </select> -->
+
+        <input type="text"
+       id="manufacturerInput"
+       name="manufacturer"
+       placeholder="Enter manufacturer">
+
+  
     </div>
 
-    <div class="input-row">
-        <label>Model Number</label>
-        <select id="modelNumber"name="modelNumber">
-            <option disabled selected hidden></option>
-            <option value="600AJ">600AJ</option>
-            <option value="60-J">60-J</option>
-            <option value="660SJ">660SJ</option>
-            <option value="BC1000XL">BC1000XL</option>
-            <option value="SJ66T+">SJ66T+</option>
-        </select>
-    </div>
+  
 
     <div class="input-row">
         <label>Serial Number</label>
@@ -204,21 +228,30 @@ html { visibility: hidden; }
 
     <div class="input-row">
         <label>Tier</label>
-        <select id="tier"name="tier">
+       <!-- <select id="tier"name="tier">
             <option disabled selected hidden></option>
             <option value="3">3</option>
             <option value="4">4</option>
-        </select>
+        </select> -->
+         <input type="text"
+       id="TierInput"
+       name="tier"
+       placeholder="Enter tier">
+
     </div>
 
 
     <div class="input-row">
         <label>Fuel</label>
-        <select id="fuel"name="fuel">
+       <!-- <select id="fuel"name="fuel">
             <option disabled selected hidden></option>
             <option value="Diesel">Diesel</option>
             <option value="Gasoline">Gasoline</option>
-        </select>
+        </select> -->
+         <input type="text"
+       id="fuelInput"
+       name="fuel"
+       placeholder="Enter fuel">
     </div>
 
 

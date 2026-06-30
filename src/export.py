@@ -14,13 +14,15 @@ def generate_excel(form_data, materials):
 
     if total_time:
         hours, minutes = map(int, total_time.split(":"))
-        total_minutes = hours * 60 + minutes
+        total_minutes = hours + (minutes / 60)
     
     else:
         total_minutes = 0
 
-    print(total_minutes)  
 
+#  round to 2 decimal places
+    total_minutes = round(total_minutes, 2)
+    print(total_minutes)  
 
 
     data = {

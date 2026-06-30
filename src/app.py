@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request,redirect, url_for, make_response, send_file
+from flask import Flask, jsonify, render_template, request,redirect, url_for, make_response, send_file
 from datetime import datetime, timedelta
 from export import generate_excel
 from boilerExport import generate_boilerExcel
 from CEBflareExport import generate_flareExcel
 from portable_engine_log import generate_portableExcel
+from portable_engine_log import save_new_engine
 from generator import generate_generatorExcel
 import smtplib
 import json
@@ -11,6 +12,7 @@ from email.message import EmailMessage
 from datetime import datetime, timezone
 import os
 import datetime
+import json
 
 from test import load_materials
 
@@ -117,7 +119,7 @@ def send_email(excel_file,form_data, subject):
     # =========================
     # ✅ FIRST EMAIL 
     # =========================
-    receiver1 = ["T.Shaliyehsabou@shell.com","Michal.Lowenstein@shell.com"]
+    receiver1 = ["T.Shaliyehsabou@shell.com"]
 
     msg1 = EmailMessage()
     msg1['Subject'] = subject
@@ -139,7 +141,7 @@ def send_email(excel_file,form_data, subject):
     # =========================
     # ✅ SECOND EMAIL 
     # =========================
-    receiver2 = ["T.Shaliyehsabou@shell.com","Michal.Lowenstein@shell.com"]
+    receiver2 = ["T.Shaliyehsabou@shell.com"]
 
     utc_time = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
 
@@ -270,11 +272,27 @@ def Generator():
 def portableEngine():
 
     if request.method == "POST":
+
+        model_number = request.form.get("modelNumber") or request.form.get("modelNumberOther")
         # converts user inputs into python dictionary
         form_data = request.form.to_dict()
-
+        
         if not form_data:
             raise ValueError("No form data submitted")
+
+
+
+#  overwrite the value in form_data
+        form_data["modelNumber"] = model_number
+        
+        form_data.pop("modelNumberOther", None)
+
+    # SAVE ONLY if user used "Other"
+        if request.form.get("equipment") == "Other":
+            save_new_engine(form_data)
+
+        print("Final model number:", model_number)
+
 
         # ✅ Generate Excel
         print("Generating Excel with form data:", form_data)
@@ -297,7 +315,22 @@ def portableEngine():
     return response
 
 
+@app.route("/api/engines")
+def get_engines():
+    with open("data/portable_engine_inventory.json", "r") as f:
+        data = json.load(f)
+        
+    return jsonify(data)
 
+@app.route("/api/equipment")
+def get_equipment():
+    with open("data/portable_engine_inventory.json", "r") as f:
+        data = json.load(f)
+
+    # ✅ Extract unique equipment values
+    equipment_set = {e.get("equipment") for e in data if e.get("equipment")}
+
+    return jsonify(sorted(list(equipment_set)))
 
 if __name__ == "__main__":
     app.run(debug=True)
