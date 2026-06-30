@@ -27,7 +27,7 @@ FILE_PATH = os.path.join(BASE_DIR, "materials.json")
 # Home route to display the form
 @app.route("/")
 def QRScreen():
-    return render_template("QRscreen.html")
+    return render_template("qr_screen.html")
 
 @app.route("/home")
 def home():
@@ -86,7 +86,7 @@ def index():
         # ✅ Then redirect ONLY
         return redirect(url_for("success"))
 
-    response = make_response(render_template("forms/PaintForm.html"))
+    response = make_response(render_template("forms/paint_sandblast.html"))
     response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
     response.headers['Pragma'] = 'no-cache'
     response.headers['Expires'] = '0'
@@ -200,7 +200,7 @@ def Boiler():
         return redirect(url_for("success"))
     
 
-    response = make_response(render_template('forms/BoilerForm.html'))
+    response = make_response(render_template('forms/boiler.html'))
     response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
     response.headers['Pragma'] = 'no-cache'
     response.headers['Expires'] = '0'
@@ -228,7 +228,7 @@ def flare():
         # ✅ Navigate to success page
         return redirect(url_for("success"))
     
-    response = make_response(render_template('forms/CEB_Flare.html'))
+    response = make_response(render_template('forms/ceb_flare.html'))
     response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
     response.headers['Pragma'] = 'no-cache'
     response.headers['Expires'] = '0'
@@ -260,7 +260,7 @@ def Generator():
         return redirect(url_for("success"))
     
 
-    response = make_response(render_template('forms/Generator.html'))
+    response = make_response(render_template('forms/generator.html'))
     response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
     response.headers['Pragma'] = 'no-cache'
     response.headers['Expires'] = '0'
@@ -307,7 +307,7 @@ def portableEngine():
         return redirect(url_for("success"))
     
 
-    response = make_response(render_template('forms/PortableEngine.html'))
+    response = make_response(render_template('forms/portable_engine.html'))
     response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
     response.headers['Pragma'] = 'no-cache'
     response.headers['Expires'] = '0'
