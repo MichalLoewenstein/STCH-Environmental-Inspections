@@ -48,14 +48,23 @@ html { visibility: hidden; }
         <input type="text" name="operator" required>
     </div>
     <div class="input-row">
+
             <label>Equipment</label>
             
 <select id="equipment" name="equipment" class="has-other">
     <option disabled selected>Select Equipment</option>
 </select>
-
+    <label></label>
+            <input type="text"
+           name="other_equipment"
+           id = "other_equipment"
+           class="other-input"
+           placeholder="Enter equipment"
+           style="display:none; margin-top:6px;">
 
     </div>
+
+    
     <div class="input-row">
         <label>Location</label>
         <select id="location"name="location">

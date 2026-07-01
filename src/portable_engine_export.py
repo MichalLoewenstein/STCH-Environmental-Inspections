@@ -8,7 +8,7 @@ def generate_portableExcel(form_data):
     print(form_data)
     # ✅ Define consistent column order (important!)
     columns = [
-       "Operator", "Equipment", "Location", "Purpose", "Arrival Date", "In Service Date", "Initial Meter Read", "Departure Date","Final Meter Read","Total Hours",
+       "Operator", "Equipment", "Other Equipment", "Location", "Purpose", "Arrival Date", "In Service Date", "Initial Meter Read", "Departure Date","Final Meter Read","Total Hours",
        "Horsepower" ,"Manufacturer","Model Number", "Serial Number", "Manufacture Date", "Tier", "Fuel", "On-Site Status",  "Comments"
     ]
 
@@ -27,6 +27,7 @@ def generate_portableExcel(form_data):
     data = {
         "Operator": form_data.get("operator"),
         "Equipment": equipment,
+        "Other Equipment": form_data.get("other_equipment"),
         "Location": form_data.get("location"),
         "Purpose": purpose,
         "Arrival Date": form_data.get("arrivalDate"),
