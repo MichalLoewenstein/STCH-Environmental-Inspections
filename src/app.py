@@ -36,6 +36,15 @@ def home():
 @app.route("/paint", methods=["GET", "POST"])
 def index():
 
+    
+ # Load materials
+    json_file = os.path.join("data", "paint_materials.json")
+    
+    with open(
+    os.path.join(app.root_path, "data", "paint_materials.json"),
+    "r"
+) as f:
+        MATERIALS = json.load(f)
 
     if request.method == "POST":
 
@@ -57,13 +66,26 @@ def index():
                 if not other:
                     raise ValueError(f"Missing material name at row {i+1}")
                 final_name = other
-            else:
-                final_name = m
+            # Add to JSON 
+                existing_materials = [x.lower() for x in MATERIALS]
+                
+                if final_name.lower() not in existing_materials:
+                    MATERIALS.append(final_name)
+                    
+                    with open(
+                         os.path.join(app.root_path, "data", "paint_materials.json"),
+                                  "w"
+                                ) as f:
+                                    json.dump(MATERIALS, f, indent=4)
+
+                else:
+                    final_name = m
 
             final_materials.append({
                 "name": final_name,
                 "quantity": qty,
-                "unit": unit
+                "unit": unit,
+                "is_other": m == "Other"
             })
             
         print("✅ Final materials:", final_materials)
@@ -78,7 +100,7 @@ def index():
         send_email(
             excel_file,
             form_data,
-            subject="STCH Maintenance Paint and Soundblasting"
+            subject="STCH Maintenance Paint and Sandblasting"
         )
 
         print("✅ Excel + Email done")
@@ -86,7 +108,7 @@ def index():
         # ✅ Then redirect ONLY
         return redirect(url_for("success"))
 
-    response = make_response(render_template("forms/paint_sandblast.html"))
+    response = make_response(render_template("forms/paint_sandblast.html", materials=MATERIALS))
     response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
     response.headers['Pragma'] = 'no-cache'
     response.headers['Expires'] = '0'

@@ -47,10 +47,12 @@ def generate_excel(form_data, materials):
         name_col = f"Material {i+1} Name"
         qty_col = f"Material {i+1} Quantity"
         unit_col = f"Material {i+1} Unit"
-
+        other_col = f"Material {i+1} Other"
+        
         columns.append(name_col)
         columns.append(qty_col)
         columns.append(unit_col)
+        columns.append(other_col)
 
         if i < len(materials):
             material = materials[i]
@@ -59,16 +61,19 @@ def generate_excel(form_data, materials):
             name = material.get("name", "")
             quantity = material.get("quantity", "")
             unit = material.get("unit", "")
+            is_other = "Yes" if material.get("is_other") else "No"
 
         else:
             name = ""
             quantity = ""
             unit = ""
+            is_other = ""
 
         # ✅ ✅ Clean output
         data[name_col] = name
         data[qty_col] = quantity
         data[unit_col] = unit
+        data[other_col] = is_other
 
     # ✅ Build dataframe
     df = pd.DataFrame([data], columns=columns)

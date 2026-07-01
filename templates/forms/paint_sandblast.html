@@ -127,10 +127,13 @@
             <!-- MATERIAL -->
             <div class="field">
                 <label>Material</label>
-                <select name="material[]" onchange="checkOther(this)">
-                    <option disabled selected>Select material</option>
-                    <option value="Carboguard 890 Part A & B">Carboguard 890 Part A & B</option>
-                    <option value="Other">Other</option>
+                <select name="material[]" onchange="checkOther(this)" class ="material-select">
+               
+<option value="">Select Material</option>
+    {% for material in materials %}
+        <option value="{{ material }}">{{ material }}</option>
+    {% endfor %}
+
                 </select>
 
                 <input type="text"
