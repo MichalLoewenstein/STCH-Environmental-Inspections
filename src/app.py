@@ -61,7 +61,7 @@ def index():
             qty = quantities[i].strip() if i < len(quantities) else ""
             unit = units[i].strip() if i < len(units) else ""
             other = other_material[i].strip() if i < len(other_material) else ""
-
+        
             if m == "Other":
                 if not other:
                     raise ValueError(f"Missing material name at row {i+1}")
@@ -78,8 +78,8 @@ def index():
                                 ) as f:
                                     json.dump(MATERIALS, f, indent=4)
 
-                else:
-                    final_name = m
+            else:
+                final_name = m
 
             final_materials.append({
                 "name": final_name,
