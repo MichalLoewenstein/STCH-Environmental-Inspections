@@ -46,6 +46,14 @@ def index():
 ) as f:
         MATERIALS = json.load(f)
 
+
+        
+# Sort alphabetically but keep "Other" last
+    MATERIALS = sorted(
+        MATERIALS,
+        key=lambda x: (x.lower() == "other", x.lower())
+    )
+
     if request.method == "POST":
 
         form_data = request.form.to_dict()
@@ -72,6 +80,14 @@ def index():
                 if final_name.lower() not in existing_materials:
                     MATERIALS.append(final_name)
                     
+
+                    
+                    # Re-sort before saving
+                    MATERIALS = sorted(
+                        MATERIALS,
+                        key=lambda x: (x.lower() == "other", x.lower())
+                    )
+
                     with open(
                          os.path.join(app.root_path, "data", "paint_materials.json"),
                                   "w"
@@ -339,20 +355,32 @@ def portableEngine():
 
 @app.route("/api/engines")
 def get_engines():
-    with open("data/portable_engine_inventory.json", "r") as f:
+    with open(os.path.join(app.root_path, "data", "portable_engine_inventory.json"), "r") as f:
         data = json.load(f)
-        
+    
+    data = sorted(
+        data,
+        key=lambda x: (
+            (x.get("equipment") or "").lower(),
+            (x.get("manufacturer") or "").lower(),
+            (x.get("model_number") or "").lower()
+        )
+    )
+    
     return jsonify(data)
 
 @app.route("/api/equipment")
 def get_equipment():
-    with open("data/portable_engine_inventory.json", "r") as f:
+    with open(os.path.join(app.root_path, "data", "portable_engine_inventory.json"), "r") as f:
         data = json.load(f)
 
     # ✅ Extract unique equipment values
     equipment_set = {e.get("equipment") for e in data if e.get("equipment")}
 
-    return jsonify(sorted(list(equipment_set)))
+    equipment_list = sorted(equipment_set, key=str.lower)
+
+    return jsonify(equipment_list)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

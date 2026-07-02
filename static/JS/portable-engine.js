@@ -9,9 +9,13 @@ let engines = [];
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    
-loadEngines();
-loadEquipment();
+    // ✅ Wait for BOTH engines and equipment to load before setting up listeners
+    Promise.all([
+        loadEngines(),
+        loadEquipment()
+    ]).then(() => {
+        setupEventListeners();
+    });
 
 
     function calculateTotal() {
@@ -84,16 +88,17 @@ function validateMeters() {
 
 // Load JSON from Flask
 function loadEngines() {
-    fetch("/api/engines")
+    return fetch("/api/engines")
         .then(res => res.json())
         .then(data => {
             engines = data;
 
-            console.log("Engines loaded");
-            console.log(engines);
-
-            // ✅ Now safe to use data
-            setupEventListeners();
+            console.log("✅ Engines loaded - Total count:", engines.length);
+            console.log("Engines data:", engines);
+            
+            // Show unique equipment types in engines
+            const equipmentInEngines = [...new Set(engines.map(e => e.equipment))];
+            console.log("Equipment types in engines:", equipmentInEngines);
         })
         .catch(err => console.error("Fetch error:", err));
 }
@@ -113,6 +118,9 @@ function filterModels() {
     const selectedEquipment = document.getElementById("equipment").value;
     const modelDropdown = document.getElementById("modelNumber");
     const modelInput = document.getElementById("modelNumberInput");
+
+    console.log("Selected Equipment:", selectedEquipment);
+    console.log("All Engines:", engines);
 
     // ✅ If OTHER → switch to input mode
     if (selectedEquipment === "Other") {
@@ -135,11 +143,25 @@ function filterModels() {
 
     const filtered = engines.filter(e => e.equipment === selectedEquipment);
 
+    console.log("Filtered Engines:", filtered);
+
+    if (filtered.length === 0) {
+        console.warn(`No engines found for equipment: "${selectedEquipment}"`);
+        const noOption = document.createElement("option");
+        noOption.textContent = "No models available";
+        noOption.disabled = true;
+        modelDropdown.appendChild(noOption);
+        return;
+    }
+
     filtered.forEach((engine, index) => {
         const option = document.createElement("option");
 
         option.value = index; // index inside filtered list
-        option.textContent = `${engine.manufacturer} ${engine.model_number}`;
+        
+        // ✅ Handle null model_number
+        const modelText = engine.model_number ? engine.model_number : "(No Model)";
+        option.textContent = `${engine.manufacturer} ${modelText}`;
 
         // ✅ Store full engine object reference
         option.dataset.engineIndex = engines.indexOf(engine);
@@ -147,6 +169,7 @@ function filterModels() {
         modelDropdown.appendChild(option);
     });
 
+    console.log("Model dropdown populated with", filtered.length, "options");
     toggleManualMode(false);
 }
 
@@ -222,7 +245,7 @@ function clearFormFields() {
 
 
 function loadEquipment() {
-    fetch("/api/equipment")
+    return fetch("/api/equipment")
         .then(res => res.json())
         .then(data => {
             const dropdown = document.getElementById("equipment");

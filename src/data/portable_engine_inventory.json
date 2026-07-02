@@ -83,16 +83,6 @@
         "fuel": "Diesel"
     },
     {
-        "equipment": "Other1",
-        "manufacturer": "Howells",
-        "model_number": "0",
-        "serial_number": "234",
-        "manufacture_date": "2001-01-01",
-        "horsepower": "3",
-        "tier": "4",
-        "fuel": "Gas"
-    },
-    {
         "equipment": "Herr",
         "manufacturer": "Tommys",
         "model_number": "678",
@@ -103,23 +93,23 @@
         "fuel": "Gasoline"
     },
     {
-        "equipment": "YU",
-        "manufacturer": "Harry",
-        "model_number": "123456",
-        "serial_number": "23456",
+        "equipment": "Aa",
+        "manufacturer": "manuf",
+        "model_number": "456",
+        "serial_number": "23",
         "manufacture_date": "2001-01-01",
-        "horsepower": "2345ty",
-        "tier": "3",
-        "fuel": "Diesel"
+        "horsepower": "34",
+        "tier": "",
+        "fuel": null
     },
     {
-        "equipment": "Other Equipment Test",
-        "manufacturer": "Tilly's",
-        "model_number": "12345",
-        "serial_number": "12345t",
+        "equipment": "BB",
+        "manufacturer": "no manuf",
+        "model_number": "other model number",
+        "serial_number": "",
         "manufacture_date": "2001-01-01",
-        "horsepower": "234",
-        "tier": "3",
-        "fuel": "Diesel"
+        "horsepower": "3",
+        "tier": "",
+        "fuel": null
     }
 ]
