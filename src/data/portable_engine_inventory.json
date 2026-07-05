@@ -81,15 +81,5 @@
         "horsepower": 74.0,
         "tier": 3,
         "fuel": "Diesel"
-    },
-    {
-        "equipment": "B other equipment test",
-        "manufacturer": null,
-        "model_number": "MODEL123",
-        "serial_number": "23456SEFE",
-        "manufacture_date": "",
-        "tier": null,
-        "fuel": null,
-        "horsepower": null
     }
 ]
