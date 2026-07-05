@@ -2,7 +2,7 @@ import json
 import os
 
 
-DATA_FILE = os.path.join(os.path.dirname(__file__), "data", "portable_engine_inventory.json")
+DATA_FILE = os.path.join(os.path.dirname(__file__), "..", "data", "portable_engine_inventory.json")
 
 
 def load_engine_inventory():
@@ -15,8 +15,10 @@ def save_new_engine(form_data):
     """Append a new engine entry when the user selects 'Other'."""
     inventory = load_engine_inventory()
 
+    equipment_value = form_data.get("other_equipment") or form_data.get("equipment")
+
     new_entry = {
-        "equipment": form_data.get("equipment"),
+        "equipment": equipment_value,
         "manufacturer": form_data.get("manufacturerInput"),
         "model_number": form_data.get("modelNumber"),
         "serial_number": form_data.get("serialNumber"),

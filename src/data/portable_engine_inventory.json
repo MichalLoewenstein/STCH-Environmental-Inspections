@@ -83,11 +83,11 @@
         "fuel": "Diesel"
     },
     {
-        "equipment": "Other",
+        "equipment": "B other equipment test",
         "manufacturer": null,
         "model_number": "MODEL123",
-        "serial_number": "3G3J4",
-        "manufacture_date": "2001-01-01",
+        "serial_number": "23456SEFE",
+        "manufacture_date": "",
         "tier": null,
         "fuel": null,
         "horsepower": null

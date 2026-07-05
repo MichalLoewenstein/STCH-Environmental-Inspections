@@ -2,7 +2,7 @@ import json
 import os
 
 
-DATA_FILE = os.path.join(os.path.dirname(__file__), "data", "paint_materials.json")
+DATA_FILE = os.path.join(os.path.dirname(__file__), "..", "data", "paint_materials.json")
 
 
 def load_materials():
