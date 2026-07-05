@@ -4,12 +4,10 @@
 
 let engines = [];
 
-
-
-
+// Store the engine records loaded from the server.
 document.addEventListener("DOMContentLoaded", function () {
 
-    // ✅ Wait for BOTH engines and equipment to load before setting up listeners
+    // Load engine data and equipment options before enabling form interactions.
     Promise.all([
         loadEngines(),
         loadEquipment()
@@ -22,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const finalInput = document.getElementById("finalMeterRead");
     const form = document.querySelector("form");
 
+    // Calculate the running time from the two meter readings.
     function calculateTotal() {
         const initial = parseFloat(initialInput.value) || 0;
         const final = parseFloat(finalInput.value) || 0;
@@ -34,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    // Prevent invalid input where the initial reading is higher than the final reading.
     function validateMeterRange() {
         const initial = parseFloat(initialInput.value);
         const final = parseFloat(finalInput.value);
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return true;
     }
 
-    // Trigger calculation and validation when values change
+    // Recalculate totals and validate the meter range whenever either field changes.
     initialInput.addEventListener("input", () => {
         calculateTotal();
         validateMeterRange();
@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // On-Site Status //
+    // Update the on-site/off-site status based on whether a departure date exists.
     const departureDate = document.getElementById("departureDate");
     const onsiteStatus = document.getElementById("onsiteStatus");
 
@@ -91,10 +91,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Run on page load
+    // Apply the initial status as soon as the page loads.
     updateStatus();
 
-    // Run whenever the date changes
+    // Keep the status in sync whenever the departure date changes.
     departureDate.addEventListener("change", updateStatus);
 
 
@@ -126,7 +126,7 @@ function validateMeters() {
 
 
 
-// Load JSON from Flask
+// Fetch the engine inventory from the Flask API.
 function loadEngines() {
     return fetch("/api/engines")
         .then(res => res.json())
@@ -146,14 +146,14 @@ function loadEngines() {
 
 
 
+// Attach the form-change handlers after the data has loaded.
 function setupEventListeners() {
     document.getElementById("equipment").addEventListener("change", filterModels);
     document.getElementById("modelNumber").addEventListener("change", autoFillFromEquipment);
 }
 
 
-// ✅ Filter models by equipment
-
+// Filter the available model choices based on the selected equipment type.
 function filterModels() {
     const selectedEquipment = document.getElementById("equipment").value;
     const modelDropdown = document.getElementById("modelNumber");
@@ -213,8 +213,7 @@ function filterModels() {
     toggleManualMode(false);
 }
 
-// ✅ Autofill form
-
+// Fill the form fields from the selected engine record.
 function autoFillFromEquipment() {
     const modelDropdown = document.getElementById("modelNumber");
 
@@ -249,6 +248,7 @@ function autoFillFromEquipment() {
 }
 
 
+// Enable or disable editing for the auto-filled fields.
 function toggleManualMode(enable) {
 
     const fields = [
@@ -271,6 +271,7 @@ function toggleManualMode(enable) {
 }
 
 
+// Clear the auto-filled details when the user selects a custom entry.
 function clearFormFields() {
     document.getElementById("manufacturerInput").value = "";
     document.getElementById("modelNumberInput").value = "";
@@ -284,6 +285,7 @@ function clearFormFields() {
 
 
 
+// Load the equipment list from the API and populate the dropdown.
 function loadEquipment() {
     return fetch("/api/equipment")
         .then(res => res.json())

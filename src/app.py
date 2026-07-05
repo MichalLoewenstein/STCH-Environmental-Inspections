@@ -6,15 +6,15 @@ from ceb_flare_export import generate_flareExcel
 from portable_engine_export import generate_portableExcel
 from portable_engine_export import save_new_engine
 from generator_export import generate_generatorExcel
-import smtplib
+from email_utils import send_email
+from response_utils import render_with_no_cache
+from materials_utils import add_material, load_materials
+from portable_engine_utils import load_engine_inventory, save_new_engine
 import json
-from email.message import EmailMessage
-from datetime import datetime, timezone
 import os
 import datetime
 import json
 
-#from test import load_materials
 
 app = Flask(__name__,
 template_folder=os.path.abspath(os.path.join(os.path.dirname(__file__), '../templates')),  
@@ -32,21 +32,8 @@ def home():
 @app.route("/paint", methods=["GET", "POST"])
 def index():
 
-    
- # Load materials
-    with open(
-    os.path.join(app.root_path, "data", "paint_materials.json"),
-    "r"
-) as f:
-        MATERIALS = json.load(f)
-
-
-        
-# Sort alphabetically but keep "Other" last
-    MATERIALS = sorted(
-        MATERIALS,
-        key=lambda x: (x.lower() == "other", x.lower())
-    )
+    # Load the paint materials list once for the page and form handling.
+    MATERIALS = load_materials()
 
     if request.method == "POST":
 
@@ -68,25 +55,7 @@ def index():
                 if not other:
                     raise ValueError(f"Missing material name at row {i+1}")
                 final_name = other
-            # Add to JSON 
-                existing_materials = [x.lower() for x in MATERIALS]
-                
-                if final_name.lower() not in existing_materials:
-                    MATERIALS.append(final_name)
-                    
-
-                    
-                    # Re-sort before saving
-                    MATERIALS = sorted(
-                        MATERIALS,
-                        key=lambda x: (x.lower() == "other", x.lower())
-                    )
-
-                    with open(
-                         os.path.join(app.root_path, "data", "paint_materials.json"),
-                                  "w"
-                                ) as f:
-                                    json.dump(MATERIALS, f, indent=4)
+                MATERIALS = add_material(final_name, MATERIALS)
 
             else:
                 final_name = m
@@ -118,13 +87,7 @@ def index():
         # ✅ Then redirect ONLY
         return redirect(url_for("success"))
 
-    response = make_response(render_template("forms/paint_sandblast.html", materials=MATERIALS))
-    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
-    response.headers['Pragma'] = 'no-cache'
-    response.headers['Expires'] = '0'
-
-
-    return response
+    return render_with_no_cache("forms/paint_sandblast.html", materials=MATERIALS)
 
 
 
@@ -133,80 +96,8 @@ from flask import request
 @app.route("/success")
 def success():
    
-
     download = request.args.get("download")
     return render_template("success.html", download=download)
-
-
-
-import smtplib
-from email.message import EmailMessage
-from datetime import datetime, timezone
-
-def send_email(excel_file,form_data, subject):
-
-    sender = "devorawork2026@gmail.com"
-    password = "pwgbpczelqlwqkqb"
-
-    # =========================
-    # ✅ FIRST EMAIL 
-    # =========================
-    receiver1 = ["T.Shaliyehsabou@shell.com"]
-
-    msg1 = EmailMessage()
-    msg1['Subject'] = subject
-    msg1['From'] = sender
-    msg1['To'] = receiver1
-    msg1.set_content("Attached is the submitted Paint form.")
-
-    
-    utc_now = datetime.now(timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
-
-    excel_file.seek(0)
-    msg1.add_attachment(
-        excel_file.read(),
-        maintype='application',
-        subtype='octet-stream',
-        filename=f'{subject}_{utc_now}.xlsx'
-    )
-
-    # =========================
-    # ✅ SECOND EMAIL 
-    # =========================
-    receiver2 = ["T.Shaliyehsabou@shell.com"]
-
-    utc_time = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
-
-    msg2 = EmailMessage()
-    msg2['Subject'] = "User Login Details"
-    msg2['From'] = sender
-    msg2['To'] = receiver2
-    name = form_data.get("name")
-    email_input = form_data.get("email")
-    phone = form_data.get("phone")
-
-    msg2.set_content(f"""
-        User logged into STCH Maintenance:
-
-        Name: {name}
-        Email: {email_input}
-        Phone: {phone}
-        Time (UTC): {utc_time}
-      """)
-
-    # =========================
-    # ✅ SEND BOTH EMAILS (same connection)
-    # =========================
-    with smtplib.SMTP("smtp.gmail.com", 587,timeout=10) as smtp:
-        smtp.starttls()
-        smtp.login(sender, password)
-        print("✅ Excel created and email sent")
-        print("create a reference to the email server and log in successfully")
-
-        smtp.send_message(msg1)  # ✅ first email
-        smtp.send_message(msg2)  # ✅ second email
-
-    print("✅ Both emails sent successfully")
 
 
 @app.route("/boiler", methods=["GET", "POST"])
@@ -232,12 +123,7 @@ def Boiler():
         return redirect(url_for("success"))
     
 
-    response = make_response(render_template('forms/boiler.html'))
-    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
-    response.headers['Pragma'] = 'no-cache'
-    response.headers['Expires'] = '0'
-
-    return response
+    return render_with_no_cache("forms/boiler.html")
 
 @app.route("/flare", methods=["GET", "POST"])
 def flare():
@@ -260,12 +146,7 @@ def flare():
         # ✅ Navigate to success page
         return redirect(url_for("success"))
     
-    response = make_response(render_template('forms/ceb_flare.html'))
-    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
-    response.headers['Pragma'] = 'no-cache'
-    response.headers['Expires'] = '0'
-
-    return response
+    return render_with_no_cache("forms/ceb_flare.html")
 
 
 
@@ -292,15 +173,10 @@ def Generator():
         return redirect(url_for("success"))
     
 
-    response = make_response(render_template('forms/generator.html'))
-    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
-    response.headers['Pragma'] = 'no-cache'
-    response.headers['Expires'] = '0'
-
-    return response
+    return render_with_no_cache("forms/generator.html")
 
 
-@app.route("/portableEngine", methods=["GET", "POST"])
+@app.route("/portable_engine", methods=["GET", "POST"])
 def portableEngine():
 
     if request.method == "POST":
@@ -319,7 +195,7 @@ def portableEngine():
         
         form_data.pop("modelNumberOther", None)
 
-    # SAVE ONLY if user used "Other"
+    # Save the custom engine entry only when the user selected "Other".
         if request.form.get("equipment") == "Other":
             save_new_engine(form_data)
 
@@ -339,18 +215,13 @@ def portableEngine():
         return redirect(url_for("success"))
     
 
-    response = make_response(render_template('forms/portable_engine.html'))
-    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
-    response.headers['Pragma'] = 'no-cache'
-    response.headers['Expires'] = '0'
-
-    return response
+    return render_with_no_cache("forms/portable_engine.html")
 
 
 @app.route("/api/engines")
 def get_engines():
-    with open(os.path.join(app.root_path, "data", "portable_engine_inventory.json"), "r") as f:
-        data = json.load(f)
+    # Read the portable engine inventory once and return it sorted for the dropdown.
+    data = load_engine_inventory()
     
     data = sorted(
         data,
@@ -365,8 +236,8 @@ def get_engines():
 
 @app.route("/api/equipment")
 def get_equipment():
-    with open(os.path.join(app.root_path, "data", "portable_engine_inventory.json"), "r") as f:
-        data = json.load(f)
+    # Build a unique list of equipment names for the form dropdown.
+    data = load_engine_inventory()
 
     # ✅ Extract unique equipment values
     equipment_set = {e.get("equipment") for e in data if e.get("equipment")}

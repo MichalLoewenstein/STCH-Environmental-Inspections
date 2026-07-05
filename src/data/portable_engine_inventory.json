@@ -81,5 +81,15 @@
         "horsepower": 74.0,
         "tier": 3,
         "fuel": "Diesel"
+    },
+    {
+        "equipment": "Other",
+        "manufacturer": null,
+        "model_number": "MODEL123",
+        "serial_number": "3G3J4",
+        "manufacture_date": "2001-01-01",
+        "tier": null,
+        "fuel": null,
+        "horsepower": null
     }
 ]
