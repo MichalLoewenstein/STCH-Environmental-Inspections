@@ -81,35 +81,5 @@
         "horsepower": 74.0,
         "tier": 3,
         "fuel": "Diesel"
-    },
-    {
-        "equipment": "Herr",
-        "manufacturer": "Tommys",
-        "model_number": "678",
-        "serial_number": "234567",
-        "manufacture_date": "2024-01-01",
-        "horsepower": "23",
-        "tier": "3",
-        "fuel": "Gasoline"
-    },
-    {
-        "equipment": "Aa",
-        "manufacturer": "manuf",
-        "model_number": "456",
-        "serial_number": "23",
-        "manufacture_date": "2001-01-01",
-        "horsepower": "34",
-        "tier": "",
-        "fuel": null
-    },
-    {
-        "equipment": "BB",
-        "manufacturer": "no manuf",
-        "model_number": "other model number",
-        "serial_number": "",
-        "manufacture_date": "2001-01-01",
-        "horsepower": "3",
-        "tier": "",
-        "fuel": null
     }
 ]

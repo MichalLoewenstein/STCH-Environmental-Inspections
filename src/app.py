@@ -20,10 +20,6 @@ app = Flask(__name__,
 template_folder=os.path.abspath(os.path.join(os.path.dirname(__file__), '../templates')),  
 static_folder=os.path.abspath(os.path.join(os.path.dirname(__file__), '../static')))
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-FILE_PATH = os.path.join(BASE_DIR, "materials.json")
-
-
 # Home route to display the form
 @app.route("/")
 def QRScreen():
@@ -38,8 +34,6 @@ def index():
 
     
  # Load materials
-    json_file = os.path.join("data", "paint_materials.json")
-    
     with open(
     os.path.join(app.root_path, "data", "paint_materials.json"),
     "r"
