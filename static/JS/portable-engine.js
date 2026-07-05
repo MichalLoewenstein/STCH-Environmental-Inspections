@@ -18,12 +18,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
+    const initialInput = document.getElementById("initialMeterRead");
+    const finalInput = document.getElementById("finalMeterRead");
+    const form = document.querySelector("form");
+
     function calculateTotal() {
-
-
-            // Time Calculation //
-        const initial = parseFloat(document.getElementById("initialMeterRead").value) || 0;
-        const final = parseFloat(document.getElementById("finalMeterRead").value) || 0;
+        const initial = parseFloat(initialInput.value) || 0;
+        const final = parseFloat(finalInput.value) || 0;
 
         if (final >= initial) {
             const total = final - initial;
@@ -32,9 +33,48 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("total_time").value = "Invalid";
         }
     }
-    // Trigger calculation when values change
-    document.getElementById("initialMeterRead").addEventListener("input", calculateTotal);
-    document.getElementById("finalMeterRead").addEventListener("input", calculateTotal);
+
+    function validateMeterRange() {
+        const initial = parseFloat(initialInput.value);
+        const final = parseFloat(finalInput.value);
+
+        if (Number.isNaN(initial) || Number.isNaN(final)) {
+            initialInput.setCustomValidity("");
+            finalInput.setCustomValidity("");
+            return true;
+        }
+
+        if (initial > final) {
+            initialInput.setCustomValidity("Initial meter read cannot be greater than final meter read.");
+            finalInput.setCustomValidity("Final meter read must be greater than or equal to initial meter read.");
+            return false;
+        }
+
+        initialInput.setCustomValidity("");
+        finalInput.setCustomValidity("");
+        return true;
+    }
+
+    // Trigger calculation and validation when values change
+    initialInput.addEventListener("input", () => {
+        calculateTotal();
+        validateMeterRange();
+    });
+    finalInput.addEventListener("input", () => {
+        calculateTotal();
+        validateMeterRange();
+    });
+
+    if (form) {
+        form.addEventListener("submit", function (event) {
+            const isValid = validateMeterRange();
+            if (!isValid) {
+                event.preventDefault();
+                initialInput.reportValidity();
+                finalInput.reportValidity();
+            }
+        });
+    }
 
     // On-Site Status //
     const departureDate = document.getElementById("departureDate");
