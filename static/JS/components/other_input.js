@@ -1,21 +1,25 @@
 document.addEventListener("DOMContentLoaded", function () {
 
   document.querySelectorAll(".has-other").forEach(select => {
-    select.addEventListener("change", function () {
-
-      const container = this.closest(".input-row");
-      const otherInput = container.querySelector(".other-input");
+    const syncOtherInput = () => {
+      const container = select.closest(".input-row");
+      const otherInput = container?.querySelector(".other-input");
 
       if (!otherInput) return;
 
-      if (this.value === "Other") {
-        otherInput.style.display = "block";
+      const isOther = select.value === "Other";
+      otherInput.style.display = isOther ? "block" : "none";
+
+      if (isOther) {
+        otherInput.setAttribute("required", "required");
       } else {
-        otherInput.style.display = "none";
+        otherInput.removeAttribute("required");
         otherInput.value = "";
       }
+    };
 
-    });
+    select.addEventListener("change", syncOtherInput);
+    syncOtherInput();
   });
 
 });

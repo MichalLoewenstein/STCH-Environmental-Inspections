@@ -5,10 +5,16 @@ def generate_excel(form_data, materials):
 
     # ✅ Base columns
     columns = [
-       "Activity", "Company", "Name", "Email", "Phone", "Location",
+       "Company", "Name", "Activity", "Task", "Location",
         "Date", "Start Time", "End Time",
         "Break", "Total Time"
     ]
+
+
+    company = form_data.get("company")
+
+    if company == "Other":
+        company = form_data.get("other_company") or "Other"
 
     total_time = form_data.get("total_time")
 
@@ -26,11 +32,10 @@ def generate_excel(form_data, materials):
 
 
     data = {
-        "Activity": form_data.get("activity"),
-        "Company": form_data.get("company"),
+        "Company": company,
         "Name": form_data.get("name"),
-        "Email": form_data.get("email"),
-        "Phone": form_data.get("phone"),
+        "Activity": form_data.get("activity"),
+        "Task": form_data.get("task"),
         "Location": form_data.get("location"),
         "Date": form_data.get("date"),
         "Start Time": form_data.get("start_time"),

@@ -26,6 +26,7 @@
     <script src="{{ url_for('static', filename='js/components/date_auto_fill.js') }}"></script>
     <script src="{{ url_for('static', filename='js/paint_sandblast.js') }}"></script>
     <script src="{{ url_for('static', filename='js/components/submit_disable_btn.js')}}" defer></script>
+    <script src="{{ url_for('static', filename='js/components/other_input.js')}}" defer></script>
 </head>
 
 <body>
@@ -37,7 +38,31 @@
 
     <div class="form-title">Paint, Products & Sandblasting Log</div>
 
-   <!-- NORMAL FIELDS -->
+   
+
+    <!-- NORMAL FIELDS -->
+    <div class="input-row">
+        <label>Company</label>
+        <select name="company" required class="has-other">
+            <option value="" disabled selected hidden></option>
+            <option value="Brown & Root">Brown & Root</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <label></label>
+        <input type="text"
+            name="other_company"
+            id="other_company"
+            class="other-input"
+            placeholder="Enter company"
+            style="display:none; margin-top:6px;">
+    </div>
+
+    <div class="input-row">
+        <label>Name*</label>
+        <input type="text" name="name" required>
+    </div>
+<!-- NORMAL FIELDS -->
     <div class="input-row">
         <label>Activity</label>
         <select name="activity" required>
@@ -47,42 +72,15 @@
         </select>
     </div>
 
-    <!-- NORMAL FIELDS -->
-    <div class="input-row">
-        <label>Company</label>
-        <select name="company" required>
-            <option value="" disabled selected hidden></option>
-            <option value="Brown & Root">Brown & Root</option>
-            <option value="Other">Other</option>
-        </select>
+      <div class="input-row">
+        <label>Task</label>
+        <input type="text" name="task" >
     </div>
-
-    <div class="input-row">
-        <label>Name*</label>
-        <input type="text" name="name" required>
-    </div>
-
-    <div class="input-row">
-        <label>Email Address*</label>
-        <input type="email" name="email" required>
-    </div>
-
-    <div class="input-row">
-        <label>Phone Number*</label>
-        <input type="tel" name="phone" required>
-    </div>
-
-    <div class="sub-header">Location, Date and Task</div>
+    <div class="sub-header">Location and Date</div>
 
     <div class="input-row">
         <label>Location</label>
         <input type="text" name="location">
-    </div>
-
-    
-      <div class="input-row">
-        <label>Task</label>
-        <input type="text" name="task" >
     </div>
 
 

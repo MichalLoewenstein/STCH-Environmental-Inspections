@@ -31,7 +31,7 @@ def generate_portableExcel(form_data):
         "Location": form_data.get("location"),
         "Purpose": purpose,
         "Arrival Date": form_data.get("arrivalDate"),
-        "In Service Date": form_data.get("inServiceDate"),
+        "In Service Date": form_data.get("date"),
         "Initial Meter Read": form_data.get("initialMeterRead"),
         "Departure Date": form_data.get("departureDate"),
         "Final Meter Read": form_data.get("finalMeterRead"),

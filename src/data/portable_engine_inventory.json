@@ -81,5 +81,15 @@
         "horsepower": 74.0,
         "tier": 3,
         "fuel": "Diesel"
+    },
+    {
+        "equipment": "other equip1",
+        "manufacturer": null,
+        "model_number": "2345",
+        "serial_number": "23ass34",
+        "manufacture_date": "",
+        "tier": null,
+        "fuel": null,
+        "horsepower": null
     }
 ]

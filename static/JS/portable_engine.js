@@ -65,8 +65,27 @@ document.addEventListener("DOMContentLoaded", function () {
         validateMeterRange();
     });
 
+    function fillMissingDates() {
+        const arrivalDate = document.getElementById("arrivalDate");
+        const departureDate = document.getElementById("departureDate");
+
+        if (!arrivalDate || !departureDate) return;
+
+        const today = new Date().toISOString().split("T")[0];
+
+        if (!arrivalDate.value) {
+            arrivalDate.value = today;
+        }
+
+        if (!departureDate.value) {
+            departureDate.value = today;
+        }
+    }
+
     if (form) {
         form.addEventListener("submit", function (event) {
+            fillMissingDates();
+
             const isValid = validateMeterRange();
             if (!isValid) {
                 event.preventDefault();
