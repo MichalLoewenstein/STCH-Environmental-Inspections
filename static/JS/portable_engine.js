@@ -181,6 +181,9 @@ function filterModels() {
     console.log("Selected Equipment:", selectedEquipment);
     console.log("All Engines:", engines);
 
+    // ✅ Clear all fields when equipment changes
+    clearFormFields();
+
     // ✅ If OTHER → switch to input mode
     if (selectedEquipment === "Other") {
         modelDropdown.style.display = "none";
@@ -188,7 +191,6 @@ function filterModels() {
 
         modelInput.value = "";
 
-        clearFormFields();
         toggleManualMode(true);
 
         return;

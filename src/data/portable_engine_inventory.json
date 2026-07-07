@@ -101,5 +101,15 @@
         "tier": null,
         "fuel": null,
         "horsepower": null
+    },
+    {
+        "equipment": "Another equipment",
+        "manufacturer": null,
+        "model_number": "34",
+        "serial_number": "as34",
+        "manufacture_date": "",
+        "tier": null,
+        "fuel": null,
+        "horsepower": null
     }
 ]
