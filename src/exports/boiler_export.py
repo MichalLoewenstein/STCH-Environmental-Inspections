@@ -12,8 +12,7 @@ def generate_boilerExcel(form_data):
 
     # ✅ Define consistent column order
     columns = [
-        "Operator", "Email", "Phone",
-        "Boiler Number", "Date", "Time", "Water Level",
+        "Operator", "Boiler Number", "Date", "Time", "Water Level",
         "Blow Down Water Column", "Blow Down Sight Glass", "Blow Down Low Water Cut Out",
         "Bottom Blow Boiler",
         "Checked Burner Ring For Proper Flame Pattern", "Checked Excess Oxygen For Proper Level",
@@ -25,12 +24,9 @@ def generate_boilerExcel(form_data):
     # ✅ Map form data (FIXED ✅ checkboxes now read correctly)
     data = {
         "Operator": form_data.get("operator"),
-        "Email": form_data.get("email"),
-        "Phone": form_data.get("phone"),
         "Boiler Number": form_data.get("boilerNumber"),
         "Date": form_data.get("date"),
         "Time": form_data.get("time"),
-
         "Water Level": get_checkbox(form_data, "check_water_level"),
         "Blow Down Water Column": get_checkbox(form_data, "blowDownWaterColumn"),
         "Blow Down Sight Glass": get_checkbox(form_data, "blowDownSightGlass"),
