@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const arrivalDate = document.getElementById("arrivalDate");
         const departureDate = document.getElementById("departureDate");
 
-        if (!arrivalDate || !departureDate) return;
+        if (!arrivalDate) return;
 
         const today = new Date().toISOString().split("T")[0];
 
@@ -83,17 +83,15 @@ document.addEventListener("DOMContentLoaded", function () {
             arrivalDate.value = today;
         }
 
-        if (!departureDate.value) {
-            departureDate.value = today;
-        }
+        // ✅ Do NOT auto-fill departureDate - leave it empty if user didn't enter it
     }
 
     if (form) {
         form.addEventListener("submit", function (event) {
             // ✅ Validate date fields
-            // Exclude manufactureDate from auto-fill (only validate if filled)
+            // Exclude manufactureDate and departureDate from auto-fill (only validate if filled)
             const dateFields = ["arrivalDate", "date", "departureDate", "manufactureDate"];
-            const excludeFields = ["manufactureDate"];
+            const excludeFields = ["departureDate", "manufactureDate"];
             const isDateValid = validateAndFillDates(dateFields, excludeFields);
             
             if (!isDateValid) {
@@ -148,19 +146,9 @@ function validateMeters() {
 
     finalInput.reportValidity();
 }
-
-
-
-
-
-
-    
+  
 
 })
-
-
-
-
 
 // Fetch the engine inventory from the Flask API.
 function loadEngines() {

@@ -4,7 +4,6 @@ from exports.paint_sandblast_export import generate_excel
 from exports.boiler_export import generate_boilerExcel
 from exports.ceb_flare_export import generate_flareExcel
 from exports.portable_engine_export import generate_portableExcel
-from exports.portable_engine_export import save_new_engine
 from exports.generator_export import generate_generatorExcel
 from utilities.email_utils import send_email
 from utilities.response_utils import render_with_no_cache

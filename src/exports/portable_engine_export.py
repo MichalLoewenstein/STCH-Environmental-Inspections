@@ -85,7 +85,8 @@ import json
 import os
 
 def save_new_engine(form_data):
-    file_path = "data/portable_engine_inventory.json"
+    # ✅ Use absolute path (same as utilities version)
+    file_path = os.path.join(os.path.dirname(__file__), "..", "data", "portable_engine_inventory.json")
 
     # ✅ Load existing data
     if os.path.exists(file_path):
@@ -94,9 +95,9 @@ def save_new_engine(form_data):
     else:
         engines = []
 
-    # ✅ Create new engine object
+    # ✅ Create new engine object using correct form field names
     new_engine = {
-        "equipment": form_data.get("other_equipment"),
+        "equipment": form_data.get("other_equipment") or form_data.get("equipment"),
         "manufacturer": form_data.get("manufacturer"),
         "model_number": form_data.get("modelNumber"),
         "serial_number": form_data.get("serialNumber"),
@@ -105,6 +106,8 @@ def save_new_engine(form_data):
         "tier": form_data.get("tier"),
         "fuel": form_data.get("fuel")
     }
+
+    print("✅ Saving engine data:", new_engine)
 
     # ✅ Prevent duplicates (important)
     exists = any(
@@ -120,6 +123,6 @@ def save_new_engine(form_data):
         with open(file_path, "w") as f:
             json.dump(engines, f, indent=4)
 
-        print("✅ New engine saved")
+        print("✅ New engine saved to:", file_path)
     else:
         print("⚠️ Engine already exists")

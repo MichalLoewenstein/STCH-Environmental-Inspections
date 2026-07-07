@@ -83,33 +83,13 @@
         "fuel": "Diesel"
     },
     {
-        "equipment": "other equip1",
-        "manufacturer": null,
-        "model_number": "2345",
-        "serial_number": "23ass34",
-        "manufacture_date": "",
-        "tier": null,
-        "fuel": null,
-        "horsepower": null
-    },
-    {
-        "equipment": "other equipment2",
-        "manufacturer": null,
-        "model_number": "345adsfgdh3",
-        "serial_number": "",
-        "manufacture_date": "",
-        "tier": null,
-        "fuel": null,
-        "horsepower": null
-    },
-    {
-        "equipment": "Another equipment",
-        "manufacturer": null,
-        "model_number": "34",
-        "serial_number": "as34",
-        "manufacture_date": "",
-        "tier": null,
-        "fuel": null,
-        "horsepower": null
+        "equipment": "G other Equipment",
+        "manufacturer": "Herry",
+        "model_number": "klhj384j",
+        "serial_number": "23d",
+        "manufacture_date": "2001-01-01",
+        "tier": "3",
+        "fuel": "Diesel",
+        "horsepower": "78"
     }
 ]
