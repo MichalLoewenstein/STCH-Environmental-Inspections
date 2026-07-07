@@ -3,6 +3,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     console.log("✅ generator.js loaded");
 
+    // ✅ Attach date validation listeners
+    attachDateValidationListeners(["date"]);
+
     const emissionsSelect = document.getElementById("emissions");
     const commentRow = document.getElementById("visibleEmissionCommentRow");
 
@@ -56,6 +59,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.getElementById("start_time")?.addEventListener("change", calculateTotalTime);
     document.getElementById("stop_time")?.addEventListener("change", calculateTotalTime);
+
+    // ✅ Form submit validation for dates
+    const form = document.querySelector("form");
+    if (form) {
+        form.addEventListener("submit", function(event) {
+            // Validate date fields (auto-fill empty dates with today)
+            const dateFields = ["date"];
+            const isDateValid = validateAndFillDates(dateFields);
+            
+            if (!isDateValid) {
+                event.preventDefault();
+                return false;
+            }
+        });
+    }
 
    
 

@@ -7,6 +7,12 @@ let engines = [];
 // Store the engine records loaded from the server.
 document.addEventListener("DOMContentLoaded", function () {
 
+    // ✅ Attach date validation listeners (all date fields are optional in this form)
+    attachDateValidationListeners(
+        ["arrivalDate", "date", "departureDate", "manufactureDate"],
+        ["arrivalDate", "date", "departureDate", "manufactureDate"] // All can be left empty
+    );
+
     // Load engine data and equipment options before enabling form interactions.
     Promise.all([
         loadEngines(),
@@ -84,6 +90,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (form) {
         form.addEventListener("submit", function (event) {
+            // ✅ Validate date fields
+            // Exclude manufactureDate from auto-fill (only validate if filled)
+            const dateFields = ["arrivalDate", "date", "departureDate", "manufactureDate"];
+            const excludeFields = ["manufactureDate"];
+            const isDateValid = validateAndFillDates(dateFields, excludeFields);
+            
+            if (!isDateValid) {
+                event.preventDefault();
+                return false;
+            }
+
             fillMissingDates();
 
             const isValid = validateMeterRange();

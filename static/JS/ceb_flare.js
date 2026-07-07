@@ -1,4 +1,22 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // ✅ Attach date validation listeners
+  attachDateValidationListeners(["date"]);
+
+  // ✅ Add form submit validation
+  const form = document.querySelector("form");
+  if (form) {
+    form.addEventListener("submit", function(event) {
+      // Validate date fields (auto-fill empty dates with today)
+      const dateFields = ["date"];
+      const isDateValid = validateAndFillDates(dateFields);
+      
+      if (!isDateValid) {
+        event.preventDefault();
+        return false;
+      }
+    });
+  }
+
   if (window.innerWidth <= 600) {
 
     const table = document.querySelector(".responsive-table");

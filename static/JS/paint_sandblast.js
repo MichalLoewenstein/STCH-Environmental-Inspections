@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     console.log("✅ PaintForm.js loaded");
 
+    // ✅ Attach date validation listeners
+    attachDateValidationListeners(["date"]);
 
     // =====================================================
     // ✅ TIME CALCULATION LOGIC
@@ -232,6 +234,15 @@ function removeValidationError(inputElement) {
 
 
 document.getElementById("form").addEventListener("submit", function(event) {
+    // ✅ Validate date fields (auto-fill empty dates with today)
+    const dateFields = ["date"];
+    const isDateValid = validateAndFillDates(dateFields);
+    
+    if (!isDateValid) {
+        event.preventDefault();
+        return false;
+    }
+
     // Check if any material has validation errors
     const errorInputs = document.querySelectorAll('input[name="other_material[]"][style*="border-color"]');
     if (errorInputs.length > 0) {
