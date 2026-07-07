@@ -91,5 +91,15 @@
         "tier": null,
         "fuel": null,
         "horsepower": null
+    },
+    {
+        "equipment": "other equipment2",
+        "manufacturer": null,
+        "model_number": "345adsfgdh3",
+        "serial_number": "",
+        "manufacture_date": "",
+        "tier": null,
+        "fuel": null,
+        "horsepower": null
     }
 ]
