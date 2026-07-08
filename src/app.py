@@ -75,13 +75,13 @@ def index():
         excel_file = generate_excel(form_data, final_materials)
 
         # ✅ ✅ SEND EMAIL HERE (before redirect)
-        send_email(
-            excel_file,
-            form_data,
-            subject="STCH Maintenance Paint and Sandblasting"
-        )
+        # send_email(
+        #     excel_file,
+        #     form_data,
+        #     subject="STCH Maintenance Paint and Sandblasting"
+        # )
 
-        print("✅ Excel + Email done")
+        # print("✅ Excel + Email done")
 
         # ✅ Then redirect ONLY
         return redirect(url_for("success"))
@@ -113,10 +113,10 @@ def Boiler():
         print("Generating Excel with form data:", form_data)
         excel_file = generate_boilerExcel(form_data)
 
-        # ✅ Send email
-        send_email(excel_file, form_data, subject= "STCH Maintenance Boiler")
+        # # ✅ Send email
+        # send_email(excel_file, form_data, subject= "STCH Maintenance Boiler")
 
-        print("✅ Excel created and email sent")
+        # print("✅ Excel created and email sent")
 
         # ✅ Navigate to success page
         return redirect(url_for("success"))
@@ -138,8 +138,8 @@ def flare():
         print("Generating Excel with form data:", form_data)
         excel_file = generate_flareExcel(form_data)
 
-        # ✅ Send email
-        send_email(excel_file, form_data, subject= "STCH Maintenance CEB_Flare")
+        # # ✅ Send email
+        # send_email(excel_file, form_data, subject= "STCH Maintenance CEB_Flare")
 
         
         # ✅ Navigate to success page
@@ -163,10 +163,10 @@ def Generator():
         print("Generating Excel with form data:", form_data)
         excel_file = generate_generatorExcel(form_data)
 
-        # ✅ Send email
-        send_email(excel_file, form_data, subject= "STCH Maintenance Emergency Generator Run Log")
+        # # ✅ Send email
+        # send_email(excel_file, form_data, subject= "STCH Maintenance Emergency Generator Run Log")
 
-        print("✅ Excel created and email sent")
+        # print("✅ Excel created and email sent")
 
         # ✅ Navigate to success page
         return redirect(url_for("success"))
@@ -205,10 +205,10 @@ def portableEngine():
         print("Generating Excel with form data:", form_data)
         excel_file = generate_portableExcel(form_data)
 
-        # ✅ Send email
-        send_email(excel_file, form_data, subject= "STCH Maintenance Portable Engine")
+        # # ✅ Send email
+        # send_email(excel_file, form_data, subject= "STCH Maintenance Portable Engine")
 
-        print("✅ Excel created and email sent")
+        # print("✅ Excel created and email sent")
 
         # ✅ Navigate to success page
         return redirect(url_for("success"))
