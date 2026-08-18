@@ -75,11 +75,11 @@ def index():
         excel_file = generate_excel(form_data, final_materials)
 
         # ✅ ✅ SEND EMAIL HERE (before redirect)
-        # send_email(
-        #     excel_file,
-        #     form_data,
-        #     subject="STCH Maintenance Paint and Sandblasting"
-        # )
+        send_email(
+            excel_file,
+            form_data,
+            subject="STCH Environmental Inspections Paint and Sandblasting"
+        )
 
         # print("✅ Excel + Email done")
 
@@ -114,7 +114,11 @@ def Boiler():
         excel_file = generate_boilerExcel(form_data)
 
         # # ✅ Send email
-        # send_email(excel_file, form_data, subject= "STCH Maintenance Boiler")
+        send_email(
+            excel_file, 
+            form_data, 
+            subject= "STCH Environmental Inspections Boiler"
+            )
 
         # print("✅ Excel created and email sent")
 
@@ -139,7 +143,11 @@ def flare():
         excel_file = generate_flareExcel(form_data)
 
         # # ✅ Send email
-        # send_email(excel_file, form_data, subject= "STCH Maintenance CEB_Flare")
+        send_email(
+            excel_file, 
+            form_data, 
+            subject= "STCH Environmental Inspections CEB_Flare"
+            )
 
         
         # ✅ Navigate to success page
@@ -164,7 +172,11 @@ def Generator():
         excel_file = generate_generatorExcel(form_data)
 
         # # ✅ Send email
-        # send_email(excel_file, form_data, subject= "STCH Maintenance Emergency Generator Run Log")
+        send_email(
+            excel_file, 
+            form_data, 
+            subject= "STCH Environmental Inspections Emergency Generator Run Log"
+            )
 
         # print("✅ Excel created and email sent")
 
@@ -206,7 +218,11 @@ def portableEngine():
         excel_file = generate_portableExcel(form_data)
 
         # # ✅ Send email
-        # send_email(excel_file, form_data, subject= "STCH Maintenance Portable Engine")
+        send_email(
+            excel_file, 
+            form_data, 
+            subject= "STCH Environmental Inspections Portable Engine"
+            )
 
         # print("✅ Excel created and email sent")
 

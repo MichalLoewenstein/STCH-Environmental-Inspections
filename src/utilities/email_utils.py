@@ -7,7 +7,7 @@ def send_email(excel_file, form_data, subject):
     sender = "devorawork2026@gmail.com"
     password = "pwgbpczelqlwqkqb"
 
-    receiver1 = ["T.Shaliyehsabou@shell.com"]
+    receiver1 = ["dvora.libersohn@shell.com"]
 
     msg1 = EmailMessage()
     msg1["Subject"] = subject
@@ -25,7 +25,7 @@ def send_email(excel_file, form_data, subject):
         filename=f"{subject}_{utc_now}.xlsx",
     )
 
-    receiver2 = ["T.Shaliyehsabou@shell.com"]
+    receiver2 = ["dvora.libersohn@shell.com"]
     utc_time = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
 
     msg2 = EmailMessage()
@@ -38,7 +38,7 @@ def send_email(excel_file, form_data, subject):
 
     msg2.set_content(
         f"""
-        User logged into STCH Maintenance:
+        User logged into STCH Environmental Inspections:
 
         Name: {name}
         Email: {email_input}

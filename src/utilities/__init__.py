@@ -1,1 +1,1 @@
-"""Utility helpers for the STCH maintenance app."""
+"""Utility helpers for the STCH Environmental Inspections app."""
