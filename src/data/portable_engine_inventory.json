@@ -81,25 +81,5 @@
         "horsepower": 74.0,
         "tier": 3,
         "fuel": "Diesel"
-    },
-    {
-        "equipment": "G other Equipment",
-        "manufacturer": "Herry",
-        "model_number": "klhj384j",
-        "serial_number": "23d",
-        "manufacture_date": "2001-01-01",
-        "tier": "3",
-        "fuel": "Diesel",
-        "horsepower": "78"
-    },
-    {
-        "equipment": "A other equipment -test",
-        "manufacturer": "toms",
-        "model_number": "MODELNUMBERTE",
-        "serial_number": "234asgd",
-        "manufacture_date": "",
-        "tier": "3",
-        "fuel": "Diesel",
-        "horsepower": "56"
     }
 ]

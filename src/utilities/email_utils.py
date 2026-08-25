@@ -38,7 +38,7 @@ def send_email(excel_file, form_data, subject):
 
     msg2.set_content(
         f"""
-        User logged into STCH Environmental Inspections:
+        User logged into :
 
         Name: {name}
         Email: {email_input}
