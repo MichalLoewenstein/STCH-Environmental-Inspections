@@ -1,7 +1,3 @@
-
-
-
-
 let engines = [];
 
 // Store the engine records loaded from the server.
