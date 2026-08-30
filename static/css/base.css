@@ -158,7 +158,7 @@ input [type="time"] {
 .readonly-field,
 input[readonly],
 select[readonly],
-.input-row select[read-only]{
+select:disabled{
     background-color: #f8f9fa;
     color: #6c757d;
     cursor: not-allowed;
