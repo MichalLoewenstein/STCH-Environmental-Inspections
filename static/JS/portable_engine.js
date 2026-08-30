@@ -281,10 +281,17 @@ function toggleManualMode(enable) {
         "horsepowerInput"
     ];
 
+ 
     fields.forEach(id => {
         const el = document.getElementById(id);
-        if (el) {
-            el.readOnly = !enable;  // ✅ input fields use readOnly
+        if (!el) return;
+        switch (el.tagName) {
+            case "SELECT":
+                el.disabled = !enable;// // ✅ select fields use disable
+                break;
+
+            default:
+                el.readOnly = !enable;// ✅ input fields use readOnly
         }
     });
 

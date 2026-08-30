@@ -3,7 +3,7 @@ import io
 
 # ✅ Helper to correctly read checkbox values
 def get_checkbox(form_data, field):
-    return "ON" if form_data.get(field + "cb") == "ON" else "OFF"
+    return "Checked" if form_data.get(field + "cb") == "Checked" else "Not Checked"
 
 
 def generate_boilerExcel(form_data):
@@ -12,7 +12,7 @@ def generate_boilerExcel(form_data):
 
     # ✅ Define consistent column order
     columns = [
-        "Operator", "Boiler Number", "Date", "Time", "Water Level",
+        "Operator", "Boiler Number","Boiler Status", "Date", "Time", "Water Level",
         "Blow Down Water Column", "Blow Down Sight Glass", "Blow Down Low Water Cut Out",
         "Bottom Blow Boiler",
         "Checked Burner Ring For Proper Flame Pattern", "Checked Excess Oxygen For Proper Level",
@@ -25,6 +25,7 @@ def generate_boilerExcel(form_data):
     data = {
         "Operator": form_data.get("operator"),
         "Boiler Number": form_data.get("boilerNumber"),
+        "Boiler Status":form_data.get("boilerStatus"),
         "Date": form_data.get("date"),
         "Time": form_data.get("time"),
         "Water Level": get_checkbox(form_data, "check_water_level"),

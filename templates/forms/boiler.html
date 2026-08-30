@@ -76,120 +76,139 @@ html { visibility: hidden; }
         <label>Operator*</label>
         <input type="text" name="operator" required>
     </div>
-
-
-    <div class="sub-header">Inspection </div>
-    <div class="input-row">
+     <div class="sub-header">Boiler and Status</div>
+     <div class="input-row">
         <label>Boiler #</label>
-        <input type="text" name="boilerNumber" required>
+         <select name="boilerNumber" required>
+            <option value="">Select</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+        </select>
     </div>
-
+    <div class="input-row">
+        <label>Boiler Status*</label>
+         <select name="boilerStatus" required>
+            <option value="">Select</option>
+            <option value="In Service">In Service</option>
+            <option value="Out of Service">Out of Service</option>
+        </select>
+    </div>
+    <div id="inspectionSections">
+        <div class="sub-header">Inspection </div>
     
+
 
     <!-- ✅ CHECKLIST -->
   
-<div class="form-row">
+    <div class="form-row">
+        <br/>
+    <label>If the Boiler is in Service, 
+        please confirm the following items have been checked. 
+    <br/> If an item was not checked, please provide notes in the comments. 
+    </label>
+    <br/>
+        <div class="toggle-row">
+            <label>
+                Check Water Level (Sight Glass)
+                <span class="switch">
+                    <input type="hidden" name="check_water_level" value="Not Checked">
+                    <input type="checkbox" name="check_water_levelcb" value="Checked">
+                    <span class="slider"></span>
+                </span>
+            </label>
+        </div>
 
-    <div class="toggle-row">
-        <label>
-            Check Water Level (Sight Glass)
-            <span class="switch">
-                <input type="hidden" name="check_water_level" value="OFF">
-                <input type="checkbox" name="check_water_levelcb" value="ON">
-                <span class="slider"></span>
-            </span>
-        </label>
+        <div class="toggle-row">
+            <label>
+                Blow Down Water Column
+                <span class="switch">
+                    <input type="hidden" name="blowDownWaterColumn" value="Not Checked">
+                    <input type="checkbox" name="blowDownWaterColumncb" value="Checked">
+                    <span class="slider"></span>
+                </span>
+            </label>
+        </div>
+
+        <div class="toggle-row">
+            <label>
+                Blow Down Sight Glass
+                <span class="switch">
+                    <input type="hidden" name="blowDownSightGlass" value="Not Checked">
+                    <input type="checkbox" name="blowDownSightGlasscb" value="Checked">
+                    <span class="slider"></span>
+                </span>
+            </label>
+        </div>
+
+        <div class="toggle-row">
+            <label>
+                Blow Down Low Water Cut Out
+                <span class="switch">
+                    <input type="hidden" name="blowDownLowWaterCutOut" value="Not Checked">
+                    <input type="checkbox" name="blowDownLowWaterCutOutcb" value="Checked">
+                    <span class="slider"></span>
+                </span>
+            </label>
+        </div>
+
+        <div class="toggle-row">
+            <label>
+                Bottom Blow Boiler
+                <span class="switch">
+                    <input type="hidden" name="bottomBlowBoiler" value="Not Checked">
+                    <input type="checkbox" name="bottomBlowBoilercb" value="Checked">
+                    <span class="slider"></span>
+                </span>
+            </label>
+        </div>
+
+        <div class="toggle-row">
+            <label>
+                Checked Burner Ring For Proper Flame Pattern
+                <span class="switch">
+                    <input type="hidden" name="checkedBurnerRingForProperFlamePattern" value="Not Checked">
+                    <input type="checkbox" name="checkedBurnerRingForProperFlamePatterncb" value="Checked">
+                    <span class="slider"></span>
+                </span>
+            </label>
+        </div>
+
+        <div class="toggle-row">
+            <label>
+                Checked Excess Oxygen For Proper Level
+                <span class="switch">
+                    <input type="hidden" name="checkedExcessOxygenForProperLevel" value="Not Checked">
+                    <input type="checkbox" name="checkedExcessOxygenForProperLevelcb" value="Checked">
+                    <span class="slider"></span>
+                </span>
+            </label>
+        </div>
+
+        <div class="toggle-row">
+            <label>
+                Checked For Excess Combustibles
+                <span class="switch">
+                    <input type="hidden" name="checkedForExcessCombustibles" value="Not Checked">
+                    <input type="checkbox" name="checkedForExcessCombustiblescb" value="Checked">
+                    <span class="slider"></span>
+                </span>
+            </label>
+        </div>
+
+        <div class="toggle-row">
+            <label>
+                Visually Checked Entire Boiler
+                <span class="switch">
+                    <input type="hidden" name="visuallyCheckedEntireBoiler" value="Not Checked">
+                    <input type="checkbox" name="visuallyCheckedEntireBoilercb" value="Checked">
+                    <span class="slider"></span>
+                </span>
+            </label>
+        </div>
+
     </div>
+    
 
-    <div class="toggle-row">
-        <label>
-            Blow Down Water Column
-            <span class="switch">
-                <input type="hidden" name="blowDownWaterColumn" value="OFF">
-                <input type="checkbox" name="blowDownWaterColumncb" value="ON">
-                <span class="slider"></span>
-            </span>
-        </label>
-    </div>
-
-    <div class="toggle-row">
-        <label>
-            Blow Down Sight Glass
-            <span class="switch">
-                <input type="hidden" name="blowDownSightGlass" value="OFF">
-                <input type="checkbox" name="blowDownSightGlasscb" value="ON">
-                <span class="slider"></span>
-            </span>
-        </label>
-    </div>
-
-    <div class="toggle-row">
-        <label>
-            Blow Down Low Water Cut Out
-            <span class="switch">
-                <input type="hidden" name="blowDownLowWaterCutOut" value="OFF">
-                <input type="checkbox" name="blowDownLowWaterCutOutcb" value="ON">
-                <span class="slider"></span>
-            </span>
-        </label>
-    </div>
-
-    <div class="toggle-row">
-        <label>
-            Bottom Blow Boiler
-            <span class="switch">
-                <input type="hidden" name="bottomBlowBoiler" value="OFF">
-                <input type="checkbox" name="bottomBlowBoilercb" value="ON">
-                <span class="slider"></span>
-            </span>
-        </label>
-    </div>
-
-    <div class="toggle-row">
-        <label>
-            Checked Burner Ring For Proper Flame Pattern
-            <span class="switch">
-                <input type="hidden" name="checkedBurnerRingForProperFlamePattern" value="OFF">
-                <input type="checkbox" name="checkedBurnerRingForProperFlamePatterncb" value="ON">
-                <span class="slider"></span>
-            </span>
-        </label>
-    </div>
-
-    <div class="toggle-row">
-        <label>
-            Checked Excess Oxygen For Proper Level
-            <span class="switch">
-                <input type="hidden" name="checkedExcessOxygenForProperLevel" value="OFF">
-                <input type="checkbox" name="checkedExcessOxygenForProperLevelcb" value="ON">
-                <span class="slider"></span>
-            </span>
-        </label>
-    </div>
-
-    <div class="toggle-row">
-        <label>
-            Checked For Excess Combustibles
-            <span class="switch">
-                <input type="hidden" name="checkedForExcessCombustibles" value="OFF">
-                <input type="checkbox" name="checkedForExcessCombustiblescb" value="ON">
-                <span class="slider"></span>
-            </span>
-        </label>
-    </div>
-
-    <div class="toggle-row">
-        <label>
-            Visually Checked Entire Boiler
-            <span class="switch">
-                <input type="hidden" name="visuallyCheckedEntireBoiler" value="OFF">
-                <input type="checkbox" name="visuallyCheckedEntireBoilercb" value="ON">
-                <span class="slider"></span>
-            </span>
-        </label>
-    </div>
-
-</div>
     <!-- ✅ SECTION -->
     <div class="sub-header">Infrastructure Support Inspections</div>
 
@@ -211,7 +230,7 @@ html { visibility: hidden; }
         <label>Time Smoke Cleared</label>
         <input type="time" id="time_smoke_cleared" name="timeSmokeCleared">
     </div>
-
+    </div>
    
     <div class="sub-header">Comments</div>
     <div class="input-row full-width">
