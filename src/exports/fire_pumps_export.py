@@ -2,56 +2,53 @@ import pandas as pd
 import io
 from flask import Flask, request
  
-def generate_portableExcel(form_data):
+def fire_pumpsExcel(form_data):
  
     print(form_data)
     # ✅ Define consistent column order (important!)
+   
     columns = [
-       "Operator", "Contractor","Equipment", "Other Equipment", "Location", "Purpose", "Arrival Date", "In Service Date", "Initial Meter Read", "Departure Date","Final Meter Read","Total Hours",
-       "Horsepower" ,"Manufacturer","Model Number", "Other Model Number","Serial Number", "Manufacture Date", "Tier", "Fuel", "On-Site Status",  "Comments"
+        "Operator","Contractor","Equipment","Location","Purpose","Arrival Date","In Service Date","Initial Meter Read","Start Time","Stop Time","Run Duration","Departure Date","Final Meter Read",
+        "Total Hours","Visual Emissions","Mfr","Model Number","Serial Number","Horsepower","Fuel","On-Site Status","Comments",
     ]
- 
-    equipment = form_data.get("equipment")
- 
-    if equipment == "Other":
-        equipment = form_data.get("other_equipment") or "Other"
 
-    vendor = form_data.get("vendor")
-    
-    if vendor == "Other":
-        vendor = form_data.get("other_vendor") or "Other"    
- 
     purpose = form_data.get("purpose")
- 
     if purpose == "Other":
         purpose = form_data.get("other_purpose") or "Other"
- 
-    model_number=form_data.get("modelNumber")
- 
-    if model_number == "Other":
-        model_number = form_data.get("modelNumberOther") or "Other"
- 
+
+    run_duration = form_data.get("run_duration")
+    if run_duration:
+             hours, minutes = map(int, run_duration.split(":"))
+             total_run = hours + (minutes / 60)
+    else:
+             total_run = 0
+
+    vendor = form_data.get("vendor")
+        
+    if vendor == "Other":
+        vendor = form_data.get("other_vendor") or "Other"          
+     
     # ✅ Convert incoming form data keys to match column names
     data = {
         "Operator": form_data.get("operator"),
         "Contractor":vendor,
-        "Equipment": equipment,
-        "Other Equipment": form_data.get("other_equipment"),
+        "Equipment": form_data.get("equipment"),
         "Location": form_data.get("location"),
         "Purpose": purpose,
         "Arrival Date": form_data.get("arrivalDate"),
         "In Service Date": form_data.get("date"),
         "Initial Meter Read": form_data.get("initialMeterRead"),
+        "Start Time":form_data.get("start_time"),
+        "Stop Time":form_data.get("stop_time"),
+        "Run Duration":total_run,
         "Departure Date": form_data.get("departureDate"),
         "Final Meter Read": form_data.get("finalMeterRead"),
-        "Total Hours": float(request.form.get("totalHours") or 0),
+        "Total Hours": float(form_data.get("total_hours") or 0),
+        "Visual Emissions":form_data.get("visual_emissions"),
+        "Mfr": form_data.get("mfr"),
+        "Model Number": form_data.get("model_number"),
+        "Serial Number": form_data.get("serial_number"),
         "Horsepower": form_data.get("horsepower"),
-        "Manufacturer": form_data.get("manufacturer"),
-        "Model Number": model_number,
-        "Other Model Number": form_data.get("modelNumberOther"),
-        "Serial Number": form_data.get("serialNumber"),
-        "Manufacture Date": form_data.get("manufactureDate"),
-        "Tier": form_data.get("tier"),
         "Fuel": form_data.get("fuel"),
         "On-Site Status": form_data.get("onsiteStatus"),
         "Comments": form_data.get("comments")  

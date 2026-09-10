@@ -1,0 +1,45 @@
+[
+    {
+        "equipment": "Chipper Machine",
+        "manufacturer": "Vermeer",
+        "model_number": "BC1000XL",
+        "serial_number": "7000G140REVC",
+        "manufacture_date": "2018-08-01",
+        "horsepower": [
+            49,
+            74
+        ],
+        "tier": 4,
+        "fuel": "Diesel"
+    },
+    {
+        "equipment": "Lift Machine",
+        "manufacturer": "JLG Lift",
+        "model_number": "600AJ",
+        "serial_number": "#0300240343",
+        "manufacture_date": "2018-02-01",
+        "horsepower": null,
+        "tier": 4,
+        "fuel": "Diesel"
+    },
+    {
+        "equipment": "Lift Machine",
+        "manufacturer": "JLG Lift",
+        "model_number": "600AJ",
+        "serial_number": "#0300303537",
+        "manufacture_date": "2018-02-01",
+        "horsepower": null,
+        "tier": 4,
+        "fuel": "Diesel"
+    },
+    {
+        "equipment": "Lift Machine",
+        "manufacturer": "JLG",
+        "model_number": "660SJ",
+        "serial_number": "#0300257281",
+        "manufacture_date": "2019",
+        "horsepower": 48.8,
+        "tier": 4,
+        "fuel": "Diesel"
+    }
+]
