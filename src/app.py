@@ -5,10 +5,12 @@ from exports.boiler_export import generate_boilerExcel
 from exports.ceb_flare_export import generate_flareExcel
 from exports.portable_engine_export import generate_portableExcel
 from exports.generator_export import generate_generatorExcel
+from exports.fire_pumps_export import fire_pumpsExcel
 from utilities.email_utils import send_email
 from utilities.response_utils import render_with_no_cache
 from utilities.materials_utils import add_material, load_materials
 from utilities.portable_engine_utils import load_engine_inventory, save_new_engine,save_new_model
+from utilities.fire_pumps_utils import load_fire_engine_inventory,save_fire_new_engine,save_fire_new_model
 import json
 import os
 import datetime
@@ -87,7 +89,6 @@ def index():
         return redirect(url_for("success"))
 
     return render_with_no_cache("forms/paint_sandblast.html", materials=MATERIALS)
-
 
 
 from flask import request
@@ -244,6 +245,38 @@ def portableEngine():
 
     return render_with_no_cache("forms/portable_engine.html")
 
+@app.route("/fire_pumps", methods=["GET", "POST"])
+def firePumps():
+
+    if request.method == "POST":
+
+        #equipment_choice=request.form.get("equipment")
+        # converts user inputs into python dictionary
+        form_data = request.form.to_dict()
+        
+        if not form_data:
+            raise ValueError("No form data submitted")
+
+
+        # ✅ Generate Excel
+        print("Generating Excel with form data:", form_data)
+        excel_file = fire_pumpsExcel(form_data)
+
+        # # ✅ Send email
+        send_email(
+            excel_file, 
+            form_data, 
+            subject= "STCH Environmental Inspections Fire Pumps"
+            )
+
+        # print("✅ Excel created and email sent")
+
+        # ✅ Navigate to success page
+        return redirect(url_for("success"))
+    
+
+    return render_with_no_cache("forms/fire_pumps.html")
+
 
 @app.route("/api/engines")
 def get_engines():
@@ -260,6 +293,36 @@ def get_engines():
     )
     
     return jsonify(data)
+
+@app.route("/api/fireEngines")
+def get_fireEngines():
+    # Read the portable engine inventory once and return it sorted for the dropdown.
+    data = load_fire_engine_inventory()
+    
+    data = sorted(
+        data,
+        key=lambda x: (
+            (x.get("equipment") or "").lower(),
+            (x.get("manufacturer") or "").lower(),
+            (x.get("model_number") or "").lower()
+        )
+    )
+    
+    return jsonify(data)
+
+@app.route("/api/fireEquipment")
+def get_FireEquipment():
+    # Build a unique list of equipment names for the form dropdown.
+    data = load_fire_engine_inventory()
+
+    # ✅ Extract unique equipment values
+    equipment_set = {e.get("equipment") for e in data if e.get("equipment")}
+
+    equipment_list = sorted(equipment_set, key=str.lower)
+
+    return jsonify(equipment_list)
+
+
 
 @app.route("/api/equipment")
 def get_equipment():

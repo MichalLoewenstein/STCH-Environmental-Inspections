@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> /</title>
+
+  <style>
+    html { visibility: hidden; }
+
+    /* Keeps a select + its "Other" text box together in column 2,
+       so hiding either one never shifts the layout. */
+    .input-row .field-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .input-row .field-stack > select,
+    .input-row .field-stack > input {
+      width: 100%;
+      margin-top: 0;
+    }
+  </style>
+
+  <script>
+    (function () {
+      const nav = performance.getEntriesByType("navigation")[0];
+      if (nav && nav.type === "back_forward") {
+        window.location.replace("/");
+      } else {
+        document.documentElement.style.visibility = "visible";
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+  <script src="{{ url_for('static', filename='js/date_validation.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/components/date_auto_fill.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/fire_pumps.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/components/submit_disable_btn.js')}}" defer></script>
+  <script src="{{ url_for('static', filename='js/components/other_input.js')}}" defer></script>
+</head>
+
+<body>
+  <form method="POST" action="/fire_pumps" autocomplete="off" id="form">
+    <h1 class="form-title">Fire Pumps Log</h1>
+    <br>
+
+    <div class="input-row">
+      <label>Operator*</label>
+      <input type="text" name="operator" required>
+    </div>
+
+    <div class="input-row">
+            <label>Contractor*</label>
+            <select name="vendor" class="has-other">
+                <option disabled selected>Select Contractor</option>
+                <option value="B&R">Brown & Root</option>
+                <option value="Other" >Other</option>
+            </select>
+            <label></label>
+            <input type="text"
+           name="other_vendor"
+           class="other-input"
+           id = "other_vendor"
+           placeholder="Enter Contractor name"
+           style="display:none; margin-top:6px;">
+
+    </div>
+
+    <div class="input-row">
+        <label for="equipment">Equipment</label>
+        <div class="field-stack">
+            <input
+            type="text"
+            id="equipment"
+            name="equipment"
+            value="Diesel Fire Pump"
+            readonly
+            >
+        </div>
+    </div>
+
+    <div class="input-row">
+        <label for="location">Location</label>
+        <div class="field-stack">
+            <input
+            type="text"
+            id="location"
+            name="location"
+            value="FP"
+            readonly
+            >
+        </div>
+    </div>
+
+   
+
+    <div class="input-row">
+      <label for="purpose">Purpose</label>
+      <div class="field-stack">
+        <select id="purpose" name="purpose" class="has-other">
+          <option disabled selected hidden>Select Purpose</option>
+          <option value="Tree Removal">Weekly Pump Run</option>
+          <option value="Other">Other</option>
+        </select>
+        <input type="text" name="other_purpose" id="other_purpose" class="other-input"
+               placeholder="Enter purpose" style="display:none;">
+      </div>
+    </div>
+
+    <div class="sub-header">Service Hours and Meter Readings</div>
+
+    <div class="input-row">
+      <label for="arrivalDate">Arrival Date</label>
+      <input type="date" id="arrivalDate" name="arrivalDate">
+    </div>
+
+    <div class="input-row">
+      <label for="date">In Service Date</label>
+      <input type="date" id="date" name="date">
+    </div>
+
+    <div class="input-row">
+      <label for="initialMeterRead">Initial Meter Read*</label>
+      <input type="number" required min="0" step="0.01" id="initialMeterRead" name="initialMeterRead">
+    </div>
+
+     <div class="input-row">
+        <label>Start Time</label>
+        <input type="time" id="start_time" name="start_time"> 
+    </div>
+
+    <div class="input-row">
+        <label>Stop Time</label>
+        <input type="time" id="stop_time" name="stop_time">
+    </div>
+
+
+    <div class="input-row">
+        <label>Run Duration</label>
+        <input type="text" id="run_duration" name="run_duration" readonly class="readonly-field">  
+    </div>
+
+    <div class="input-row">
+      <label for="departureDate">Departure Date</label>
+      <input type="date" id="departureDate" name="departureDate">
+    </div>
+
+    <div class="input-row">
+      <label for="finalMeterRead">Final Meter Read*</label>
+      <input type="number" required min="0" step="0.01" id="finalMeterRead" name="finalMeterRead">
+    </div>
+
+    <div class="input-row">
+      <label for="total_hours">Total Hours</label>
+      <input type="number" id="total_hours" name="total_hours" step="0.01" readonly class="readonly-field">
+    </div>
+
+    <div class="input-row">
+        <label>Visual Emissions</label>
+        <select id="visual_emissions"name="visual_emissions">
+            <option disabled selected hidden></option>
+            <option value="MS">Y</option>
+            <option value="BD">N</option>
+        </select>
+        </div>
+
+    <div class="sub-header">Engine Data</div>
+    <!--  -->
+
+     <div class="input-row">
+        <label for="mfr">Mfr</label>
+        <div class="field-stack">
+            <input
+            type="text"
+            id="mfr"
+            name="mfr"
+            value="Clarke"
+            readonly
+            >
+        </div>
+    </div>
+
+    <div class="input-row">
+        <label for="model_number">Model No.</label>
+        <div class="field-stack">
+            <input
+            type="text"
+            id="model_number"
+            name="model_number"
+            value="JU6H-UFADR8"
+            readonly
+            >
+        </div>
+    </div>
+    <div class="input-row">
+        <label for="serial_number">Serial No.</label>
+        <div class="field-stack">
+            <input
+            type="text"
+            id="serial_number"
+            name="serial_number"
+            value="S0138744P"
+            readonly
+            >
+        </div>
+    </div>
+
+
+    <div class="input-row">
+  <label for="horsepower">Horsepower</label>
+  <input
+    type="text"
+    id="horsepower"
+    name="horsepower"
+    value="250"
+    readonly
+    required
+  >
+</div>
+
+    
+
+   
+
+    <div class="input-row">
+  <label for="fuelInput">Fuel</label>
+  <input
+    type="text"
+    id="fuelInput"
+    name="fuel"
+    value="Diesel"
+    readonly
+    required
+  >
+</div>
+
+    <div class="input-row">
+      <label for="onsiteStatus">On-Site Status</label>
+      <select id="onsiteStatus" name="onsiteStatus">
+        <option disabled selected hidden></option>
+        <option value="Off-Site">Off-Site</option>
+        <option value="On-Site">On-Site</option>
+      </select>
+    </div>
+
+    <div class="sub-header">Comments</div>
+    <br>
+
+    <div class="input-row full-width">
+      <textarea name="comments" placeholder="Comments"></textarea>
+    </div>
+
+    <br>
+    <button type="submit" id="submitBtn">Submit</button>
+    <div class="button"><a href="/home">Cancel</a></div>
+  </form>
+</body>
+</html>

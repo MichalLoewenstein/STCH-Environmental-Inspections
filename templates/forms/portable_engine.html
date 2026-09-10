@@ -52,8 +52,20 @@
     </div>
 
     <div class="input-row">
-      <label>Contractor*</label>
-      <input type="text" name="contractor" required>
+            <label>Contractor*</label>
+            <select name="vendor" class="has-other">
+                <option disabled selected>Select Contractor</option>
+                <option value="B&R">Brown & Root</option>
+                <option value="Other" >Other</option>
+            </select>
+            <label></label>
+            <input type="text"
+           name="other_vendor"
+           class="other-input"
+           id = "other_vendor"
+           placeholder="Enter Contractor name"
+           style="display:none; margin-top:6px;">
+
     </div>
 
     <div class="input-row">
