@@ -57,7 +57,7 @@ def generate_generatorExcel(form_data):
         "Emergency Type":Emergency_type,
         "Comments": form_data.get("comments"),
         "Visible Emissions": form_data.get("emissions"),
-        "Comment Visible Emissions": form_data.get("visibleEmissionComment")
+        "Comments Visible Emissions": form_data.get("visible_emission_comment")
         
 
     }

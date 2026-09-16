@@ -53,9 +53,9 @@
 
     <div class="input-row">
             <label>Contractor*</label>
-            <select name="vendor" class="has-other">
-                <option disabled selected>Select Contractor</option>
-                <option value="B&R">Brown & Root</option>
+            <select name="vendor" id="vendor" class="has-other" required>
+                <option value="" disabled selected>Select Contractor</option>
+                <option value="B&R">Brown &amp; Root</option>
                 <option value="Other" >Other</option>
             </select>
             <label></label>
@@ -116,14 +116,11 @@
       <input type="date" id="arrivalDate" name="arrivalDate">
     </div>
 
-    <div class="input-row">
-      <label for="date">In Service Date</label>
-      <input type="date" id="date" name="date">
-    </div>
+    
 
     <div class="input-row">
       <label for="initialMeterRead">Initial Meter Read*</label>
-      <input type="number" required min="0" step="0.01" id="initialMeterRead" name="initialMeterRead">
+      <input type="number"  min="0" step="0.01" id="initialMeterRead" name="initialMeterRead" required>
     </div>
 
      <div class="input-row">
@@ -142,14 +139,11 @@
         <input type="text" id="run_duration" name="run_duration" readonly class="readonly-field">  
     </div>
 
-    <div class="input-row">
-      <label for="departureDate">Departure Date</label>
-      <input type="date" id="departureDate" name="departureDate">
-    </div>
+   
 
     <div class="input-row">
       <label for="finalMeterRead">Final Meter Read*</label>
-      <input type="number" required min="0" step="0.01" id="finalMeterRead" name="finalMeterRead">
+      <input type="number" min="0" step="0.01" id="finalMeterRead" name="finalMeterRead" required>
     </div>
 
     <div class="input-row">
@@ -157,14 +151,7 @@
       <input type="number" id="total_hours" name="total_hours" step="0.01" readonly class="readonly-field">
     </div>
 
-    <div class="input-row">
-        <label>Visual Emissions</label>
-        <select id="visual_emissions"name="visual_emissions">
-            <option disabled selected hidden></option>
-            <option value="MS">Y</option>
-            <option value="BD">N</option>
-        </select>
-        </div>
+   
 
     <div class="sub-header">Engine Data</div>
     <!--  -->
@@ -238,11 +225,14 @@
 
     <div class="input-row">
       <label for="onsiteStatus">On-Site Status</label>
-      <select id="onsiteStatus" name="onsiteStatus">
-        <option disabled selected hidden></option>
-        <option value="Off-Site">Off-Site</option>
-        <option value="On-Site">On-Site</option>
-      </select>
+      <input 
+      type="text" 
+      id="onsiteStatus" 
+      name="onsiteStatus"
+      value="On-Site"
+      readonly
+      required
+      >
     </div>
 
     <div class="sub-header">Comments</div>
@@ -251,6 +241,24 @@
     <div class="input-row full-width">
       <textarea name="comments" placeholder="Comments"></textarea>
     </div>
+
+    
+    <div class="sub-header">Visible Emission</div>
+
+        <div class="input-row">
+            <label>Are Visible Emissions Present*</label>
+            <select name="emissions" id="emissions" required>
+                <option value="" disabled selected hidden></option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+
+        <div class="input-row full-width" id="Comments_Visible_Emissions" style="display:none;">
+            <label>If Yes, describe the visible emission and provide reason*</label>
+            <br/><br/>
+            <textarea id="visibleEmissionComment" name="visible_emission_comment" placeholder="Comments"></textarea>
+        </div>
 
     <br>
     <button type="submit" id="submitBtn">Submit</button>

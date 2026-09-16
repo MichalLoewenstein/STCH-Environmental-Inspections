@@ -49,8 +49,8 @@ html { visibility: hidden; }
     </div>
     <div class="input-row">
             <label>Contractor*</label>
-            <select name="vendor" class="has-other">
-                <option disabled selected>Select Contractor</option>
+            <select name="vendor" class="has-other" required>
+                <option  value="" disabled selected>Select Contractor</option>
                 <option value="B&R">Brown & Root</option>
                 <option value="Other" >Other</option>
             </select>
@@ -82,6 +82,7 @@ html { visibility: hidden; }
             <option value="SO">SO</option>
             <option value="SU">SU</option>
             <option value="N">N</option>
+            <option value="125KV-MSB PORT">125KV-MSB PORT</option>
         </select>
     </div>
     <div class="input-row">
@@ -105,23 +106,7 @@ html { visibility: hidden; }
         <input type="text" id="run_duration" name="run_duration" readonly class="readonly-field">  
     </div>
 
-    <!-- ===================================================== -->
-    <!-- ✅ PRESSURE / MEASUREMENTS -->
-    <!-- ===================================================== -->
-    <!--  
-    <div class="input-row">
-        <label>Starting Hours</label>
-        
-         <input type="text" id="starting_hours" name="starting_hours" readonly class="readonly-field">
-    </div>
-
-   
-    <div class="input-row">
-        <label>Clock Run Hours</label>
-        <input type="text" id="clock_run_hours" name="clock_run_hours" readonly class="readonly-field">  
-    </div>
-  
--->
+    
 
       
 <div class="input-row">
@@ -147,7 +132,7 @@ html { visibility: hidden; }
         <select name="emergency_type" class="has-other" >
             <option value="" disabled selected hidden></option>
             <option value="Fire">Fire</option>
-            <option value="Emergency">Hurricane</option>
+            <option value="Hurricane">Hurricane</option>
             <option value="Other">Other</option>
         </select>
         <label></label>
@@ -166,25 +151,29 @@ html { visibility: hidden; }
     
 
  <div class="input-row full-width">
-        <!-- <label>Comments:</label> -->
+        <label>Comments Must be completed for each Emergency Use.Comments during other types of operation are optional.</label>
+        <br/><br/>
         <textarea name="comments" placeholder="Comments"></textarea>
     </div>
+
+
     <div class="sub-header">Visible Emission</div>
-     <div class="input-row">
-        <label>Are Visible Emissions Present</label>
-        <select name="emissions" id="emissions">
+
+    <div class="input-row">
+        <label>Are Visible Emissions Present*</label>
+        <select name="emissions" id="emissions" required>
             <option value="" disabled selected hidden></option>
             <option value="Yes">Yes</option>
             <option value="No">No</option>
         </select>
     </div>
-    
-    <div class="input-row" id="visibleEmissionCommentRow">
-        <label>Comment on why the Visible Emissions</label>
-        <input type="text" name="visibleEmissionComment">
-    </div>
-   
 
+    <div class="input-row full-width" id="Comments_Visible_Emissions" style="display:none;">
+        <label>If Yes, describe the visible emission and provide reason*</label>
+        <br/><br/>
+        <textarea id="visibleEmissionComment" name="visible_emission_comment" placeholder="Comments"></textarea>
+
+    </div>
     <br>
     <button type="submit" id="submitBtn">Submit</button>
     <div class="button">
