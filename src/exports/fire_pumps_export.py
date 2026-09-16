@@ -8,8 +8,8 @@ def fire_pumpsExcel(form_data):
     # ✅ Define consistent column order (important!)
    
     columns = [
-        "Operator","Contractor","Equipment","Location","Purpose","Arrival Date","In Service Date","Initial Meter Read","Start Time","Stop Time","Run Duration","Departure Date","Final Meter Read",
-        "Total Hours","Visual Emissions","Mfr","Model Number","Serial Number","Horsepower","Fuel","On-Site Status","Comments",
+        "Operator","Contractor","Equipment","Location","Purpose","Arrival Date","Initial Meter Read","Start Time","Stop Time","Run Duration","Final Meter Read",
+        "Total Hours","Visual Emissions","Mfr","Model Number","Serial Number","Horsepower","Fuel","On-Site Status","Comments","Visible Emissions","Comment Visible Emissions"
     ]
 
     purpose = form_data.get("purpose")
@@ -36,22 +36,21 @@ def fire_pumpsExcel(form_data):
         "Location": form_data.get("location"),
         "Purpose": purpose,
         "Arrival Date": form_data.get("arrivalDate"),
-        "In Service Date": form_data.get("date"),
         "Initial Meter Read": form_data.get("initialMeterRead"),
         "Start Time":form_data.get("start_time"),
         "Stop Time":form_data.get("stop_time"),
         "Run Duration":total_run,
-        "Departure Date": form_data.get("departureDate"),
         "Final Meter Read": form_data.get("finalMeterRead"),
         "Total Hours": float(form_data.get("total_hours") or 0),
-        "Visual Emissions":form_data.get("visual_emissions"),
         "Mfr": form_data.get("mfr"),
         "Model Number": form_data.get("model_number"),
         "Serial Number": form_data.get("serial_number"),
         "Horsepower": form_data.get("horsepower"),
         "Fuel": form_data.get("fuel"),
         "On-Site Status": form_data.get("onsiteStatus"),
-        "Comments": form_data.get("comments")  
+        "Comments": form_data.get("comments"),
+        "Visible Emissions": form_data.get("emissions"),
+        "Comments Visible Emissions": form_data.get("visible_emission_comment")
  
     }
    

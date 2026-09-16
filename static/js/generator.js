@@ -1,83 +1,137 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-
     console.log("✅ generator.js loaded");
 
     // ✅ Attach date validation listeners
-    attachDateValidationListeners(["date"]);
+    if (typeof attachDateValidationListeners === "function") {
+        attachDateValidationListeners(["date"]);
+    }
 
+    // =====================================================
+    // ✅ VISIBLE EMISSIONS → required comment when "Yes"
+    // =====================================================
     const emissionsSelect = document.getElementById("emissions");
-    const commentRow = document.getElementById("visibleEmissionCommentRow");
+    const commentRow = document.getElementById("Comments_Visible_Emissions");
+    const commentField = document.getElementById("visibleEmissionComment");
 
     function toggleEmissionComment() {
-        
+        if (!emissionsSelect || !commentRow || !commentField) return;
 
         if (emissionsSelect.value === "Yes") {
             commentRow.style.display = "";
+            commentField.required = true;
         } else {
             commentRow.style.display = "none";
+            commentField.required = false;
+            commentField.value = "";
+            commentField.setCustomValidity("");
         }
     }
 
-    emissionsSelect.addEventListener("change", toggleEmissionComment);
+    if (emissionsSelect) {
+        emissionsSelect.required = true;
+        emissionsSelect.addEventListener("change", toggleEmissionComment);
+        toggleEmissionComment();
+    }
+
+    // Clear the custom error as soon as the user types
+    if (commentField) {
+        commentField.addEventListener("input", function () {
+            commentField.setCustomValidity("");
+        });
+    }
+
+    // =====================================================
+    // ✅ CONTRACTOR → required, "Other" name required
+    // =====================================================
+    const vendorSelect = document.getElementById("vendor");
+    const otherVendorInput = document.getElementById("other_vendor");
+
+    function toggleOtherVendor() {
+        if (!vendorSelect || !otherVendorInput) return;
+
+        if (vendorSelect.value === "Other") {
+            otherVendorInput.style.display = "";
+            otherVendorInput.required = true;
+        } else {
+            otherVendorInput.style.display = "none";
+            otherVendorInput.required = false;
+            otherVendorInput.value = "";
+            otherVendorInput.setCustomValidity("");
+        }
+    }
+
+    if (vendorSelect) {
+        vendorSelect.required = true;
+        vendorSelect.addEventListener("change", toggleOtherVendor);
+        toggleOtherVendor();
+    }
+
+    if (otherVendorInput) {
+        otherVendorInput.addEventListener("input", function () {
+            otherVendorInput.setCustomValidity("");
+        });
+    }
 
 
+    // =====================================================
+    // ✅ RUN REASON → Emergency type
+    // =====================================================
+    const runReason = document.getElementById("run_reason");
+    const emergencyTypeContainer = document.getElementById("emergencyTypeContainer");
+    const emergencyTypeSelect = document.querySelector('select[name="emergency_type"]');
 
-    // ✅ Run duration calculation
+    function toggleEmergencyType() {
+        if (!runReason || !emergencyTypeContainer || !emergencyTypeSelect) return;
+
+        if (runReason.value === "Emergency") {
+            emergencyTypeContainer.style.display = "grid";
+            emergencyTypeSelect.required = true;
+        } else {
+            emergencyTypeContainer.style.display = "none";
+            emergencyTypeSelect.required = false;
+            emergencyTypeSelect.value = "";
+        }
+    }
+
+    if (runReason) {
+        runReason.addEventListener("change", toggleEmergencyType);
+        toggleEmergencyType();
+    }
+
+    // =====================================================
+    // ✅ RUN DURATION
+    // =====================================================
     function calculateTotalTime() {
         const startEl = document.getElementById("start_time");
         const stopEl = document.getElementById("stop_time");
         const runDurationEl = document.getElementById("run_duration");
 
         if (!startEl || !stopEl || !runDurationEl) return;
+        if (!startEl.value || !stopEl.value) return;
 
-        let start = startEl.value;
-        let stop = stopEl.value;
+        const [sh, sm] = startEl.value.split(":").map(Number);
+        const [eh, em] = stopEl.value.split(":").map(Number);
 
-        if (!start || !stop) return;
+        const startMinutes = sh * 60 + sm;
+        let stopMinutes = eh * 60 + em;
 
-        let [sh, sm] = start.split(":");
-        let [eh, em] = stop.split(":");
+        if (stopMinutes < startMinutes) stopMinutes += 1440;
 
-        let startMinutes = (+sh * 60) + (+sm);
-        let stopMinutes = (+eh * 60) + (+em);
-
-        if (stopMinutes < startMinutes) {
-            stopMinutes += 1440;
-        }
-
-        let total = stopMinutes - startMinutes;
-
-        let hours = Math.floor(total / 60);
-        let minutes = total % 60;
+        const total = stopMinutes - startMinutes;
+        const hours = Math.floor(total / 60);
+        const minutes = total % 60;
 
         runDurationEl.value = `${hours}:${String(minutes).padStart(2, "0")}`;
         updateClockRunHours();
     }
 
-     
-
     document.getElementById("start_time")?.addEventListener("change", calculateTotalTime);
     document.getElementById("stop_time")?.addEventListener("change", calculateTotalTime);
 
-    // ✅ Form submit validation for dates
-    const form = document.querySelector("form");
-    if (form) {
-        form.addEventListener("submit", function(event) {
-            // Validate date fields (auto-fill empty dates with today)
-            const dateFields = ["date"];
-            const isDateValid = validateAndFillDates(dateFields);
-            
-            if (!isDateValid) {
-                event.preventDefault();
-                return false;
-            }
-        });
-    }
-
-   
-
-    // ✅ Generator → Starting Hours mapping
+    // =====================================================
+    // ✅ GENERATOR → STARTING HOURS
+    // =====================================================
     const generatorSelect = document.getElementById("generator");
     const startingHours = document.getElementById("starting_hours");
 
@@ -95,50 +149,74 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (generatorSelect) {
         generatorSelect.addEventListener("change", function () {
-            const selected = this.value.toUpperCase();
-            startingHours.value = generatorValues[selected] || "--";
-
+            if (startingHours) {
+                const selected = (this.value || "").toUpperCase();
+                startingHours.value = generatorValues[selected] || "--";
+            }
             updateClockRunHours();
         });
 
-    generatorSelect.dispatchEvent(new Event("change"))
-
+        generatorSelect.dispatchEvent(new Event("change"));
     }
 
-    // ✅ Add run duration + starting hours → clock run hours
+    // ✅ Starting hours + run duration → clock run hours
     function updateClockRunHours() {
-    const start = parseFloat(startingHours.value) || 0;
-    const runDuration = document.getElementById("run_duration").value;
+        const clockRunHoursEl = document.getElementById("clock_run_hours");
+        const runDurationEl = document.getElementById("run_duration");
 
-    let duration = 0;
+        // Fields are commented out in the HTML, so skip safely
+        if (!startingHours || !clockRunHoursEl || !runDurationEl) return;
 
-    if (runDuration && runDuration.includes(":")) {
-        const [hours, minutes] = runDuration.split(":").map(Number);
-        duration = hours + (minutes / 60);
+        const start = parseFloat(startingHours.value) || 0;
+        let duration = 0;
+
+        if (runDurationEl.value.includes(":")) {
+            const [h, m] = runDurationEl.value.split(":").map(Number);
+            duration = h + m / 60;
+        }
+
+        const total = start + duration;
+        clockRunHoursEl.value = total ? total.toFixed(2) : "";
     }
 
-    const total = start + duration;
+    // =====================================================
+    // ✅ FORM SUBMIT VALIDATION
+    // =====================================================
+    const form = document.getElementById("form");
 
-    document.getElementById("clock_run_hours").value =
-        total ? total.toFixed(2) : "";
-}
-});
+    if (form) {
+        form.addEventListener("submit", function (event) {
+
+            // Dates
+            if (typeof validateAndFillDates === "function") {
+                const isDateValid = validateAndFillDates(["date"]);
+                if (!isDateValid) {
+                    event.preventDefault();
+                    return false;
+                }
+            }
+            // Contractor "Other": block empty or spaces-only
+            if (vendorSelect && otherVendorInput && vendorSelect.value === "Other") {
+                if (otherVendorInput.value.trim() === "") {
+                    event.preventDefault();
+                    otherVendorInput.value = "";
+                    otherVendorInput.setCustomValidity("Please enter the contractor name.");
+                    otherVendorInput.reportValidity();
+                    return false;
+                }
+            } 
 
 
-const runReason = document.getElementById("run_reason");
-const emergencyTypeContainer = document.getElementById("emergencyTypeContainer");
-const emergencyTypeSelect = document.querySelector(
-    'select[name="emergency_type"]'
-);
-
-runReason.addEventListener("change", function () {
-    if (this.value === "Emergency") {
-        emergencyTypeContainer.style.display = "grid"; // or "flex" depending on your layout
-        emergencyTypeSelect.required = true;
-    } else {
-        emergencyTypeContainer.style.display = "none";
-        emergencyTypeSelect.required = false;
-        emergencyTypeSelect.value = "";
+            // Visible emission comment: block empty or spaces-only when "Yes"
+            if (emissionsSelect && commentField && emissionsSelect.value === "Yes") {
+                if (commentField.value.trim() === "") {
+                    event.preventDefault();
+                    commentField.value = "";
+                    commentField.setCustomValidity("Please describe the visible emission and provide a reason.");
+                    commentField.reportValidity();
+                    return false;
+                }
+            }
+        });
     }
 });
-
