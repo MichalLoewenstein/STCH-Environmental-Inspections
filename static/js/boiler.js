@@ -63,6 +63,34 @@ document.addEventListener("DOMContentLoaded", function () {
             updateCommentsRequirement
         );
     }
+    // -----------------------------
+    // Operator
+    // -----------------------------
+    const operatorSelect = document.getElementById("operator");
+    const otherOperator = document.getElementById("other_operator");
+
+    if (operatorSelect && otherOperator) {
+    // Load operators from JSON
+
+    loadOperators();
+
+    operatorSelect.addEventListener("change", function () {
+
+    console.log("Operator selected:", this.value);
+
+    if (this.value === "Other") {
+        otherOperator.style.display = "block";
+        otherOperator.required = true;
+        otherOperator.focus();
+    } 
+    else {
+        otherOperator.style.display = "none";
+        otherOperator.required = false;
+        otherOperator.value = "";
+    }
+    });
+
+}
 
     // Initial validation state
     updateCommentsRequirement();
@@ -156,6 +184,7 @@ function toggleBoilerStatus(enable) {
         }
     }
 
+
     updateCommentsRequirement();
 } 
 
@@ -206,4 +235,87 @@ function updateCommentsRequirement() {
     // Times required if emissions=yes
     timeSmoke.required = emissionsYes;
     timeSmokeCleared.required = emissionsYes;
+}
+
+// -----------------------------
+// Operator Auto-Fill Logic
+// -----------------------------
+let operators = [];
+
+function loadOperators() {
+
+    fetch("/api/operators")
+        .then(res => {
+
+            if (!res.ok) {
+                throw new Error(`HTTP error: ${res.status}`);
+            }
+
+            return res.json();
+        })
+
+        .then(data => {
+
+            operators = data;
+
+            console.log("Operators loaded:", operators);
+            console.log(
+                "Operators loaded - Total count:",
+                operators.length
+            );
+
+            const operatorSelect =
+                document.getElementById("operator");
+
+            if (!operatorSelect) {
+                console.error("Operator dropdown not found.");
+                return;
+            }
+
+            // Clear existing options
+            operatorSelect.innerHTML = "";
+
+            // Add default option
+            const defaultOption =
+                document.createElement("option");
+
+            defaultOption.value = "";
+            defaultOption.textContent = "Select Operator";
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+
+            operatorSelect.appendChild(defaultOption);
+
+
+            // Add operators from JSON
+            operators.forEach(operator => {
+
+                const option =
+                    document.createElement("option");
+
+                option.value = operator;
+                option.textContent = operator;
+
+                operatorSelect.appendChild(option);
+            });
+
+
+            // Add Other as the last option
+            const otherOption =
+                document.createElement("option");
+
+            otherOption.value = "Other";
+            otherOption.textContent = "Other";
+
+            operatorSelect.appendChild(otherOption);
+        })
+
+        .catch(err => {
+
+            console.error(
+                "Error loading operators:",
+                err
+            );
+
+        });
 }

@@ -98,6 +98,18 @@ button {
     font-size: 14px;
 }
 
+.input-row .field-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.input-row .field-stack > select,
+.input-row .field-stack > input {
+    width: 100%;
+    margin-top: 0;
+}
+
 input[type="date"],
 input [type="time"] {
     width: 100%;

@@ -21,9 +21,14 @@ def generate_boilerExcel(form_data):
         "Time Smoke First Observed", "Time Smoke Cleared", "Comments"
     ]
 
+    operator = form_data.get("operator")
+        
+    if operator == "Other":
+        operator = form_data.get("other_operator") or "Other" 
+
     # ✅ Map form data (FIXED ✅ checkboxes now read correctly)
     data = {
-        "Operator": form_data.get("operator"),
+        "Operator": operator,
         "Boiler Number": form_data.get("boilerNumber"),
         "Boiler Status":form_data.get("boilerStatus"),
         "Date": form_data.get("date"),
