@@ -207,3 +207,73 @@ function updateCommentsRequirement() {
     timeSmoke.required = emissionsYes;
     timeSmokeCleared.required = emissionsYes;
 }
+
+// -----------------------------
+// Operator Auto-Fill Logic
+// -----------------------------
+let operators = [];
+
+function loadOperators() {
+  return fetch("/api/operators")
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(`HTTP error: ${res.status}`);
+      }
+
+      return res.json();
+    })
+    .then(data => {
+      operators = data;
+
+      console.log("Operators loaded:", operators);
+      console.log("Operators loaded - Total count:", operators.length);
+
+      const operatorSelect = document.getElementById("operator");
+
+      // Reset dropdown
+      operatorSelect.innerHTML =
+        '<option value="" disabled selected>Select Operator</option>';
+
+      // Add operators from JSON
+      operators.forEach(operator => {
+        const option = document.createElement("option");
+
+        option.value = operator;
+        option.textContent = operator;
+
+        operatorSelect.appendChild(option);
+      });
+
+      // Add Other as the last option
+      const otherOption = document.createElement("option");
+      otherOption.value = "Other";
+      otherOption.textContent = "Other";
+
+      operatorSelect.appendChild(otherOption);
+    })
+    .catch(err => {
+      console.error("Fetch error:", err);
+    });
+}
+
+
+// Show Other input when Other is selected
+document.getElementById("operator").addEventListener("change", function () {
+  const otherInput = document.getElementById("other_operator");
+
+  if (this.value === "Other") {
+    otherInput.style.display = "block";
+    otherInput.focus();
+  } else {
+    otherInput.style.display = "none";
+    otherInput.value = "";
+  }
+});
+
+
+// Load operators when page opens
+document.addEventListener("DOMContentLoaded", function () {
+  loadOperators();
+});
+
+  

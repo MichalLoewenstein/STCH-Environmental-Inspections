@@ -76,6 +76,17 @@ html { visibility: hidden; }
         <label>Operator*</label>
         <input type="text" name="operator" required>
     </div>
+
+     <div class="input-row">
+      <label for="operator">Operator*</label>
+      <div class="field-stack">
+        <select id="operator" name="operator" class="has-other">
+          <option disabled selected>Select Operator</option>
+        </select>
+        <input type="text" name="other_operator" id="other_operator" class="other-input"
+               placeholder="Enter operator" style="display:none;">
+      </div>
+    </div>
    
      <div class="sub-header">Boiler and Status</div>
      <div class="input-row">

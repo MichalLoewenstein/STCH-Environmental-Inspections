@@ -6,6 +6,7 @@ from exports.ceb_flare_export import generate_flareExcel
 from exports.portable_engine_export import generate_portableExcel
 from exports.generator_export import generate_generatorExcel
 from exports.fire_pumps_export import fire_pumpsExcel
+from utilities.boiler_utils import load_operator_options, save_new_operator
 from utilities.email_utils import send_email
 from utilities.response_utils import render_with_no_cache
 from utilities.materials_utils import add_material, load_materials
@@ -106,6 +107,15 @@ def Boiler():
     if request.method == "POST":
         # converts user inputs into python dictionary
         form_data = request.form.to_dict()
+        ######
+        operator = form_data.get("operator")
+        other_operator = form_data.get("other_operator", "").strip()
+
+        if operator == "Other" and other_operator:
+            save_new_operator(form_data)
+
+            # Use the new operator as the actual operator
+            form_data["operator"] = other_operator
 
         if not form_data:
             raise ValueError("No form data submitted")
@@ -335,6 +345,20 @@ def get_equipment():
     equipment_list = sorted(equipment_set, key=str.lower)
 
     return jsonify(equipment_list)
+
+
+@app.route("/api/operators")
+def get_operators():
+    # Build a unique list of operator names for the form dropdown.
+    data = load_operator_options()
+
+    # ✅ Extract unique operator values
+    operators = {e.get("operator") for e in data if e.get("operator")}
+
+    operators_list = sorted(operators, key=str.lower)
+    print("✅ Operators list:", operators_list)
+
+    return jsonify(operators_list)
 
 
 if __name__ == "__main__":
