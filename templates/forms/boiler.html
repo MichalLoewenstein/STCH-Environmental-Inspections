@@ -28,7 +28,8 @@ html { visibility: hidden; }
     <script src="{{ url_for('static', filename='js/date_validation.js') }}"></script>
     <script src="{{ url_for('static', filename='js/components/time_auto_select.js')}}" defer></script>
     <script src="{{ url_for('static', filename='js/components/date_auto_fill.js')}}" defer></script>
-   <script src="{{ url_for('static', filename='js/boiler.js')}}" defer></script> 
+    <script src="{{ url_for('static', filename='js/components/other_input.js')}}" defer></script>
+    <script src="{{ url_for('static', filename='js/boiler.js')}}" defer></script> 
     <script src="{{ url_for('static', filename='js/components/submit_disable_btn.js')}}" defer></script>
 
 </head>
@@ -72,10 +73,6 @@ html { visibility: hidden; }
     <div id="autoSelectMsg"></div>
 </div>
     <!-- ✅ BASIC INFO -->
-    <div class="input-row">
-        <label>Operator*</label>
-        <input type="text" name="operator" required>
-    </div>
 
      <div class="input-row">
       <label for="operator">Operator*</label>
@@ -225,8 +222,8 @@ html { visibility: hidden; }
     <div class="sub-header">Infrastructure Support Inspections</div>
 
     <div class="input-row">
-        <label>Visible Emissions?</label>
-        <select name="emissions">
+        <label>Visible Emissions?*</label>
+        <select name="emissions" required>
             <option value="" disabled selected hidden></option>
             <option value="Yes">Yes</option>
             <option value="No">No</option>

@@ -31,7 +31,8 @@ html { visibility: hidden; }
     <script src="{{ url_for('static', filename='js/date_validation.js') }}"></script>
     <script src="{{ url_for('static', filename='js/components/time_auto_select.js')}}" defer></script>
     <script src="{{ url_for('static', filename='js/components/date_auto_fill.js')}}" defer></script>
-    <script src="{{ url_for('static', filename='js/components/submit_disable_btn.js')}}" defer></script>
+    <script src="{{ url_for('static', filename='js/components/other_input.js')}}" defer></script>
+    <script src="{{ url_for('static', filename='js/ceb_flare.js')}}" defer></script>
     
 
 </head>
@@ -70,8 +71,14 @@ html { visibility: hidden; }
     <div id="autoSelectMsg"></div>
 </div>
  <div class="input-row">
-        <label>Operator*</label>
-        <input type="text" name="operator" required>
+      <label for="operator">Operator*</label>
+      <div class="field-stack">
+        <select id="operator" name="operator" class="has-other">
+          <option disabled selected>Select Operator</option>
+        </select>
+        <input type="text" name="other_operator" id="other_operator" class="other-input"
+            placeholder="Enter operator" style="display:none;">
+      </div>
     </div>
     <!-- ===================================================== -->
     <!-- ✅ PRESSURE / MEASUREMENTS -->

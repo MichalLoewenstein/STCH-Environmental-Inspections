@@ -15,11 +15,15 @@ def generate_flareExcel(form_data):
         "Flare Visible Emissions?", "CEB Visible Emissions?", "Comments"
     ]
 
+    operator = form_data.get("operator")
+    if operator == "Other":
+        operator = form_data.get("other_operator") or "Other" 
+
     # ✅ Convert incoming form data keys to match column names
     data = {
         "Date": form_data.get("date"),
         "Inspection Time": form_data.get("time"),
-        "Operator": form_data.get("operator"),
+        "Operator": operator,
         "SP-1 (Inches)": form_data.get("sp1"),
         "SP-2 (Inches)": form_data.get("sp2"),
         "KP-1 (Inches)": form_data.get("kp1"),

@@ -63,6 +63,34 @@ document.addEventListener("DOMContentLoaded", function () {
             updateCommentsRequirement
         );
     }
+    // -----------------------------
+    // Operator
+    // -----------------------------
+    const operatorSelect = document.getElementById("operator");
+    const otherOperator = document.getElementById("other_operator");
+
+    if (operatorSelect && otherOperator) {
+    // Load operators from JSON
+
+    loadOperators();
+
+    operatorSelect.addEventListener("change", function () {
+
+    console.log("Operator selected:", this.value);
+
+    if (this.value === "Other") {
+        otherOperator.style.display = "block";
+        otherOperator.required = true;
+        otherOperator.focus();
+    } 
+    else {
+        otherOperator.style.display = "none";
+        otherOperator.required = false;
+        otherOperator.value = "";
+    }
+    });
+
+}
 
     // Initial validation state
     updateCommentsRequirement();
@@ -156,6 +184,7 @@ function toggleBoilerStatus(enable) {
         }
     }
 
+
     updateCommentsRequirement();
 } 
 
@@ -214,66 +243,79 @@ function updateCommentsRequirement() {
 let operators = [];
 
 function loadOperators() {
-  return fetch("/api/operators")
-    .then(res => {
-      if (!res.ok) {
-        throw new Error(`HTTP error: ${res.status}`);
-      }
 
-      return res.json();
-    })
-    .then(data => {
-      operators = data;
+    fetch("/api/operators")
+        .then(res => {
 
-      console.log("Operators loaded:", operators);
-      console.log("Operators loaded - Total count:", operators.length);
+            if (!res.ok) {
+                throw new Error(`HTTP error: ${res.status}`);
+            }
 
-      const operatorSelect = document.getElementById("operator");
+            return res.json();
+        })
 
-      // Reset dropdown
-      operatorSelect.innerHTML =
-        '<option value="" disabled selected>Select Operator</option>';
+        .then(data => {
 
-      // Add operators from JSON
-      operators.forEach(operator => {
-        const option = document.createElement("option");
+            operators = data;
 
-        option.value = operator;
-        option.textContent = operator;
+            console.log("Operators loaded:", operators);
+            console.log(
+                "Operators loaded - Total count:",
+                operators.length
+            );
 
-        operatorSelect.appendChild(option);
-      });
+            const operatorSelect =
+                document.getElementById("operator");
 
-      // Add Other as the last option
-      const otherOption = document.createElement("option");
-      otherOption.value = "Other";
-      otherOption.textContent = "Other";
+            if (!operatorSelect) {
+                console.error("Operator dropdown not found.");
+                return;
+            }
 
-      operatorSelect.appendChild(otherOption);
-    })
-    .catch(err => {
-      console.error("Fetch error:", err);
-    });
+            // Clear existing options
+            operatorSelect.innerHTML = "";
+
+            // Add default option
+            const defaultOption =
+                document.createElement("option");
+
+            defaultOption.value = "";
+            defaultOption.textContent = "Select Operator";
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+
+            operatorSelect.appendChild(defaultOption);
+
+
+            // Add operators from JSON
+            operators.forEach(operator => {
+
+                const option =
+                    document.createElement("option");
+
+                option.value = operator;
+                option.textContent = operator;
+
+                operatorSelect.appendChild(option);
+            });
+
+
+            // Add Other as the last option
+            const otherOption =
+                document.createElement("option");
+
+            otherOption.value = "Other";
+            otherOption.textContent = "Other";
+
+            operatorSelect.appendChild(otherOption);
+        })
+
+        .catch(err => {
+
+            console.error(
+                "Error loading operators:",
+                err
+            );
+
+        });
 }
-
-
-// Show Other input when Other is selected
-document.getElementById("operator").addEventListener("change", function () {
-  const otherInput = document.getElementById("other_operator");
-
-  if (this.value === "Other") {
-    otherInput.style.display = "block";
-    otherInput.focus();
-  } else {
-    otherInput.style.display = "none";
-    otherInput.value = "";
-  }
-});
-
-
-// Load operators when page opens
-document.addEventListener("DOMContentLoaded", function () {
-  loadOperators();
-});
-
-  
