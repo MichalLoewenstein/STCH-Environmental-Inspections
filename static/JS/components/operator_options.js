@@ -254,9 +254,9 @@ function setupOperator(formName) {
     //   operatorDropdown.innerHTML =
     //     '<option value="" disabled selected>Select Operator</option>';
     const placeholderText =
-    formName === "generator"
-        ? "Select Inspector"
-        : "Select Operator";
+    formName === "generator"? "Select Inspector":
+     formName === "paint"? "Select Name":
+      "Select Operator";
 
     operatorDropdown.innerHTML =
     `<option value="" disabled selected>${placeholderText}</option>`;

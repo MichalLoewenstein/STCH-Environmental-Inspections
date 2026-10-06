@@ -33,7 +33,7 @@ def generate_excel(form_data, materials):
 
     data = {
         "Company": company,
-        "Name": form_data.get("name"),
+        "Name": form_data.get("operator"),
         "Activity": form_data.get("activity"),
         "Task": form_data.get("task"),
         "Location": form_data.get("location"),
