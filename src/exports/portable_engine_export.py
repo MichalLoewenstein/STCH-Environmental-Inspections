@@ -7,7 +7,7 @@ def generate_portableExcel(form_data):
     print(form_data)
     # ✅ Define consistent column order (important!)
     columns = [
-       "Operator", "Contractor","Equipment", "Other Equipment", "Location", "Purpose", "Arrival Date", "In Service Date", "Initial Meter Read", "Departure Date","Final Meter Read","Total Hours",
+       "Operator", "Contractor","Equipment", "Other Equipment", "Location", "Purpose", "Arrival Date", "In Service Date", "Initial Meter Read","Start Time","End Time","Break Time","Departure Date","Final Meter Read","Total Hours",
        "Horsepower" ,"Manufacturer","Model Number", "Other Model Number","Serial Number", "Manufacture Date", "Tier", "Fuel", "On-Site Status",  "Comments"
     ]
  
@@ -44,6 +44,9 @@ def generate_portableExcel(form_data):
         "Initial Meter Read": form_data.get("initialMeterRead"),
         "Departure Date": form_data.get("departureDate"),
         "Final Meter Read": form_data.get("finalMeterRead"),
+        "Start Time": form_data.get("start_time"),
+        "End Time": form_data.get("end_time"),
+        "Break Time": float(form_data.get("break") or 0),
         "Total Hours": float(request.form.get("totalHours") or 0),
         "Horsepower": form_data.get("horsepower"),
         "Manufacturer": form_data.get("manufacturer"),
@@ -59,7 +62,7 @@ def generate_portableExcel(form_data):
     }
    
     print("Export form data portabke engine:",data)
-# columns inferred automatically
+    # columns inferred automatically
     df = pd.DataFrame([data], columns=columns)
  
     output = io.BytesIO()

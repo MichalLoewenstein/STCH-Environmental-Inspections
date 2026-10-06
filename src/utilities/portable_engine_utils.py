@@ -80,3 +80,5 @@ def save_new_model(form_data):
     print("✅ New model saved:", new_entry)
 
     return new_entry
+
+

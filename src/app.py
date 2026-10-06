@@ -8,6 +8,7 @@ from exports.generator_export import generate_generatorExcel
 from exports.fire_pumps_export import fire_pumpsExcel
 from utilities.boiler_utils import load_operator_options, save_new_operator
 from utilities.email_utils import send_email
+from utilities.operator_utils import load_form_operator_options, save_new_form_operator
 from utilities.response_utils import render_with_no_cache
 from utilities.materials_utils import add_material, load_materials
 from utilities.portable_engine_utils import load_engine_inventory, save_new_engine,save_new_model
@@ -105,39 +106,84 @@ def success():
 def Boiler():
 
     if request.method == "POST":
-        # converts user inputs into python dictionary
+
+        # Convert user inputs into a Python dictionary.
         form_data = request.form.to_dict()
-        ######
-        operator = form_data.get("operator")
-        other_operator = form_data.get("other_operator", "").strip()
-
-        if operator == "Other" and other_operator:
-            save_new_operator(form_data)
-
-            # Use the new operator as the actual operator
-            form_data["operator"] = other_operator
 
         if not form_data:
             raise ValueError("No form data submitted")
 
-        # ✅ Generate Excel
-        print("Generating Excel with form data:", form_data)
-        excel_file = generate_boilerExcel(form_data)
 
-        # # ✅ Send email
-        send_email(
-            excel_file, 
-            form_data, 
-            subject= "STCH Environmental Inspections Boiler"
+        # -----------------------------------------
+        # HANDLE OPERATOR
+        # -----------------------------------------
+
+        # Get the selected operator.
+        operator = form_data.get("operator")
+
+        # Get the value entered when "Other" is selected.
+        other_operator = form_data.get(
+            "other_operator",
+            ""
+        ).strip()
+
+
+        # If the user selected "Other" and entered a new operator,
+        # save it to the Boiler operator JSON file.
+        if operator == "Other" and other_operator:
+
+            save_new_form_operator(
+                "boiler",
+                form_data
             )
 
-        # print("✅ Excel created and email sent")
+            print(
+                "New Boiler operator saved:",
+                other_operator
+            )
 
-        # ✅ Navigate to success page
+            # Use the new operator as the actual operator.
+            # This is the value that will be sent to Excel.
+            form_data["operator"] = other_operator
+
+
+        # Remove the helper field before generating the Excel file.
+        form_data.pop("other_operator", None)
+
+
+        # -----------------------------------------
+        # GENERATE EXCEL
+        # -----------------------------------------
+
+        print(
+            "Generating Excel with form data:",
+            form_data
+        )
+
+        excel_file = generate_boilerExcel(form_data)
+
+
+        # -----------------------------------------
+        # SEND EMAIL
+        # -----------------------------------------
+
+        send_email(
+            excel_file,
+            form_data,
+            subject="STCH Environmental Inspections Boiler"
+        )
+
+
+        # -----------------------------------------
+        # NAVIGATE TO SUCCESS PAGE
+        # -----------------------------------------
+
         return redirect(url_for("success"))
-    
+
 
     return render_with_no_cache("forms/boiler.html")
+
+    
 
 @app.route("/flare", methods=["GET", "POST"])
 def flare():
@@ -150,7 +196,7 @@ def flare():
         other_operator = form_data.get("other_operator", "").strip()
 
         if operator == "Other" and other_operator:
-            save_new_operator(form_data)
+            save_new_form_operator("ceb_flare", form_data)
 
             # Use the new operator as the actual operator
             form_data["operator"] = other_operator
@@ -221,6 +267,48 @@ def portableEngine():
         if not form_data:
             raise ValueError("No form data submitted")
 
+        # ---------------------------------------------------------
+        # HANDLE OPERATOR
+        # ---------------------------------------------------------
+
+        # Get the value selected from the Operator dropdown.
+        operator_choice = request.form.get("operator")
+
+        other_operator = request.form.get(
+            "other_operator",
+            ""
+        ).strip()
+
+
+        # Only save a new operator when:
+        # 1.The user selected "Other"
+        # 2.The user entered a value in the Other Operator field
+        
+        if operator_choice == "Other" and other_operator:
+
+            # Save the new operator into the JSON file belonging
+            
+            save_new_form_operator(
+                "portable_engine",
+                form_data
+            )
+
+            print("✅ New Portable Engine operator saved:", other_operator)
+
+            # Replace "Other" with the actual operator 
+        
+            form_data["operator"] = other_operator
+
+        else:
+
+            # If the user selected an existing operator,
+            # keep the selected operator as-is.
+            form_data["operator"] = operator_choice
+
+
+        # Remove the helper field because we only need the final
+        # operator value in form_data.
+        form_data.pop("other_operator", None)
 
 
 #  overwrite the value in form_data
@@ -369,6 +457,64 @@ def get_operators():
 
     return jsonify(operators_list)
 
+
+# ---------------------------------------------------------------------------
+# NEW CENTRAL OPERATOR API
+# ---------------------------------------------------------------------------
+# This API supports multiple forms.
+
+#
+@app.route("/api/operators/<form_name>")
+def get_operators_by_form(form_name):
+    """
+    Return the operator list for the requested form.
+
+    Example:
+        /api/operators/portable_engine
+    """
+
+    try:
+        # Load the operator options from the JSON file
+        # assigned to the requested form.
+        data = load_form_operator_options(form_name)
+
+        # Extract valid operator names.
+        #
+        # A set removes duplicate values automatically.
+        # Empty operator values are ignored.
+        operators = {
+            entry.get("operator").strip()
+            for entry in data
+            if entry.get("operator")
+            and entry.get("operator").strip()
+        }
+
+        # Convert the set to a list and sort it alphabetically.
+        # str.lower makes the sorting case-insensitive.
+        operators_list = sorted(
+            operators,
+            key=str.lower
+        )
+
+        print(
+            f"✅ Operators for {form_name}:",
+            operators_list
+        )
+
+        # Return the operator list to JavaScript.
+        return jsonify(operators_list)
+
+    except Exception as error:
+        # Print the full error in the Flask console.
+        print(
+            f"❌ Error loading operators for {form_name}:",
+            error
+        )
+
+        # Return an error response to JavaScript.
+        return jsonify({
+            "error": str(error)
+        }), 500
 
 if __name__ == "__main__":
     app.run(debug=True)

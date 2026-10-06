@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // ✅ Attach date validation listeners
     attachDateValidationListeners(["date"]);
 
+    setupOperator("boiler");
+
     // -----------------------------
     // Checkbox handling
     // -----------------------------
@@ -63,35 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
             updateCommentsRequirement
         );
     }
-    // -----------------------------
-    // Operator
-    // -----------------------------
-    const operatorSelect = document.getElementById("operator");
-    const otherOperator = document.getElementById("other_operator");
-
-    if (operatorSelect && otherOperator) {
-    // Load operators from JSON
-
-    loadOperators();
-
-    operatorSelect.addEventListener("change", function () {
-
-    console.log("Operator selected:", this.value);
-
-    if (this.value === "Other") {
-        otherOperator.style.display = "block";
-        otherOperator.required = true;
-        otherOperator.focus();
-    } 
-    else {
-        otherOperator.style.display = "none";
-        otherOperator.required = false;
-        otherOperator.value = "";
-    }
-    });
-
-}
-
+    
     // Initial validation state
     updateCommentsRequirement();
 });
@@ -139,18 +113,100 @@ document.querySelector("form").addEventListener("submit", function (event) {
     
 });
 
+// function toggleBoilerStatus(enable) {
+
+//     const section = document.getElementById("inspectionSections");
+
+//     if (section) {
+//         section.style.display = enable ? "" : "none";
+//     }
+
+//     // Reset fields when Out of Service
+//     if (!enable) {
+
+//         // Reset all checkboxes
+//         document.querySelectorAll("input[type='checkbox']")
+//             .forEach(cb => {
+
+//                 cb.checked = false;
+
+//                 const hidden = document.querySelector(
+//                     `input[name="${cb.name.replace("cb", "")}"]`
+//                 );
+
+//                 if (hidden) {
+//                     hidden.value = "";
+//                 }
+//             });
+
+//         // Reset emissions
+//         const emissions = document.querySelector("[name='emissions']");
+//         if (emissions) {
+//             emissions.selectedIndex = 0;
+//         }
+
+//         // Clear smoke times
+//         const timeSmoke = document.getElementById("time_smoke");
+//         const timeSmokeCleared = document.getElementById("time_smoke_cleared");
+
+//         if (timeSmoke) {
+//             timeSmoke.value = "";
+//         }
+
+//         if (timeSmokeCleared) {
+//             timeSmokeCleared.value = "";
+//         }
+//     }
+
+
+//     updateCommentsRequirement();
+// } 
+
 function toggleBoilerStatus(enable) {
 
     const section = document.getElementById("inspectionSections");
+    const emissions = document.querySelector("[name='emissions']");
+    const timeSmoke = document.getElementById("time_smoke");
+    const timeSmokeCleared = document.getElementById("time_smoke_cleared");
 
+    // Show inspection section when Boiler is In Service.
+    // Hide inspection section when Boiler is Out of Service.
     if (section) {
         section.style.display = enable ? "" : "none";
     }
 
-    // Reset fields when Out of Service
-    if (!enable) {
 
-        // Reset all checkboxes
+    // -----------------------------------------
+    // BOILER IN SERVICE
+    // -----------------------------------------
+
+    if (enable) {
+
+        // Visible Emissions is required when the Boiler is in service.
+        if (emissions) {
+            emissions.required = true;
+        }
+
+    }
+
+
+    // -----------------------------------------
+    // BOILER OUT OF SERVICE
+    // -----------------------------------------
+
+    else {
+
+        // Visible Emissions is NOT required when the Boiler
+        // is Out of Service.
+        if (emissions) {
+            emissions.required = false;
+
+            // Clear the previous selection.
+            emissions.selectedIndex = 0;
+        }
+
+
+        // Reset all inspection checkboxes.
         document.querySelectorAll("input[type='checkbox']")
             .forEach(cb => {
 
@@ -165,30 +221,24 @@ function toggleBoilerStatus(enable) {
                 }
             });
 
-        // Reset emissions
-        const emissions = document.querySelector("[name='emissions']");
-        if (emissions) {
-            emissions.selectedIndex = 0;
-        }
 
-        // Clear smoke times
-        const timeSmoke = document.getElementById("time_smoke");
-        const timeSmokeCleared = document.getElementById("time_smoke_cleared");
-
+        // Clear smoke times.
         if (timeSmoke) {
             timeSmoke.value = "";
+            timeSmoke.required = false;
         }
 
         if (timeSmokeCleared) {
             timeSmokeCleared.value = "";
+            timeSmokeCleared.required = false;
         }
     }
 
 
+    // Recalculate whether comments and smoke times
+    // should be required.
     updateCommentsRequirement();
-} 
-
-
+}
 // -----------------------------
 // Comments Requirement Logic
 // -----------------------------
@@ -237,85 +287,3 @@ function updateCommentsRequirement() {
     timeSmokeCleared.required = emissionsYes;
 }
 
-// -----------------------------
-// Operator Auto-Fill Logic
-// -----------------------------
-let operators = [];
-
-function loadOperators() {
-
-    fetch("/api/operators")
-        .then(res => {
-
-            if (!res.ok) {
-                throw new Error(`HTTP error: ${res.status}`);
-            }
-
-            return res.json();
-        })
-
-        .then(data => {
-
-            operators = data;
-
-            console.log("Operators loaded:", operators);
-            console.log(
-                "Operators loaded - Total count:",
-                operators.length
-            );
-
-            const operatorSelect =
-                document.getElementById("operator");
-
-            if (!operatorSelect) {
-                console.error("Operator dropdown not found.");
-                return;
-            }
-
-            // Clear existing options
-            operatorSelect.innerHTML = "";
-
-            // Add default option
-            const defaultOption =
-                document.createElement("option");
-
-            defaultOption.value = "";
-            defaultOption.textContent = "Select Operator";
-            defaultOption.disabled = true;
-            defaultOption.selected = true;
-
-            operatorSelect.appendChild(defaultOption);
-
-
-            // Add operators from JSON
-            operators.forEach(operator => {
-
-                const option =
-                    document.createElement("option");
-
-                option.value = operator;
-                option.textContent = operator;
-
-                operatorSelect.appendChild(option);
-            });
-
-
-            // Add Other as the last option
-            const otherOption =
-                document.createElement("option");
-
-            otherOption.value = "Other";
-            otherOption.textContent = "Other";
-
-            operatorSelect.appendChild(otherOption);
-        })
-
-        .catch(err => {
-
-            console.error(
-                "Error loading operators:",
-                err
-            );
-
-        });
-}
