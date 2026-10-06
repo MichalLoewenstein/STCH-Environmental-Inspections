@@ -14,7 +14,10 @@ DATA_FOLDER = os.path.join(
 OPERATOR_FILES = {
     "portable_engine": "operator_portable.json",
     "boiler": "operator_boiler.json",
-    "ceb_flare": "operator_ceb_flare.json"
+    "ceb_flare": "operator_ceb_flare.json",
+    "fire_pump": "operator_fire_pump.json",
+    "generator": "operator_generator.json",
+    "paint": "operator_paint.json",
 
     # Add the other forms later:
     # "fire_pump": "operator_fire_pump.json",

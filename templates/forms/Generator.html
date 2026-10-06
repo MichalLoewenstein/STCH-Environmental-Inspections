@@ -28,6 +28,7 @@ html { visibility: hidden; }
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
     <script src="{{ url_for('static', filename='js/date_validation.js') }}"></script>
     <script src="{{ url_for('static', filename='js/components/date_auto_fill.js')}}" defer></script>
+    <script src="{{ url_for('static', filename='js/components/operator_options.js')}}" defer></script>
     <script src="{{ url_for('static', filename='js/generator.js')}}" defer></script>
     <script src="{{ url_for('static', filename='js/components/submit_disable_btn.js')}}" defer></script>
     <script src="{{ url_for('static', filename='js/components/other_input.js')}}" defer></script>
@@ -43,9 +44,20 @@ html { visibility: hidden; }
     <!-- ===================================================== -->
     <!-- ✅ TIME SELECTION -->
     <!-- ===================================================== -->
-     <div class="input-row">
+     <!-- <div class="input-row">
         <label>Inspector Name*</label>
         <input type="text" name="inspector" required>
+    </div> -->
+
+    <div class="input-row">
+      <label for="operator">Inspector Name*</label>
+      <div class="field-stack">
+        <select id="operator" name="operator" required>
+          <option disabled selected>Select Inspector</option>
+        </select>
+        <input type="text" name="other_operator" id="other_operator" class="other-input"
+            placeholder="Enter inspector name" style="display:none;">
+      </div>
     </div>
     <div class="input-row">
             <label>Contractor*</label>

@@ -251,9 +251,15 @@ function setupOperator(formName) {
 
 
       // Clear the dropdown and add the placeholder.
-      operatorDropdown.innerHTML =
-        '<option value="" disabled selected>Select Operator</option>';
+    //   operatorDropdown.innerHTML =
+    //     '<option value="" disabled selected>Select Operator</option>';
+    const placeholderText =
+    formName === "generator"
+        ? "Select Inspector"
+        : "Select Operator";
 
+    operatorDropdown.innerHTML =
+    `<option value="" disabled selected>${placeholderText}</option>`;
 
       // Add existing operators.
       operators.forEach(operator => {

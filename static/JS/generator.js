@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
         attachDateValidationListeners(["date"]);
     }
 
+    setupOperator("generator");
+
     // =====================================================
     // ✅ VISIBLE EMISSIONS → required comment when "Yes"
     // =====================================================
