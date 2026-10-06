@@ -7,9 +7,9 @@ def fire_pumpsExcel(form_data):
     print(form_data)
     # ✅ Define consistent column order (important!)
    
-    columns = [
-        "Operator","Contractor","Equipment","Location","Purpose","Inspection Date","Initial Meter Read","Start Time","Stop Time","Run Duration","Final Meter Read",
-        "Total Hours","Visual Emissions","Mfr","Model Number","Serial Number","Horsepower","Fuel","On-Site Status","Comments","Visible Emissions","Comment Visible Emissions"
+    columns = [ "Operator","Contractor","Equipment","Location","Purpose",
+    "Inspection Date","Initial Meter Read","Start Time","Stop Time","Run Duration","Final Meter Read","Total Hours","Mfr",
+    "Model Number","Serial Number","Horsepower","Fuel","On-Site Status","Comments","Visible Emissions","Comments Visible Emissions"
     ]
 
     purpose = form_data.get("purpose")
