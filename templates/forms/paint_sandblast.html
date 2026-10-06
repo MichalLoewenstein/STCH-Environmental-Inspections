@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/paint_sandblast.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="{{ url_for('static', filename='js/date_validation.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/components/operator_options.js')}}" defer></script>
     <script src="{{ url_for('static', filename='js/components/date_auto_fill.js') }}"></script>
     <script src="{{ url_for('static', filename='js/paint_sandblast.js') }}"></script>
     <script src="{{ url_for('static', filename='js/components/submit_disable_btn.js')}}" defer></script>
@@ -59,10 +60,18 @@
             style="display:none; margin-top:6px;">
     </div>
 
+
     <div class="input-row">
-        <label>Name*</label>
-        <input type="text" name="name" required>
+      <label for="operator">Name*</label>
+      <div class="field-stack">
+        <select id="operator" name="operator" required>
+          <option disabled selected>Select Name</option>
+        </select>
+        <input type="text" name="other_operator" id="other_operator" class="other-input"
+               placeholder="Enter operator" style="display:none;">
+      </div>
     </div>
+
 <!-- NORMAL FIELDS -->
     <div class="input-row">
         <label>Activity*</label>

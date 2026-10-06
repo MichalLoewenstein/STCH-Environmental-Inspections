@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
             ["arrivalDate", "date", "departureDate", "manufactureDate"]
         );
     }
+    setupOperator("fire_pump");
 
     // =====================================================
     // ✅ CONTRACTOR → required, "Other" name required

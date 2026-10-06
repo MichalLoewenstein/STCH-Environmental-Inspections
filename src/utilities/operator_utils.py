@@ -15,7 +15,7 @@ OPERATOR_FILES = {
     "portable_engine": "operator_portable.json",
     "boiler": "operator_boiler.json",
     "ceb_flare": "operator_ceb_flare.json",
-    "fire_pump": "operator_fire_pump.json",
+    "fire_pump": "operator_fire_pumps.json",
     "generator": "operator_generator.json",
     "paint": "operator_paint.json",
 

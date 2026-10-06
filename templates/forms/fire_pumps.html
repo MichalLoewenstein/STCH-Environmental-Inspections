@@ -36,6 +36,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
   <script src="{{ url_for('static', filename='js/date_validation.js') }}"></script>
   <script src="{{ url_for('static', filename='js/components/date_auto_fill.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/components/operator_options.js')}}" defer></script>
   <script src="{{ url_for('static', filename='js/fire_pumps.js') }}"></script>
   <script src="{{ url_for('static', filename='js/components/submit_disable_btn.js')}}" defer></script>
   <script src="{{ url_for('static', filename='js/components/other_input.js')}}" defer></script>
@@ -47,8 +48,14 @@
     <br>
 
     <div class="input-row">
-      <label>Operator*</label>
-      <input type="text" name="operator" required>
+      <label for="operator">Operator*</label>
+      <div class="field-stack">
+        <select id="operator" name="operator" required>
+          <option disabled selected>Select Operator</option>
+        </select>
+        <input type="text" name="other_operator" id="other_operator" class="other-input"
+               placeholder="Enter operator" style="display:none;">
+      </div>
     </div>
 
     <div class="input-row">

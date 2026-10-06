@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // ✅ Attach date validation listeners
     attachDateValidationListeners(["date"]);
+    
+    setupOperator("paint");
 
     // =====================================================
     // ✅ TIME CALCULATION LOGIC
