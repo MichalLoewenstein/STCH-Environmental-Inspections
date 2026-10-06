@@ -230,6 +230,15 @@ def Generator():
         # converts user inputs into python dictionary
         form_data = request.form.to_dict()
 
+        operator = form_data.get("operator")
+        other_operator = form_data.get("other_operator", "").strip()
+        
+        if operator == "Other" and other_operator:
+            save_new_form_operator("generator", form_data)
+
+            # Use the new operator as the actual operator
+            form_data["operator"] = other_operator
+
         if not form_data:
             raise ValueError("No form data submitted")
 

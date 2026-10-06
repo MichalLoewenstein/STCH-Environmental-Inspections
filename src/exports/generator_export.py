@@ -45,7 +45,7 @@ def generate_generatorExcel(form_data):
 
     # ✅ Convert incoming form data keys to match column names
     data = {
-        "Inspector Name": form_data.get("inspector"),
+        "Inspector Name": form_data.get("operator"),
         # "Contractor":form_data.get("contractor"),
         "Contractor": vendor,
         "Generator": form_data.get("generator"),
