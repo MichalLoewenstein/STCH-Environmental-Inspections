@@ -36,9 +36,10 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
   <script src="{{ url_for('static', filename='js/date_validation.js') }}"></script>
   <script src="{{ url_for('static', filename='js/components/date_auto_fill.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/portable_engine.js') }}"></script>
   <script src="{{ url_for('static', filename='js/components/submit_disable_btn.js')}}" defer></script>
   <script src="{{ url_for('static', filename='js/components/other_input.js')}}" defer></script>
+  <script src="{{ url_for('static', filename='js/components/operator_options.js')}}" defer></script>
+  <script src="{{ url_for('static', filename='js/portable_engine.js') }}"></script>
 </head>
 
 <body>
@@ -47,8 +48,14 @@
     <br>
 
     <div class="input-row">
-      <label>Operator*</label>
-      <input type="text" name="operator" required>
+      <label for="operator">Operator*</label>
+      <div class="field-stack">
+        <select id="operator" name="operator" required>
+          <option disabled selected>Select Operator</option>
+        </select>
+        <input type="text" name="other_operator" id="other_operator" class="other-input"
+               placeholder="Enter operator" style="display:none;">
+      </div>
     </div>
 
     <div class="input-row">
@@ -139,23 +146,49 @@
     </div>
 
     <div class="input-row">
-      <label for="initialMeterRead">Initial Meter Read*</label>
-      <input type="number" required min="0" step="0.01" id="initialMeterRead" name="initialMeterRead">
+      <label for="meter">Does the engine have a Meter?*</label>
+      <select id="meter" name="meter" required> 
+        <option disabled selected hidden></option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+      </select>
     </div>
 
     <div class="input-row">
-      <label for="departureDate">Departure Date</label>
-      <input type="date" id="departureDate" name="departureDate">
+      <label for="initialMeterRead">Initial Meter Read*</label>
+      <input type="number" required min="0" step="0.01" id="initialMeterRead" name="initialMeterRead">
     </div>
+     <div class="input-row">
+        <label>Start Time</label>
+        <input type="time" id="start_time" name="start_time">
+    </div>
+
+    
+
+    
 
     <div class="input-row">
       <label for="finalMeterRead">Final Meter Read*</label>
       <input type="number" required min="0" step="0.01" id="finalMeterRead" name="finalMeterRead">
     </div>
+   
+    <div class="input-row">
+        <label>End Time</label>
+        <input type="time" id="end_time" name="end_time">
+    </div>
+
+    <div class="input-row">
+        <label>Breaks (minutes) Include time when the machine was turned off.</label>
+        <input type="number" id="break" min="0" name="break" value="0">
+    </div>
 
     <div class="input-row">
       <label for="total_time">Total Hours</label>
       <input type="number" id="total_time" name="totalHours" step="0.01" readonly class="readonly-field">
+    </div>
+    <div class="input-row">
+      <label for="departureDate">Departure Date</label>
+      <input type="date" id="departureDate" name="departureDate">
     </div>
 
     <div class="sub-header">Engine Data</div>

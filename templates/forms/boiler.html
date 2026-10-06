@@ -29,6 +29,7 @@ html { visibility: hidden; }
     <script src="{{ url_for('static', filename='js/components/time_auto_select.js')}}" defer></script>
     <script src="{{ url_for('static', filename='js/components/date_auto_fill.js')}}" defer></script>
     <script src="{{ url_for('static', filename='js/components/other_input.js')}}" defer></script>
+    <script src="{{ url_for('static', filename='js/components/operator_options.js')}}" defer></script>
     <script src="{{ url_for('static', filename='js/boiler.js')}}" defer></script> 
     <script src="{{ url_for('static', filename='js/components/submit_disable_btn.js')}}" defer></script>
 
@@ -77,7 +78,7 @@ html { visibility: hidden; }
      <div class="input-row">
       <label for="operator">Operator*</label>
       <div class="field-stack">
-        <select id="operator" name="operator" class="has-other">
+        <select id="operator" name="operator" required>
           <option disabled selected>Select Operator</option>
         </select>
         <input type="text" name="other_operator" id="other_operator" class="other-input"

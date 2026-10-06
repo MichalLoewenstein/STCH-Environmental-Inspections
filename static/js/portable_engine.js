@@ -10,7 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // Load engine data and equipment options before enabling form interactions.
   Promise.all([
     loadEngines(),
-    loadEquipment()
+    loadEquipment(),
+    setupOperator("portable_engine")
   ]).then(() => {
     setupEventListeners();
   });
@@ -18,6 +19,145 @@ document.addEventListener("DOMContentLoaded", function () {
   const initialInput = document.getElementById("initialMeterRead");
   const finalInput = document.getElementById("finalMeterRead");
   const form = document.querySelector("form");
+  ///////////////////////////////////////////////
+  const meterSelect = document.getElementById("meter");
+  const startTimeInput = document.getElementById("start_time");
+  const endTimeInput = document.getElementById("end_time");
+  const breakInput = document.getElementById("break");
+  const totalTimeInput = document.getElementById("total_time");
+
+  const initialMeterRow = initialInput.closest(".input-row");
+  const finalMeterRow = finalInput.closest(".input-row");
+
+  const startTimeRow = startTimeInput.closest(".input-row");
+  const endTimeRow = endTimeInput.closest(".input-row");
+  const breakRow = breakInput.closest(".input-row");
+
+
+function updateMeterFields() {
+  const meterValue = meterSelect.value;
+
+  if (meterValue === "Yes") {
+
+    // Show meter readings
+    initialMeterRow.style.display = "";
+    finalMeterRow.style.display = "";
+
+    // Hide time fields
+    startTimeRow.style.display = "none";
+    endTimeRow.style.display = "none";
+    breakRow.style.display = "none";
+
+    initialInput.required = true;
+    finalInput.required = true;
+
+    startTimeInput.required = false;
+    endTimeInput.required = false;
+
+    // Clear time values
+    startTimeInput.value = "";
+    endTimeInput.value = "";
+    breakInput.value = "0";
+
+    calculateTotal();
+
+  } else if (meterValue === "No") {
+
+    // Hide meter readings
+    initialMeterRow.style.display = "none";
+    finalMeterRow.style.display = "none";
+
+    // Show time fields
+    startTimeRow.style.display = "";
+    endTimeRow.style.display = "";
+    breakRow.style.display = "";
+
+    initialInput.required = false;
+    finalInput.required = false;
+
+    startTimeInput.required = true;
+    endTimeInput.required = true;
+
+    // Clear old meter validation
+    initialInput.setCustomValidity("");
+    finalInput.setCustomValidity("");
+
+    // Clear meter values
+    initialInput.value = "";
+    finalInput.value = "";
+
+    calculateTotalFromTime();
+
+  } else {
+
+    // Nothing selected yet
+    initialMeterRow.style.display = "none";
+    finalMeterRow.style.display = "none";
+
+    startTimeRow.style.display = "none";
+    endTimeRow.style.display = "none";
+    breakRow.style.display = "none";
+
+    initialInput.required = false;
+    finalInput.required = false;
+
+    startTimeInput.required = false;
+    endTimeInput.required = false;
+
+    totalTimeInput.value = "";
+  }
+}
+
+
+function calculateTotalFromTime() {
+
+  if (!startTimeInput.value || !endTimeInput.value) {
+    totalTimeInput.value = "";
+    return;
+  }
+
+  const [startHour, startMinute] = startTimeInput.value
+    .split(":")
+    .map(Number);
+
+  const [endHour, endMinute] = endTimeInput.value
+    .split(":")
+    .map(Number);
+
+  let startMinutes = (startHour * 60) + startMinute;
+  let endMinutes = (endHour * 60) + endMinute;
+
+  // Handle work that crosses midnight
+  if (endMinutes < startMinutes) {
+    endMinutes += 24 * 60;
+  }
+
+  const breakMinutes = parseFloat(breakInput.value) || 0;
+
+  const workedMinutes = endMinutes - startMinutes - breakMinutes;
+
+  if (workedMinutes < 0) {
+    totalTimeInput.value = "0.00";
+    return;
+  }
+
+  const totalHours = workedMinutes / 60;
+
+  totalTimeInput.value = totalHours.toFixed(2);
+}
+
+
+// Update visibility when Meter changes
+meterSelect.addEventListener("change", updateMeterFields);
+
+// Recalculate time total automatically
+startTimeInput.addEventListener("input", calculateTotalFromTime);
+endTimeInput.addEventListener("input", calculateTotalFromTime);
+breakInput.addEventListener("input", calculateTotalFromTime);
+
+// Set initial visibility
+updateMeterFields();
+  ////////////////////////////////////////////////////
 
   // Calculate the running time from the two meter readings.
   function calculateTotal() {
