@@ -6,7 +6,7 @@ from exports.ceb_flare_export import generate_flareExcel
 from exports.portable_engine_export import generate_portableExcel
 from exports.generator_export import generate_generatorExcel
 from exports.fire_pumps_export import fire_pumpsExcel
-from utilities.boiler_utils import load_operator_options, save_new_operator
+from utilities.portable_utils import load_location_options, save_new_location
 from utilities.email_utils import send_email
 from utilities.operator_utils import load_form_operator_options, save_new_form_operator
 from utilities.response_utils import render_with_no_cache
@@ -232,7 +232,7 @@ def flare():
 
 
 
-@app.route("/generator", methods=["GET", "POST"])
+@app.route("/emergency_generator", methods=["GET", "POST"])
 def Generator():
 
     if request.method == "POST":
@@ -268,7 +268,7 @@ def Generator():
         return redirect(url_for("success"))
     
 
-    return render_with_no_cache("forms/generator.html")
+    return render_with_no_cache("forms/emergency_generator.html")
 
 
 @app.route("/portable_engine", methods=["GET", "POST"])
@@ -328,8 +328,37 @@ def portableEngine():
         # operator value in form_data.
         form_data.pop("other_operator", None)
 
+        # ---------------------------------------------------------
+        # HANDLE LOCATION
+        # ---------------------------------------------------------
 
-#  overwrite the value in form_data
+        # Get the selected dropdown value.
+        location_choice = request.form.get("location", "").strip()
+
+        # Get the new location entered when "Other" is selected.
+        other_location = request.form.get("other_location", "").strip()
+
+        if location_choice == "Other" and other_location:
+
+            # Save the new location to portable_location.json.
+            save_new_location(form_data)
+
+            print("✅ New Portable Engine location saved:", other_location)
+
+            # Replace "Other" with the actual location for Excel/email.
+            form_data["location"] = other_location
+
+        else:
+
+            # Keep the existing selected location.
+            form_data["location"] = location_choice
+
+
+        # Remove the helper field from the final form data.
+        form_data.pop("other_location", None)
+
+        
+        #  overwrite the value in form_data
         form_data["modelNumber"] = model_number
         
         form_data.pop("modelNumberOther", None)
@@ -471,18 +500,18 @@ def get_equipment():
     return jsonify(equipment_list)
 
 
-@app.route("/api/operators")
-def get_operators():
-    # Build a unique list of operator names for the form dropdown.
-    data = load_operator_options()
+@app.route("/api/location")
+def get_location():
+    # Build a unique list of location names for the form dropdown.
+    data = load_location_options()
 
-    # ✅ Extract unique operator values
-    operators = {e.get("operator") for e in data if e.get("operator")}
+    # ✅ Extract unique location values
+    locations = {e.get("Location") for e in data if e.get("Location")}
 
-    operators_list = sorted(operators, key=str.lower)
-    print("✅ Operators list:", operators_list)
+    locations_list = sorted(locations, key=str.lower)
+    print("✅ Locations list:", locations_list)
 
-    return jsonify(operators_list)
+    return jsonify(locations_list)
 
 
 # ---------------------------------------------------------------------------

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> /</title>
+  <title>Portable Engine</title>
 
   <style>
     html { visibility: hidden; }
@@ -33,13 +33,19 @@
     })();
   </script>
 
+
+
   <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
   <script src="{{ url_for('static', filename='js/date_validation.js') }}"></script>
   <script src="{{ url_for('static', filename='js/components/date_auto_fill.js') }}"></script>
   <script src="{{ url_for('static', filename='js/components/submit_disable_btn.js')}}" defer></script>
   <script src="{{ url_for('static', filename='js/components/other_input.js')}}" defer></script>
   <script src="{{ url_for('static', filename='js/components/operator_options.js')}}" defer></script>
-  <script src="{{ url_for('static', filename='js/portable_engine.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/portable_engine/form.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/portable_engine/meter_time.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/portable_engine/location.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/portable_engine/equipment.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/portable_engine.js') }}" defer></script>
 </head>
 
 <body>
@@ -60,9 +66,9 @@
 
     <div class="input-row">
             <label>Contractor*</label>
-            <select name="vendor" class="has-other">
+            <select name="vendor" class="has-other" required>
                 <option disabled selected>Select Contractor</option>
-                <option value="B&R">Brown & Root</option>
+                <option value="Brown & Root">Brown & Root</option>
                 <option value="Other" >Other</option>
             </select>
             <label></label>
@@ -87,36 +93,18 @@
     </div>
 
     <div class="input-row">
-      <label for="location">Location</label>
-      <select id="location" name="location">
-        <option disabled selected hidden></option>
-        <option value="Between MS and MP Courtyard">Between MS and MP Courtyard</option>
-        <option value="Blue and Orange parking lot">Blue and Orange parking lot</option>
-        <option value="Blue Parking Lot">Blue Parking Lot</option>
-        <option value="Building CG">Building CG</option>
-        <option value="Building MB">Building MB</option>
-        <option value="Building MD">Building MD</option>
-        <option value="Building MM">Building MM</option>
-        <option value="Building N Courtyard">Building N Courtyard</option>
-        <option value="Building R">Building R</option>
-        <option value="Building SS">Building SS</option>
-        <option value="Buildings SR and BD">Buildings SR and BD</option>
-        <option value="Event Parking Lot">Event Parking Lot</option>
-        <option value="Gate 2">Gate 2</option>
-        <option value="In">In</option>
-        <option value="MP and MS Courtyard">MP and MS Courtyard</option>
-        <option value="N Courtyard">N Courtyard</option>
-        <option value="Orange Parking Lot">Orange Parking Lot</option>
-        <option value="Purple Zone">Purple Zone</option>
-        <option value="Red Mustered Point">Red Mustered Point</option>
-        <option value="Red Parking Lot">Red Parking Lot</option>
-        <option value="Road A">Road A</option>
-        <option value="Road H and Butterfly Field">Road H and Butterfly Field</option>
-        <option value="Road H and Orange parking lot">Road H and Orange parking lot</option>
-        <option value="T Courtyard">T Courtyard</option>
-        <option value="Yellow Mustered Point">Yellow Mustered Point</option>
-      </select>
+      <label for="location">Location*</label>
+      <div class="field-stack">
+          <select id="location" name="location" required>
+              <option value="" disabled selected>
+                  Select Location
+              </option>
+          </select>
+          <input type="text" id="other_location" name="other_location"
+          class="other-input" placeholder="Enter new location" style="display:none;">
+      </div>
     </div>
+
 
     <div class="input-row">
       <label for="purpose">Purpose</label>
@@ -159,7 +147,7 @@
       <input type="number" required min="0" step="0.01" id="initialMeterRead" name="initialMeterRead">
     </div>
      <div class="input-row">
-        <label>Start Time</label>
+        <label>Start Time*</label>
         <input type="time" id="start_time" name="start_time">
     </div>
 
@@ -173,7 +161,7 @@
     </div>
    
     <div class="input-row">
-        <label>End Time</label>
+        <label>End Time*</label>
         <input type="time" id="end_time" name="end_time">
     </div>
 
@@ -197,7 +185,7 @@
       <label for="modelNumber">Model Number*</label>
       <div class="field-stack">
         <select id="modelNumber" name="modelNumber" required>
-          <option disabled selected hidden>Select Model</option>
+          <option value="" disabled selected hidden>Select Model</option>
         </select>
         <input type="text" id="modelNumberInput" name="modelNumberOther"
                placeholder="Enter model number" style="display:none;">

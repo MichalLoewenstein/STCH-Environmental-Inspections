@@ -82,12 +82,30 @@
         </select>
     </div>
 
-      <div class="input-row">
-        <label>Task</label>
-        <input type="text" name="task" >
-    </div>
-    <div class="sub-header">Location and Date</div>
 
+
+    <div class="input-row">
+    <label>Task*</label>
+
+    <div class="field-stack">
+        <select name="task" id="task" required>
+            <option value="" disabled selected hidden></option>
+            <option value="Test Task">Test Task</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <input type="text"
+               name="other_task"
+               id="other_task"
+               class="other-input"
+               placeholder="Enter task"
+               style="display:none;">
+    </div>
+</div>
+`
+
+
+    <div class="sub-header">Location and Date</div>
     <div class="input-row">
         <label>Location</label>
         <input type="text" name="location">
@@ -154,7 +172,7 @@
             <!-- QUANTITY -->
             <div class="field quantity">
                 <label>Quantity</label>
-                <input type="number" min="0" step="0.01" name="quantity[]" value = "0">
+                <input type="number" min="0" step="any" name="quantity[]" value = "0">
             </div>
 
             <!-- UNIT -->

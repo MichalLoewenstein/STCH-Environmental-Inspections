@@ -81,25 +81,5 @@
         "horsepower": 74.0,
         "tier": 3,
         "fuel": "Diesel"
-    },
-    {
-        "equipment": "Other Equipment",
-        "manufacturer": "123",
-        "model_number": "Test Model Number ",
-        "serial_number": "1",
-        "manufacture_date": "2026-08-02",
-        "tier": "12",
-        "fuel": "Diesel",
-        "horsepower": "49"
-    },
-    {
-        "equipment": "Lift Machine",
-        "manufacturer": "1256",
-        "model_number": "Test Model Number for lift Machine",
-        "serial_number": "GX-345",
-        "manufacture_date": "",
-        "tier": "",
-        "fuel": "Diesel",
-        "horsepower": "12"
     }
 ]

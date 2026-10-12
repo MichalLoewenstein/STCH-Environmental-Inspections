@@ -153,12 +153,11 @@ html { visibility: hidden; }
     </div>
 
 
-    <div class="sub-header">Table</div>
-
+    
 <br>
 
 
-<div class="table-container">
+<!-- <div class="table-container">
   <table class="responsive-table">
     <thead>
       <tr>
@@ -177,7 +176,7 @@ html { visibility: hidden; }
       <tr><td>200</td><td>51.6</td></tr>
     </tbody>
   </table>
-</div>
+</div> -->
 
 
 <div class="sub-header">CEB Only</div>
@@ -208,7 +207,7 @@ html { visibility: hidden; }
    
 <div class="input-row">
     <label>Is maintenance complete?*</label>
-        <select name="maintaincomplete" required>
+        <select name="maintaincomplete"  id="maintaincomplete" required>
             <option value="" disabled selected hidden></option>
             <option value="Yes">Yes</option>
             <option value="No">No</option>
@@ -246,7 +245,7 @@ html { visibility: hidden; }
 
  <div class="input-row full-width">
         <!-- <label>Comments:</label> -->
-        <textarea name="comments" placeholder="Comments"></textarea>
+        <textarea name="comments" id="comments" placeholder="Comments"></textarea>
     </div>
     <br>
     <button type="submit" id="submitBtn">Submit</button>

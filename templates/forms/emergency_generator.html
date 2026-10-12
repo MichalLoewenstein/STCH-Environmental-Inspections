@@ -29,7 +29,7 @@ html { visibility: hidden; }
     <script src="{{ url_for('static', filename='js/date_validation.js') }}"></script>
     <script src="{{ url_for('static', filename='js/components/date_auto_fill.js')}}" defer></script>
     <script src="{{ url_for('static', filename='js/components/operator_options.js')}}" defer></script>
-    <script src="{{ url_for('static', filename='js/generator.js')}}" defer></script>
+    <script src="{{ url_for('static', filename='js/emergency_generator.js')}}" defer></script>
     <script src="{{ url_for('static', filename='js/components/submit_disable_btn.js')}}" defer></script>
     <script src="{{ url_for('static', filename='js/components/other_input.js')}}" defer></script>
 
@@ -37,7 +37,7 @@ html { visibility: hidden; }
 
 <body>
 
-<form method="POST" action="/generator" autocomplete="off" id="form">
+<form method="POST" action="/emergency_generator" autocomplete="off" id="form">
 
     <h1 class="form-title">Emergency Generator Run Log</h1>
      <br>
@@ -97,18 +97,23 @@ html { visibility: hidden; }
             <option value="125KV-MSB PORT">125KV-MSB PORT</option>
         </select>
     </div>
-    <div class="input-row">
-        <label>Date</label>
-        <input type="date" id="date" name="date">
-    </div>
-    
- <div class="input-row">
-        <label>Start Time</label>
-        <input type="time" id="start_time" name="start_time"> 
+        <div class="input-row">
+        <label>Start Date</label>
+        <input type="date" id="start_date" name="start_date">
     </div>
 
     <div class="input-row">
-        <label>Stop Time</label>
+        <label>Start Time</label>
+        <input type="time" id="start_time" name="start_time">
+    </div>
+
+    <div class="input-row">
+        <label>End Date</label>
+        <input type="date" id="end_date" name="end_date">
+    </div>
+
+    <div class="input-row">
+        <label>End Time</label>
         <input type="time" id="stop_time" name="stop_time">
     </div>
 

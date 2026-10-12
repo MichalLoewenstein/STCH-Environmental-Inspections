@@ -10,6 +10,25 @@ document.addEventListener("DOMContentLoaded", function () {
     
     setupOperator("paint");
 
+    const taskSelect = document.getElementById("task");
+    const otherTaskInput = document.getElementById("other_task");
+
+    if (taskSelect && otherTaskInput) {
+
+        taskSelect.addEventListener("change", function () {
+
+            if (this.value === "Other") {
+                otherTaskInput.style.display = "block";
+                otherTaskInput.required = true;
+            } else {
+                otherTaskInput.style.display = "none";
+                otherTaskInput.required = false;
+                otherTaskInput.value = "";
+            }
+
+        });
+    }
+
     // =====================================================
     // ✅ TIME CALCULATION LOGIC
     // =====================================================

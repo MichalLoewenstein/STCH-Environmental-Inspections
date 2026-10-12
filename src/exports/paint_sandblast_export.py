@@ -16,6 +16,11 @@ def generate_excel(form_data, materials):
     if company == "Other":
         company = form_data.get("other_company") or "Other"
 
+    Task = form_data.get("task")
+
+    if Task == "Other":
+        Task = form_data.get("other_task") or "Other"
+
     total_time = form_data.get("total_time")
 
     if total_time:
@@ -35,7 +40,7 @@ def generate_excel(form_data, materials):
         "Company": company,
         "Name": form_data.get("operator"),
         "Activity": form_data.get("activity"),
-        "Task": form_data.get("task"),
+        "Task": Task,
         "Location": form_data.get("location"),
         "Date": form_data.get("date"),
         "Start Time": form_data.get("start_time"),

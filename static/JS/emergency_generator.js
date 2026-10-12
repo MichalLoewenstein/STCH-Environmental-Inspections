@@ -9,6 +9,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setupOperator("generator");
 
+    const today = new Date().toLocaleDateString("en-CA");
+
+    const startDate = document.getElementById("start_date");
+    const endDate = document.getElementById("end_date");
+
+    if (startDate && !startDate.value) {
+        startDate.value = today;
+    }
+
+    if (endDate && !endDate.value) {
+        endDate.value = today;
+    }
+
     // =====================================================
     // ✅ VISIBLE EMISSIONS → required comment when "Yes"
     // =====================================================
@@ -105,31 +118,70 @@ document.addEventListener("DOMContentLoaded", function () {
     // ✅ RUN DURATION
     // =====================================================
     function calculateTotalTime() {
-        const startEl = document.getElementById("start_time");
-        const stopEl = document.getElementById("stop_time");
-        const runDurationEl = document.getElementById("run_duration");
+    const startDateEl = document.getElementById("start_date");
+    const startTimeEl = document.getElementById("start_time");
+    const endDateEl = document.getElementById("end_date");
+    const stopTimeEl = document.getElementById("stop_time");
+    const runDurationEl = document.getElementById("run_duration");
 
-        if (!startEl || !stopEl || !runDurationEl) return;
-        if (!startEl.value || !stopEl.value) return;
+    if (
+        !startDateEl ||
+        !startTimeEl ||
+        !endDateEl ||
+        !stopTimeEl ||
+        !runDurationEl
+    ) return;
 
-        const [sh, sm] = startEl.value.split(":").map(Number);
-        const [eh, em] = stopEl.value.split(":").map(Number);
-
-        const startMinutes = sh * 60 + sm;
-        let stopMinutes = eh * 60 + em;
-
-        if (stopMinutes < startMinutes) stopMinutes += 1440;
-
-        const total = stopMinutes - startMinutes;
-        const hours = Math.floor(total / 60);
-        const minutes = total % 60;
-
-        runDurationEl.value = `${hours}:${String(minutes).padStart(2, "0")}`;
-        updateClockRunHours();
+    // Don't calculate until all fields have values
+    if (
+        !startDateEl.value ||
+        !startTimeEl.value ||
+        !endDateEl.value ||
+        !stopTimeEl.value
+    ) {
+        runDurationEl.value = "";
+        return;
     }
 
+    // Combine date + time
+    const startDateTime = new Date(
+        `${startDateEl.value}T${startTimeEl.value}`
+    );
+
+    const endDateTime = new Date(
+        `${endDateEl.value}T${stopTimeEl.value}`
+    );
+
+    // End cannot be before start
+    if (endDateTime < startDateTime) {
+        runDurationEl.value = "";
+        return;
+    }
+
+    // Difference in milliseconds
+    const difference = endDateTime - startDateTime;
+
+    // Convert milliseconds to minutes
+    const totalMinutes = Math.floor(difference / (1000 * 60));
+
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+
+    // Example: 767:30
+    runDurationEl.value =
+        `${hours}:${String(minutes).padStart(2, "0")}`;
+
+    updateClockRunHours();
+}
+
+
+    // Recalculate whenever date or time changes
+    document.getElementById("start_date") ?.addEventListener("change", calculateTotalTime);
     document.getElementById("start_time")?.addEventListener("change", calculateTotalTime);
-    document.getElementById("stop_time")?.addEventListener("change", calculateTotalTime);
+    document.getElementById("end_date")?.addEventListener("change", calculateTotalTime);
+    document.getElementById("stop_time") ?.addEventListener("change", calculateTotalTime);
+
+
 
     // =====================================================
     // ✅ GENERATOR → STARTING HOURS
