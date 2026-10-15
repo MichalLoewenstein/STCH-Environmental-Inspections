@@ -181,18 +181,22 @@
 
     <div class="sub-header">Engine Data</div>
 
-    <div class="input-row">
+     <div class="input-row">
       <label for="modelNumber">Model Number*</label>
       <div class="field-stack">
-        <select id="modelNumber" name="modelNumber" required>
-          <option value="" disabled selected hidden>Select Model</option>
-        </select>
-        <input type="text" id="modelNumberInput" name="modelNumberOther"
-               placeholder="Enter model number" style="display:none;">
 
-    
+        <!-- Used to select the JSON engine record -->
+        <select id="modelNumber" name="modelChoice" required >
+            <option value="" disabled selected hidden> Select Model</option>
+        </select>
+        <!-- Actual model number submitted to Flask -->
+        <input type="hidden" id="selectedModelNumber" name="modelNumber" >
+
+        <!-- Used only when Other is selected -->
+        <input type="text" id="modelNumberInput" name="modelNumberOther" placeholder="Enter model number" style="display:none;" >
       </div>
     </div>
+    
 
     <div class="input-row">
       <label for="horsepowerInput">Horsepower*</label>

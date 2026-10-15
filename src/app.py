@@ -271,133 +271,167 @@ def Generator():
     return render_with_no_cache("forms/emergency_generator.html")
 
 
+
 @app.route("/portable_engine", methods=["GET", "POST"])
 def portableEngine():
 
     if request.method == "POST":
 
-        model_choice=request.form.get("modelNumber")
-        model_number=request.form.get("modelNumberOther")
-        #equipment_choice=request.form.get("equipment")
-        # converts user inputs into python dictionary
+        # Convert submitted fields into a dictionary
         form_data = request.form.to_dict()
-        
+
         if not form_data:
             raise ValueError("No form data submitted")
-
         # ---------------------------------------------------------
         # HANDLE OPERATOR
         # ---------------------------------------------------------
 
-        # Get the value selected from the Operator dropdown.
-        operator_choice = request.form.get("operator")
+        operator_choice = request.form.get("operator", "").strip()
+        other_operator = request.form.get( "other_operator", "" ).strip()
 
-        other_operator = request.form.get(
-            "other_operator",
-            ""
-        ).strip()
-
-
-        # Only save a new operator when:
-        # 1.The user selected "Other"
-        # 2.The user entered a value in the Other Operator field
-        
         if operator_choice == "Other" and other_operator:
 
-            # Save the new operator into the JSON file belonging
-            
-            save_new_form_operator(
-                "portable_engine",
-                form_data
-            )
-
-            print("✅ New Portable Engine operator saved:", other_operator)
-
-            # Replace "Other" with the actual operator 
-        
+            save_new_form_operator( "portable_engine", form_data)
+            print( "✅ New Portable Engine operator saved:",other_operator)
             form_data["operator"] = other_operator
 
         else:
-
-            # If the user selected an existing operator,
-            # keep the selected operator as-is.
             form_data["operator"] = operator_choice
 
 
-        # Remove the helper field because we only need the final
-        # operator value in form_data.
         form_data.pop("other_operator", None)
+
 
         # ---------------------------------------------------------
         # HANDLE LOCATION
         # ---------------------------------------------------------
 
-        # Get the selected dropdown value.
         location_choice = request.form.get("location", "").strip()
-
-        # Get the new location entered when "Other" is selected.
         other_location = request.form.get("other_location", "").strip()
 
         if location_choice == "Other" and other_location:
 
-            # Save the new location to portable_location.json.
             save_new_location(form_data)
-
-            print("✅ New Portable Engine location saved:", other_location)
-
-            # Replace "Other" with the actual location for Excel/email.
+            print("✅ New Portable Engine location saved:",other_location)
             form_data["location"] = other_location
 
         else:
-
-            # Keep the existing selected location.
             form_data["location"] = location_choice
 
 
-        # Remove the helper field from the final form data.
         form_data.pop("other_location", None)
 
-        
-        #  overwrite the value in form_data
-        form_data["modelNumber"] = model_number
-        
-        form_data.pop("modelNumberOther", None)
 
-    # Save the custom engine entry only when the user selected "Other".
-        if request.form.get("equipment") == "Other":
+        # ---------------------------------------------------------
+        # HANDLE MODEL NUMBER
+        # ---------------------------------------------------------
+        equipment_choice = request.form.get(
+            "equipment",
+            ""
+        ).strip()
+
+        model_choice = request.form.get(
+            "modelChoice",
+            ""
+        ).strip()
+
+        selected_model_number = request.form.get(
+            "modelNumber",
+            ""
+        ).strip()
+
+        other_model_number = request.form.get(
+            "modelNumberOther",
+            ""
+        ).strip()
+
+
+        # New equipment
+        if equipment_choice == "Other":
+
+            final_model_number = other_model_number
+
+            form_data["modelNumber"] = final_model_number
+            form_data["modelNumberOther"] = other_model_number
+
+
+        # Existing equipment + Other model
+        elif model_choice == "OTHER":
+
+            final_model_number = other_model_number
+
+            form_data["modelNumber"] = final_model_number
+            form_data["modelNumberOther"] = other_model_number
+
+
+        # Existing equipment + Existing model
+        else:
+
+            final_model_number = selected_model_number
+
+            form_data["modelNumber"] = final_model_number
+            form_data["modelNumberOther"] = ""
+
+
+        print("Equipment choice:", equipment_choice)
+        print("Model choice:", model_choice)
+        print("Selected JSON model number:", selected_model_number)
+        print("Other model number:", other_model_number)
+        print("Final model number:", final_model_number)
+        # ---------------------------------------------------------
+        # SAVE NEW ENGINE
+        # ---------------------------------------------------------
+
+        if equipment_choice == "Other":
+
             save_new_engine(form_data)
-            print("Final model number:", model_number)
-        elif model_choice== "OTHER":
+
+        elif model_choice == "OTHER":
+
             save_new_model(form_data)
-            print("Final model number:", model_number)
 
-        
-        is_other_model = (model_choice=="OTHER") 
-        if is_other_model:
-            form_data["modelNumber"]="Other"
-            form_data["modelNumberOther"]=model_number
-        else :
-            form_data["modelNumberOther"]=""
-        
+        # ---------------------------------------------------------
+        # SAVE NEW MODEL UNDER EXISTING EQUIPMENT
+        # ---------------------------------------------------------
 
-        # ✅ Generate Excel
-        print("Generating Excel with form data:", form_data)
-        excel_file = generate_portableExcel(form_data)
+        elif model_choice == "OTHER":
 
-        # # ✅ Send email
+            # save_new_model needs the actual model number
+            form_data["modelNumber"] = final_model_number
+
+            save_new_model(form_data)
+
+            # Restore values expected by Excel export
+            form_data["modelNumber"] = "Other"
+            form_data["modelNumberOther"] = (final_model_number)
+
+
+        # Remove dropdown helper value
+        form_data.pop("modelChoice", None)
+
+
+        # ---------------------------------------------------------
+        # GENERATE EXCEL
+        # ---------------------------------------------------------
+
+        print(
+            "Generating Excel with form data:", form_data)
+
+        excel_file = generate_portableExcel( form_data)
+
+        # ---------------------------------------------------------
+        # SEND EMAIL
+        # ---------------------------------------------------------
+
         send_email(
-            excel_file, 
-            form_data, 
-            subject= "STCH Environmental Inspections Portable Engine"
-            )
+            excel_file,
+            form_data,
+            subject=("STCH Environmental Inspections Portable Engine"))
+       
+        return redirect(url_for("success")
+ )
+    return render_with_no_cache( "forms/portable_engine.html")
 
-        # print("✅ Excel created and email sent")
-
-        # ✅ Navigate to success page
-        return redirect(url_for("success"))
-    
-
-    return render_with_no_cache("forms/portable_engine.html")
 
 @app.route("/fire_pumps", methods=["GET", "POST"])
 def firePumps():
