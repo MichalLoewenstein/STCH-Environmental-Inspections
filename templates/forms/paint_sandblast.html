@@ -140,20 +140,15 @@
     <!-- MATERIALS -->
     <div class="sub-header">Materials</div>
 
-
-
-
     <div id="materials-container">
-
         <div class="material-row">
-
             <!-- ADD BUTTON -->
             <button type="button" class="add-btn" onclick="addMaterial()">+</button>
 
             <!-- MATERIAL -->
             <div class="field">
                 <label>Material</label>
-                <select name="material[]" onchange="checkOther(this)" class ="material-select">
+                <select name="material[]" onchange="checkOther(this)" class ="material-select" required>
                
 <option value="">Select Material</option>
     {% for material in materials %}
