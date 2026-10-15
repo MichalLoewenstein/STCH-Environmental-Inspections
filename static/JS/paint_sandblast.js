@@ -80,6 +80,18 @@ document.addEventListener("DOMContentLoaded", function () {
     if (breakInput) {
         breakInput.addEventListener("input", calculateTotalTime);
     }
+    // =====================================================
+    // ✅ INITIALIZE MATERIAL ROWS
+    // =====================================================
+    document.querySelectorAll("select[name='material[]']").forEach(function (selectElement) {
+
+        selectElement.addEventListener("change", function () {
+            checkOther(this);
+        });
+
+        // Set correct required state when page first loads
+        checkOther(selectElement);
+    });
 });
 
 
@@ -116,6 +128,11 @@ function addMaterial() {
         otherInput._hasError = false;
         removeValidationError(otherInput);
     }
+    let quantityInput = newRow.querySelector("input[name='quantity[]']");
+    let unitSelect = newRow.querySelector("select[name='measure[]']");
+
+    if(quantityInput) quantityInput.required = false;
+    if(unitSelect) unitSelect.required = false;
 
     // Re-attach checkOther listener to the cloned select
     let selectElement = newRow.querySelector("select[name='material[]']");
@@ -160,6 +177,33 @@ function deleteMaterial(button) {
     updateAddButtons();
 }
 
+// =====================================================
+// ✅ UPDATE QUANTITY AND UNIT REQUIREMENTS
+// =====================================================
+function updateMaterialRequirements(selectElement) {
+
+    // Get the complete material row
+    let row = selectElement.closest(".material-row");
+
+    if (!row) return;
+
+    let quantityInput = row.querySelector('input[name="quantity[]"]');
+    let unitSelect = row.querySelector('select[name="measure[]"]');
+
+    // ✅ If ANY material is selected,
+    // Quantity and Unit become required
+    let materialSelected = selectElement.value.trim() !== "";
+
+    if (quantityInput) {
+        quantityInput.required = materialSelected;
+    }
+
+    if (unitSelect) {
+        unitSelect.required = materialSelected;
+    }
+}
+
+
 
 // =====================================================
 // ✅ HANDLE "OTHER" MATERIAL INPUT
@@ -168,6 +212,8 @@ function checkOther(selectElement) {
 
     let container = selectElement.closest(".field");
     let input = container.querySelector(".other-input");
+
+    updateMaterialRequirements(selectElement);
 
     if (selectElement.value === "Other") {
         input.style.display = "block";
@@ -202,7 +248,9 @@ function addMaterialValidation(selectElement, inputElement) {
     
     inputElement._validationListenerAdded = true;
 }
-
+// =====================================================
+// ✅ VALIDATE OTHER MATERIAL VALUE
+// =====================================================
 function validateMaterialInput(inputElement, availableMaterials) {
     const enteredValue = inputElement.value.toLowerCase().trim();
     
@@ -217,6 +265,9 @@ function validateMaterialInput(inputElement, availableMaterials) {
         showValidationError(inputElement, "This material already exists in the dropdown. Please select it or enter a different name.");
     }
 }
+// =====================================================
+// ✅ SHOW MATERIAL VALIDATION ERROR
+// =====================================================
 
 function showValidationError(inputElement, message) {
     inputElement.style.borderColor = "#d9534f";
@@ -237,6 +288,9 @@ function showValidationError(inputElement, message) {
     inputElement.parentNode.insertBefore(errorMsg, inputElement.nextSibling);
     inputElement._hasError = true;
 }
+// =====================================================
+// ✅ REMOVE MATERIAL VALIDATION ERROR
+// =====================================================
 
 function removeValidationError(inputElement) {
     inputElement.style.borderColor = "";
@@ -251,30 +305,155 @@ function removeValidationError(inputElement) {
     inputElement._hasError = false;
 }
 
-
+// =====================================================
+// ✅ INITIALIZE EXISTING MATERIAL ROWS
+// =====================================================
 
 
 document.getElementById("form").addEventListener("submit", function(event) {
-    // ✅ Validate date fields (auto-fill empty dates with today)
+
+    // =====================================================
+    // ✅ VALIDATE DATE
+    // =====================================================
     const dateFields = ["date"];
     const isDateValid = validateAndFillDates(dateFields);
-    
+
     if (!isDateValid) {
         event.preventDefault();
         return false;
     }
 
-    // Check if any material has validation errors
-    const errorInputs = document.querySelectorAll('input[name="other_material[]"][style*="border-color"]');
+
+    // =====================================================
+    // ✅ VALIDATE MATERIAL ROWS
+    // =====================================================
+    const materialRows = document.querySelectorAll(".material-row");
+
+    for (const row of materialRows) {
+
+        const materialSelect =
+            row.querySelector('select[name="material[]"]');
+
+        const quantityInput =
+            row.querySelector('input[name="quantity[]"]');
+
+        const unitSelect =
+            row.querySelector('select[name="measure[]"]');
+
+        const otherInput =
+            row.querySelector('input[name="other_material[]"]');
+
+
+        // Skip completely empty material rows
+        if (!materialSelect || materialSelect.value.trim() === "") {
+
+            if (quantityInput) {
+                quantityInput.required = false;
+            }
+
+            if (unitSelect) {
+                unitSelect.required = false;
+            }
+
+            continue;
+        }
+
+
+        // =================================================
+        // ✅ MATERIAL SELECTED → QUANTITY REQUIRED
+        // =================================================
+        if (quantityInput) {
+
+            quantityInput.required = true;
+
+            if (quantityInput.value.trim() === "") {
+
+                event.preventDefault();
+
+                quantityInput.setCustomValidity(
+                    "Quantity is required when a material is selected."
+                );
+
+                quantityInput.reportValidity();
+                quantityInput.focus();
+
+                return false;
+            }
+
+            quantityInput.setCustomValidity("");
+        }
+
+
+        // =================================================
+        // ✅ MATERIAL SELECTED → UNIT REQUIRED
+        // =================================================
+        if (unitSelect) {
+
+            unitSelect.required = true;
+
+            if (unitSelect.value.trim() === "") {
+
+                event.preventDefault();
+
+                unitSelect.setCustomValidity(
+                    "Unit is required when a material is selected."
+                );
+
+                unitSelect.reportValidity();
+                unitSelect.focus();
+
+                return false;
+            }
+
+            unitSelect.setCustomValidity("");
+        }
+
+
+        // =================================================
+        // ✅ OTHER SELECTED → OTHER MATERIAL REQUIRED
+        // =================================================
+        if (
+            materialSelect.value === "Other" &&
+            otherInput
+        ) {
+
+            otherInput.required = true;
+
+            if (otherInput.value.trim() === "") {
+
+                event.preventDefault();
+
+                otherInput.setCustomValidity(
+                    "Please enter the material name."
+                );
+
+                otherInput.reportValidity();
+                otherInput.focus();
+
+                return false;
+            }
+
+            otherInput.setCustomValidity("");
+        }
+    }
+
+
+    // =====================================================
+    // ✅ CHECK OTHER MATERIAL VALIDATION ERRORS
+    // =====================================================
+    const errorInputs = document.querySelectorAll(
+        'input[name="other_material[]"][style*="border-color"]'
+    );
+
     if (errorInputs.length > 0) {
+
         event.preventDefault();
-        alert("Please fix the material validation errors before submitting.");
+
+        alert(
+            "Please fix the material validation errors before submitting."
+        );
+
         return false;
     }
-    
-    document.querySelectorAll('input[name="quantity[]"]').forEach(function(input) {
-        if (input.value === "" || input.value === null) {
-            input.value = 0;
-        }
-    });
+
 });
