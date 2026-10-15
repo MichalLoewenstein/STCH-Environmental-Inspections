@@ -137,6 +137,7 @@ function addMaterial() {
     // Re-attach checkOther listener to the cloned select
     let selectElement = newRow.querySelector("select[name='material[]']");
     if (selectElement) {
+        selectElement.required = false;
         selectElement.onchange = function() { checkOther(this); };
     }
 
@@ -323,7 +324,45 @@ document.getElementById("form").addEventListener("submit", function(event) {
         return false;
     }
 
+     // =====================================================
+    // ✅ REQUIRE AT LEAST ONE MATERIAL
+    // =====================================================
+    const materialSelects = document.querySelectorAll(
+        'select[name="material[]"]'
+    );
 
+    let hasMaterial = false;
+
+    for (const materialSelect of materialSelects) {
+
+        if (materialSelect.value.trim() !== "") {
+            hasMaterial = true;
+            break;
+        }
+    }
+
+    if (!hasMaterial) {
+
+        event.preventDefault();
+
+        const firstMaterial = materialSelects[0];
+
+        if (firstMaterial) {
+            firstMaterial.setCustomValidity(
+                "Please select at least one material."
+            );
+
+            firstMaterial.reportValidity();
+            firstMaterial.focus();
+        }
+
+        return false;
+    }
+
+    // Clear the error once a material exists
+    materialSelects.forEach(function (materialSelect) {
+        materialSelect.setCustomValidity("");
+    });
     // =====================================================
     // ✅ VALIDATE MATERIAL ROWS
     // =====================================================
