@@ -1,7 +1,3 @@
-// =====================================================
-// ENGINE / EQUIPMENT
-// =====================================================
-
 
 // Fetch engine inventory
 function loadEngines() {
@@ -46,17 +42,23 @@ function loadEquipment() {
 
             data.forEach(eq => {
 
-                const option =document.createElement("option");
+                const option =
+                    document.createElement("option");
+
                 option.value = eq;
                 option.textContent = eq;
 
                 dropdown.appendChild(option);
             });
 
+
             // Add Other
-            const other =document.createElement("option");
+            const other =
+                document.createElement("option");
+
             other.value = "Other";
             other.textContent = "Other";
+
             dropdown.appendChild(other);
         });
 }
@@ -79,88 +81,12 @@ function setupEquipmentListeners() {
 }
 
 
-// Filter models by selected equipment
-// function filterModels() {
-//     const selectedEquipment = document.getElementById("equipment").value;
-//     const modelDropdown = document.getElementById("modelNumber");
-//     const modelInput =document.getElementById("modelNumberInput");
+// =====================================================
+// FILTER MODELS BASED ON EQUIPMENT
+// =====================================================
 
-//     clearFormFields();
-
-
-//     // -------------------------------------
-//     // New equipment
-//     // -------------------------------------
-
-//     if (
-//         selectedEquipment &&
-//         selectedEquipment.toLowerCase() === "other"
-//     ) {
-
-//         modelDropdown.style.display = "none";
-//         modelInput.style.display = "block";
-//         modelInput.required = true;
-//         modelInput.value = "";
-
-//         toggleManualMode(true);
-
-//         return;
-//     }
-
-
-//     // -------------------------------------
-//     // Existing equipment
-//     // -------------------------------------
-
-//     modelDropdown.style.display = "block";
-
-//     modelInput.style.display = "none";
-//     modelInput.required = false;
-
-//     modelDropdown.innerHTML = `
-//         <option value="" disabled selected hidden>
-//             Select Model
-//         </option>
-//     `;
-
-
-//     const filtered = engines.filter(
-//         engine =>
-//             engine.equipment === selectedEquipment
-//     );
-
-
-//     if (filtered.length === 0) {
-//         const option = document.createElement("option");
-//         option.textContent = "No models available";
-//         option.disabled = true;
-//         modelDropdown.appendChild(option);
-//         toggleManualMode(false);
-//         return;
-//     }
-
-
-//     filtered.forEach(engine => {
-
-//         const option = document.createElement("option");
-//         const modelText = engine.model_number || "(No Model)";
-//         option.textContent =`${engine.manufacturer} ${modelText}`;
-//         option.dataset.engineIndex = engines.indexOf(engine);
-
-//         modelDropdown.appendChild(option);
-//     });
-
-
-//     // Add Other model
-//     const otherOption = document.createElement("option");
-//     otherOption.value = "OTHER";
-//     otherOption.textContent = "Other";
-
-//     modelDropdown.appendChild(otherOption);
-
-//     toggleManualMode(false);
-// }
 function filterModels() {
+
     const selectedEquipment =
         document.getElementById("equipment").value;
 
@@ -170,37 +96,58 @@ function filterModels() {
     const modelInput =
         document.getElementById("modelNumberInput");
 
+    const selectedModelNumber =
+        document.getElementById("selectedModelNumber");
+
+
     if (!modelDropdown || !modelInput) return;
 
+
+    // Clear previous engine information
     clearFormFields();
 
-    // -------------------------------------
-    // New equipment
-    // -------------------------------------
+
+    // Clear submitted model number
+    if (selectedModelNumber) {
+        selectedModelNumber.value = "";
+    }
+
+
+    // =================================================
+    // OTHER / NEW EQUIPMENT
+    // =================================================
+
     if (
         selectedEquipment &&
         selectedEquipment.toLowerCase() === "other"
     ) {
-        // Hide and disable validation on the dropdown
+
+        // Hide model dropdown
         modelDropdown.style.display = "none";
         modelDropdown.required = false;
         modelDropdown.value = "";
 
-        // Show and require the manual model input
+
+        // Show manual model input
         modelInput.style.display = "block";
         modelInput.required = true;
         modelInput.readOnly = false;
         modelInput.value = "";
 
+
+        // Allow manual entry in other engine fields
         toggleManualMode(true);
 
         modelInput.focus();
+
         return;
     }
 
-    // -------------------------------------
-    // Existing equipment
-    // -------------------------------------
+
+    // =================================================
+    // EXISTING EQUIPMENT
+    // =================================================
+
     modelDropdown.style.display = "block";
     modelDropdown.required = true;
 
@@ -208,44 +155,87 @@ function filterModels() {
     modelInput.required = false;
     modelInput.value = "";
 
+
+    // Reset dropdown
     modelDropdown.innerHTML = `
         <option value="" disabled selected hidden>
             Select Model
         </option>
     `;
 
+
+    // Find engines matching selected equipment
     const filtered = engines.filter(
-        engine => engine.equipment === selectedEquipment
+        engine =>
+            engine.equipment === selectedEquipment
     );
 
+
+    // No engines found
     if (filtered.length === 0) {
-        const option = document.createElement("option");
+
+        const option =
+            document.createElement("option");
+
         option.value = "";
-        option.textContent = "No models available";
+        option.textContent =
+            "No models available";
+
         option.disabled = true;
 
         modelDropdown.appendChild(option);
 
         toggleManualMode(false);
+
         return;
     }
 
+
+    // =================================================
+    // ADD ENGINE MODELS
+    // =================================================
+
     filtered.forEach(engine => {
-        const option = document.createElement("option");
+
+        const option =
+            document.createElement("option");
+
+
+        // Display "(No Model)" if model_number is null
         const modelText =
             engine.model_number || "(No Model)";
 
-        option.value = String(engines.indexOf(engine));
+
+        // Engine index identifies exact JSON record
+        const engineIndex =
+            engines.indexOf(engine);
+
+
+        option.value =
+            String(engineIndex);
+
+
+        // What user sees
+        // Example:
+        // Vermeer BC1000XL
+        // Morbark, LLC (No Model)
         option.textContent =
             `${engine.manufacturer || ""} ${modelText}`.trim();
 
+
+        // Keep JSON record index
         option.dataset.engineIndex =
-            engines.indexOf(engine);
+            engineIndex;
+
 
         modelDropdown.appendChild(option);
     });
 
-    // Add Other model
+
+    // =================================================
+    // ADD OTHER MODEL OPTION
+    // =================================================
+
     const otherOption =
         document.createElement("option");
 
@@ -254,29 +244,46 @@ function filterModels() {
 
     modelDropdown.appendChild(otherOption);
 
+
+    // Existing engine fields should not be manually edited
     toggleManualMode(false);
 }
 
 
-// Fill engine information
+// =====================================================
+// AUTOFILL SELECTED ENGINE
+// =====================================================
+
+
 function autoFillFromEquipment() {
 
-    const modelDropdown =document.getElementById("modelNumber");
-    const modelInput = document.getElementById("modelNumberInput");
-    if (modelDropdown.style.display === "none") {
-        return;
-    }
+    const modelDropdown =
+        document.getElementById("modelNumber");
+
+    const modelInput =
+        document.getElementById("modelNumberInput");
+
+    const selectedModelNumber =
+        document.getElementById("selectedModelNumber");
+
+    if (!modelDropdown || !modelInput) return;
+
 
     // -------------------------------------
-    // New Model
+    // Other model
     // -------------------------------------
 
     if (modelDropdown.value === "OTHER") {
 
         clearFormFields();
 
+        if (selectedModelNumber) {
+            selectedModelNumber.value = "";
+        }
+
         modelInput.style.display = "block";
         modelInput.required = true;
+        modelInput.readOnly = false;
         modelInput.value = "";
 
         toggleManualMode(true);
@@ -286,42 +293,160 @@ function autoFillFromEquipment() {
         return;
     }
 
+
+    // -------------------------------------
+    // Existing engine
+    // -------------------------------------
+
     modelInput.style.display = "none";
     modelInput.required = false;
 
-    const selectedOption =modelDropdown.selectedOptions[0];
+    const selectedOption =
+        modelDropdown.selectedOptions[0];
 
     if (!selectedOption) return;
 
 
+    const engineIndex =
+        selectedOption.dataset.engineIndex;
+
+    console.log("Selected engine index:", engineIndex);
+
+
     const engine =
-        engines[
-            Number(
-                selectedOption.dataset.engineIndex
-            )
-        ];
+        engines[Number(engineIndex)];
 
-    if (!engine) return;
+    if (!engine) {
+        console.error("Engine not found");
+        return;
+    }
 
-    document.getElementById( "manufacturerInput").value = engine.manufacturer || "";
-    document.getElementById("modelNumberInput").value = engine.model_number || "";
-    document.querySelector("[name='serialNumber']").value = engine.serial_number || "";
-    document.getElementById("manufactureDate").value = engine.manufacture_date || "";
-    document.getElementById("TierInput").value = engine.tier || "";
-    document.getElementById("fuelInput").value = engine.fuel || "";
-    
-    document.getElementById("horsepowerInput").value =
-        Array.isArray(engine.horsepower) ? engine.horsepower[0]:(engine.horsepower || "");
+
+    console.log("Selected engine:", engine);
+    console.log("Model from JSON:", engine.model_number);
+    console.log("Manufacturer from JSON:", engine.manufacturer);
+
+
+    // =====================================
+    // MODEL NUMBER
+    // =====================================
+
+    if (selectedModelNumber) {
+
+        selectedModelNumber.value =
+            engine.model_number ?? "";
+
+        console.log(
+            "Hidden model number:",
+            selectedModelNumber.value
+        );
+
+    } else {
+
+        console.error(
+            "selectedModelNumber hidden input NOT FOUND"
+        );
+    }
+
+
+    // =====================================
+    // MANUFACTURER
+    // =====================================
+
+    const manufacturerInput =
+        document.getElementById("manufacturerInput");
+
+    if (manufacturerInput) {
+
+        manufacturerInput.value =
+            engine.manufacturer ?? "";
+    }
+
+
+    // =====================================
+    // SERIAL NUMBER
+    // =====================================
+
+    const serialInput =
+        document.querySelector(
+            "[name='serialNumber']"
+        );
+
+    if (serialInput) {
+
+        serialInput.value =
+            engine.serial_number ?? "";
+    }
+
+
+    // =====================================
+    // MANUFACTURE DATE
+    // =====================================
+
+    const manufactureDate =
+        document.getElementById("manufactureDate");
+
+    if (manufactureDate) {
+
+        manufactureDate.value =
+            engine.manufacture_date ?? "";
+    }
+
+
+    // =====================================
+    // TIER
+    // =====================================
+
+    const tierInput =
+        document.getElementById("TierInput");
+
+    if (tierInput) {
+
+        tierInput.value =
+            engine.tier ?? "";
+    }
+
+
+    // =====================================
+    // FUEL
+    // =====================================
+
+    const fuelInput =
+        document.getElementById("fuelInput");
+
+    if (fuelInput) {
+
+        fuelInput.value =
+            engine.fuel ?? "";
+    }
+
+
+    // =====================================
+    // HORSEPOWER
+    // =====================================
+
+    const horsepowerInput =
+        document.getElementById("horsepowerInput");
+
+    if (horsepowerInput) {
+
+        horsepowerInput.value =
+            Array.isArray(engine.horsepower)
+                ? engine.horsepower[0]
+                : (engine.horsepower ?? "");
+    }
+
+
     toggleManualMode(false);
 }
+// =====================================================
+// ENABLE / DISABLE MANUAL EDITING
+// =====================================================
 
-
-// Enable / disable manual editing
 function toggleManualMode(enable) {
 
     const fields = [
         "manufacturerInput",
-        "modelNumberInput",
         "TierInput",
         "fuelInput",
         "horsepowerInput"
@@ -343,24 +468,37 @@ function toggleManualMode(enable) {
         } else {
 
             element.readOnly = !enable;
-
         }
     });
 
-    const serial = document.querySelector( "[name='serialNumber']");
+
+    // Serial Number
+    const serial =
+        document.querySelector(
+            "[name='serialNumber']"
+        );
 
     if (serial) {
         serial.readOnly = !enable;
     }
 
-    const manufactureDate =document.getElementById( "manufactureDate" );
+
+    // Manufacture Date
+    const manufactureDate =
+        document.getElementById(
+            "manufactureDate"
+        );
+
     if (manufactureDate) {
         manufactureDate.readOnly = !enable;
     }
 }
 
 
-// Clear engine fields
+// =====================================================
+// CLEAR ENGINE FIELDS
+// =====================================================
+
 function clearFormFields() {
 
     const fields = [
@@ -374,19 +512,34 @@ function clearFormFields() {
 
 
     fields.forEach(id => {
-        const element = document.getElementById(id);
+
+        const element =
+            document.getElementById(id);
+
         if (element) {
             element.value = "";
         }
     });
 
 
+    // Clear serial number
     const serial =
         document.querySelector(
             "[name='serialNumber']"
         );
+
     if (serial) {
         serial.value = "";
     }
+
+
+    // Clear hidden model number
+    const selectedModelNumber =
+        document.getElementById(
+            "selectedModelNumber"
+        );
+
+    if (selectedModelNumber) {
+        selectedModelNumber.value = "";
+    }
 }
-``
